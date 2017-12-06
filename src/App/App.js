@@ -1,35 +1,52 @@
 import React, {Component} from 'react';
-import logo from '../_assets/logo.svg';
+import { Router, Route } from 'react-router-dom';
+import { PrivateRoute } from "../_components/PrivateRoute"
 import './App.css';
 import {connect} from 'react-redux'
-import * as users from '../_actions/userAction'
+import {userActions} from '../_actions/userAction'
+import {history} from "../_helpers/history"
+import {alertActions} from "../_actions/alertActions";
+import LoginPage from '../LoginPage/LoginPage'
 
 class App extends Component {
 
-    componentWillMount(){
-        this.props.dispatch(users.fetchUser());
+    constructor(props){
+        super(props);
+        const {dispatch} = this.props;
+
+        history.listen((location, action) => {
+            dispatch(alertActions.clear());
+        })
+
+        dispatch(userActions.fetchUser());
     }
 
     render() {
+        const { alert } = this.props;
+
+        //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                    {this.props.userList}
-                </p>
+                {alert.message &&
+                    <div className={`alert ${alert.type}`}>{alert.message}</div>
+                }
+
+                <Router history={history}>
+                    <div>
+                        <Route path="/login" component={LoginPage} />
+                    </div>
+                </Router>
+
             </div>
         );
     }
 }
 
-function mapStateToProps(store) {
+function mapStateToProps(state) {
+    const { alert } = state;
     return {
-        users: store.user.userList
-    };
+        alert
+    }
 }
 
 export default connect(mapStateToProps)(App);

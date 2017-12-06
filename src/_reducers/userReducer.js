@@ -1,3 +1,5 @@
+/* TODO: rewrite Reducer as in eample code */
+
 export default function reducer(state = {
     userList: [
         {
