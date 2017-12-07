@@ -8,6 +8,8 @@ import {history} from "../_helpers/history"
 import {alertActions} from "../_actions/alertActions";
 import LoginPage from '../LoginPage/LoginPage'
 import NotificationHandler from '../_components/NotificationHandler'
+import HomePage from '../HomePage/HomePage'
+import RegisterPage from '../RegisterPage/RegisterPage'
 
 class App extends Component {
 
@@ -31,7 +33,10 @@ class App extends Component {
 
                 <Router history={history}>
                     <div>
+                        <PrivateRoute exact path="/" component={HomePage} />
                         <Route path="/login" component={LoginPage} />
+                        <Route path="/register" component={RegisterPage} />
+
                     </div>
                 </Router>
 

@@ -11,8 +11,8 @@ class LoginPage extends React.Component {
         super(props);
 
         const {dispatch} = this.props;
-        // ToDo: reset Login Status
-        // dispatch(userActions.logout());
+
+        dispatch(userActions.logout());
 
         this.state = {
             username: '',
@@ -45,7 +45,7 @@ class LoginPage extends React.Component {
     }
 
     render() {
-        const {loggingIn} = this.props;
+        const { loggingIn } = this.props;
         const {username, password, submitted, loading} = this.state;
 
         return (

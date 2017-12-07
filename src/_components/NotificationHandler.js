@@ -23,7 +23,7 @@ export default class NotificationHandler extends React.Component {
                 <Snackbar
                     open={this.state.open}
                     message={this.props.alert.message}
-                    autoHideDuration={14000}
+                    autoHideDuration={4000}
                     onRequestClose={this.handleRequestClose}
                     className={this.props.alert.type}
                 />
