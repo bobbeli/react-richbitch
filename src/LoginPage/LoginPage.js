@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import {userActions} from '../_actions/userAction';
+import LoadingCircle from '../_components/LoadingHandler'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class LoginPage extends React.Component {
             username: '',
             password: '',
             submitted: false,
+            loading: false,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,25 +32,29 @@ class LoginPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        this.setState({submitted: true});
         const {username, password} = this.state;
+
+
+        this.setState({submitted: true, loading: true});
 
         if (username && password) {
             this.props.dispatch(userActions.login(username, password));
         }
 
+        this.setState({loading: false});
     }
 
     render() {
         const {loggingIn} = this.props;
-        const {username, password, submitted} = this.state;
+        const {username, password, submitted, loading} = this.state;
 
         return (
             <div>
                 <h2>Login</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'from-group' + (submitted && !username ? ' has-error' : '')}>
+
+                        <LoadingCircle show={loading} />
 
                         <TextField
                             name="username"
