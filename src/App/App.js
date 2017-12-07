@@ -7,6 +7,7 @@ import {userActions} from '../_actions/userAction'
 import {history} from "../_helpers/history"
 import {alertActions} from "../_actions/alertActions";
 import LoginPage from '../LoginPage/LoginPage'
+import NotificationHandler from '../_components/NotificationHandler'
 
 class App extends Component {
 
@@ -27,15 +28,16 @@ class App extends Component {
         //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
-                {alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
-                }
 
                 <Router history={history}>
                     <div>
                         <Route path="/login" component={LoginPage} />
                     </div>
                 </Router>
+
+                {alert.message &&
+                    <NotificationHandler alert={alert} />
+                }
 
             </div>
         );

@@ -25,7 +25,6 @@ class LoginPage extends React.Component {
 
     handleChange(event) {
         const {name, value} = event.target;
-
         this.setState({[name]: value});
     }
 
@@ -41,7 +40,6 @@ class LoginPage extends React.Component {
 
     }
 
-    // Todo: Write REnder function
     render() {
         const {loggingIn} = this.props;
         const {username, password, submitted} = this.state;
@@ -53,6 +51,7 @@ class LoginPage extends React.Component {
                     <div className={'from-group' + (submitted && !username ? ' has-error' : '')}>
 
                         <TextField
+                            name="username"
                             floatingLabelText="Username"
                             type="text"
                             errorText={ submitted && !username &&
@@ -64,6 +63,7 @@ class LoginPage extends React.Component {
                     </div>
                     <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
                         <TextField
+                            name="password"
                             floatingLabelText="Password"
                             type="password"
                             errorText={ submitted && !password &&

@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { userConstants } from '../_constants/userConstants';
 import { userService } from '../_services/userService';
 import { alertActions } from './alertActions';
