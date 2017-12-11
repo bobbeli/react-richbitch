@@ -41,11 +41,9 @@ class LoginPage extends React.Component {
             this.props.dispatch(userActions.login(username, password));
         }
 
-        this.setState({loading: false});
     }
 
     render() {
-        const { loggingIn } = this.props;
         const {username, password, submitted, loading} = this.state;
 
         return (
@@ -86,6 +84,9 @@ class LoginPage extends React.Component {
                         <FlatButton secondary={true}>
                             <Link to="/register" className="btn btn-link">Register</Link>
                         </FlatButton>
+
+                        <FlatButton secondary={true}>
+                        </FlatButton>
                     </div>
                 </form>
             </div>
@@ -94,9 +95,9 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {logingIn} = state.auth;
+    const {auth} = state.auth;
     return {
-        logingIn
+        auth
     }
 }
 

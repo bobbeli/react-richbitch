@@ -12,6 +12,8 @@ class RegisterPage extends React.Component {
         this.state = {
             user: {
                 username: '',
+                firstname: '',
+                lastname: '',
                 email: '',
                 password: ''
             },
@@ -60,6 +62,28 @@ class RegisterPage extends React.Component {
                         />
                     </div>
 
+                    <div className={'from-group' + (submitted && !user.firstname ? ' has-error' : '')}>
+
+                        <TextField
+                            name="firstname"
+                            floatingLabelText="First Name"
+                            type="text"
+                            errorText={ submitted && !user.firstname && 'First Name is required '}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
+                    <div className={'from-group' + (submitted && !user.lastname ? ' has-error' : '')}>
+
+                        <TextField
+                            name="lastname"
+                            floatingLabelText="Last Name"
+                            type="text"
+                            errorText={ submitted && !user.lastname && 'Last Name is required '}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
                     <div className={'from-group' + (submitted && !user.email ? ' has-error' : '')}>
                         <TextField
                             name="email"
@@ -69,6 +93,7 @@ class RegisterPage extends React.Component {
                             onChange={this.handleChange}
                         />
                     </div>
+
                     <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
 
                         <TextField

@@ -3,11 +3,17 @@ import { userConstants } from '../_constants/userConstants';
 export default function reducer(state = {}, action) {
     switch (action.type) {
         case userConstants.REGISTER_REQUEST:
-            return { registering: true };
+            return {
+                registering: 'pending'
+            };
         case userConstants.REGISTER_SUCCESS:
-            return {};
+            return {
+                registering: 'fulfilled',
+            };
         case userConstants.REGISTER_FAILURE:
-            return {};
+            return {
+                registering: 'fail'
+            };
         default:
             return state
     }

@@ -10,6 +10,8 @@ import LoginPage from '../LoginPage/LoginPage'
 import NotificationHandler from '../_components/NotificationHandler'
 import HomePage from '../HomePage/HomePage'
 import RegisterPage from '../RegisterPage/RegisterPage'
+import {TestRoute} from '../_components/TestRoute'
+import TestPage from '../TestPage/TestPage'
 
 class App extends Component {
 
@@ -17,15 +19,22 @@ class App extends Component {
         super(props);
         const {dispatch} = this.props;
 
+
+
         history.listen((location, action) => {
             dispatch(alertActions.clear());
         })
 
-        dispatch(userActions.fetchUser());
+
+        console.log('loged user', this.props.user);
+
+
     }
 
+
+
     render() {
-        const { alert } = this.props;
+        const { alert, user } = this.props;
 
         //ToDo add Routes to Home and Register Page
         return (
@@ -33,10 +42,10 @@ class App extends Component {
 
                 <Router history={history}>
                     <div>
-                        <PrivateRoute exact path="/" component={HomePage} />
+                        <PrivateRoute exact path="/" user={user} component={HomePage} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
-
+                        <TestRoute exact path="/test" component={TestPage} />
                     </div>
                 </Router>
 
@@ -50,9 +59,10 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    const { alert } = state;
+    const { alert, user } = state;
     return {
-        alert
+        alert,
+        user
     }
 }
 

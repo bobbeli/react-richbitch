@@ -1,6 +1,7 @@
 import { userConstants } from '../_constants/userConstants';
+import firebase from '../_helpers/fire'
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = firebase.auth().currentUser;
 const initialState = user ? { loggedIn: true, user } : {};
 
 export default function reducer(state = initialState, action) {
@@ -16,9 +17,13 @@ export default function reducer(state = initialState, action) {
                 user: action.user
             };
         case userConstants.LOGIN_FAILURE:
-            return {};
+            return {
+                loggedIn: false,
+            };
         case userConstants.LOGOUT:
-            return {};
+            return {
+                loggedIn: false,
+            };
         default:
             return state
     }
