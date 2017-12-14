@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './_helpers/store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import {init} from './_helpers/firebaseDB'
 
 ReactDOM.render((
         <Provider store={store}>

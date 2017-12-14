@@ -1,4 +1,5 @@
 /* TODO: rewrite Reducer as in eample code */
+import {userConstants} from "../_constants/userConstants";
 
 export default function reducer(state = {
     users: [

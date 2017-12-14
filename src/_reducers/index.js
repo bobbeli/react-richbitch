@@ -10,5 +10,5 @@ export default combineReducers({
     userList,
     alert,
     auth,
-    registration
+    registration,
 });

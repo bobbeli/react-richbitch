@@ -1,9 +1,10 @@
-import firebase from '../_helpers/fire'
+import firebase from 'firebase'
 
 export const userService = {
     login,
     logout,
     register,
+    update
 };
 
 function login(email, password) {
@@ -12,9 +13,9 @@ function login(email, password) {
             .then((user) => {
                 resolve(user);
             }).catch((error) => {
-            // Handle Errors here.
-                reject(error);
+            reject(error);
         });
+
     });
 
 
@@ -23,11 +24,12 @@ function login(email, password) {
 
 function logout() {
     // remove user from local storage to log user out
+    /*
     firebase.auth().signOut().then(function () {
         console.log('Successfully LogedOut')
     }).catch(function (error) {
         console.log('Error LogedOut')
-    });
+    });*/
 }
 
 /**
@@ -40,7 +42,6 @@ function register(user) {
     const {username, firstname, lastname, email, password} = user;
 
     return new Promise((resolve, reject) => {
-
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((objuser) => {
 
@@ -61,6 +62,7 @@ function register(user) {
                 reject(Error(error));
             });
     });
+
 }
 
 function writeUserData(user) {
@@ -69,6 +71,30 @@ function writeUserData(user) {
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
+    });
+}
+
+/**
+ * Update Local User Data
+ */
+function update() {
+    return new Promise((resolve, reject) => {
+
+        let userId = firebase.auth().currentUser.uid;
+        firebase.database().ref('/users/' + userId).once('value')
+            .then((snapshot) => {
+                let user = {
+                    username: (snapshot.val() && snapshot.val().username) || 'Anonymous',
+                    lastname: (snapshot.val() && snapshot.val().lastname) || 'Anonymous',
+                    firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
+                    email: (snapshot.val() && snapshot.val().email) || 'Anonymous'
+                }
+                resolve(user);
+
+            })
+            .catch((error) => {
+                reject(error);
+            });
     });
 }
 

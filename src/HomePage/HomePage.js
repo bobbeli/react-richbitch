@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import firebase from '../_helpers/fire'
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -13,8 +12,8 @@ class HomePage extends React.Component {
         return (
             <div>
                 <h2>Home</h2>
-                username: {this.props.user.username}
-                email: {this.props.user.email}
+                username: {this.props.user.username} <br />
+                username: {this.props.user.email}
             </div>
         );
     }

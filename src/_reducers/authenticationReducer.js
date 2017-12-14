@@ -1,7 +1,6 @@
 import { userConstants } from '../_constants/userConstants';
-import firebase from '../_helpers/fire'
 
-let user = firebase.auth().currentUser;
+let user = '';
 const initialState = user ? { loggedIn: true, user } : {};
 
 export default function reducer(state = initialState, action) {
@@ -9,12 +8,10 @@ export default function reducer(state = initialState, action) {
         case userConstants.LOGIN_REQUEST:
             return {
                 loggingIn: true,
-                user: action.user
             };
         case userConstants.LOGIN_SUCCESS:
             return {
                 loggedIn: true,
-                user: action.user
             };
         case userConstants.LOGIN_FAILURE:
             return {

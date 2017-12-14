@@ -12,6 +12,9 @@ import HomePage from '../HomePage/HomePage'
 import RegisterPage from '../RegisterPage/RegisterPage'
 import {TestRoute} from '../_components/TestRoute'
 import TestPage from '../TestPage/TestPage'
+import firebase from 'firebase'
+import {userConstants} from "../_constants/userConstants";
+import LoadingCircle from "../_components/LoadingHandler";
 
 class App extends Component {
 
@@ -22,11 +25,8 @@ class App extends Component {
 
 
         history.listen((location, action) => {
-            dispatch(alertActions.clear());
+            //dispatch(alertActions.clear());
         })
-
-
-        console.log('loged user', this.props.user);
 
 
     }
@@ -34,20 +34,26 @@ class App extends Component {
 
 
     render() {
-        const { alert, user } = this.props;
+        const { alert, user, auth } = this.props;
 
         //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
-
                 <Router history={history}>
+
+                {auth.loggedIn ?
                     <div>
-                        <PrivateRoute exact path="/" user={user} component={HomePage} />
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/register" component={RegisterPage} />
-                        <TestRoute exact path="/test" component={TestPage} />
+                        <PrivateRoute exact path="/" auth={auth} component={HomePage} />
                     </div>
+                    :
+                    <div>
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/register" component={RegisterPage} />
+                    </div>
+
+                }
                 </Router>
+
 
                 {alert.message &&
                     <NotificationHandler alert={alert} />
@@ -59,10 +65,11 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    const { alert, user } = state;
+    const { alert, user, auth } = state;
     return {
         alert,
-        user
+        user,
+        auth
     }
 }
 

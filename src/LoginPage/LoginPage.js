@@ -12,7 +12,7 @@ class LoginPage extends React.Component {
 
         const {dispatch} = this.props;
 
-        dispatch(userActions.logout());
+
 
         this.state = {
             username: '',
@@ -85,8 +85,6 @@ class LoginPage extends React.Component {
                             <Link to="/register" className="btn btn-link">Register</Link>
                         </FlatButton>
 
-                        <FlatButton secondary={true}>
-                        </FlatButton>
                     </div>
                 </form>
             </div>

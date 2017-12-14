@@ -12,16 +12,17 @@ export default function reducer(state = {
     fetched: false,
     error: null,
 }, action) {
+    console.log('user reducer updating called', action)
+
     switch (action.type) {
         case userConstants.USER_UPDATE: {
-            console.log('updating', action)
             return {
                 ...state,
                 username: action.user.username,
                 firstname: action.user.firstname,
                 lastname: action.user.lastname,
                 email: action.user.email,
-                fetching: true
+                fetching: 'arschloch'
             }
         }
         case 'FETCH_USERS_REJECTED': {
@@ -30,9 +31,14 @@ export default function reducer(state = {
         case 'FETCH_USERS_FULFILLED': {
             return {
                 ...state,
+                id: 1,
+                username: 'asdfasdf',
+                firstname: 'asdf',
+                lastname: 'asdf',
+                email: 'asdf',
                 fetching: false,
-                fetched: true,
-                users: action.payload
+                fetched: false,
+                error: null,
             }
         }
     }

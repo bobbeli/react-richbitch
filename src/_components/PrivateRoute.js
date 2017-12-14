@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import fire from '../_helpers/fire'
+import firebase from 'firebase'
 
-export const PrivateRoute = ({ component: Component,  ...rest, user }) => (
+export const PrivateRoute = ({ component: Component,  ...rest, auth }) => (
     <Route {...rest} render={props => (
-        fire.auth().currentUser
+        auth.loggedIn
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
     )} />
