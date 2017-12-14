@@ -10,11 +10,7 @@ import LoginPage from '../LoginPage/LoginPage'
 import NotificationHandler from '../_components/NotificationHandler'
 import HomePage from '../HomePage/HomePage'
 import RegisterPage from '../RegisterPage/RegisterPage'
-import {TestRoute} from '../_components/TestRoute'
-import TestPage from '../TestPage/TestPage'
-import firebase from 'firebase'
-import {userConstants} from "../_constants/userConstants";
-import LoadingCircle from "../_components/LoadingHandler";
+import ProfilePage from '../ProfilePage/ProfilePage'
 
 class App extends Component {
 
@@ -44,6 +40,7 @@ class App extends Component {
                 {auth.loggedIn ?
                     <div>
                         <PrivateRoute exact path="/" auth={auth} component={HomePage} />
+                        <Route path="/user" component={ProfilePage} />
                     </div>
                     :
                     <div>

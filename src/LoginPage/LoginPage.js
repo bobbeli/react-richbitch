@@ -38,6 +38,8 @@ class LoginPage extends React.Component {
                 this.props.dispatch(userActions.login(username, password));
             }
         }
+        this.setState({loading: false});
+
 
 
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {AppBar, Drawer, MenuItem} from 'material-ui';
-import SideBar from './SideBar/SideBar'
+import SideBar from '../_components/Header'
 
 
 class HomePage extends React.Component {

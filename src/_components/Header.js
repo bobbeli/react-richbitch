@@ -6,14 +6,15 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { ListItem, List } from 'material-ui';
-import {userActions} from "../../_actions/userAction";
+import { ListItem, List , Subheader, Avatar} from 'material-ui';
+import {userActions} from "../_actions/userAction";
+import {history} from '../_helpers/history'
 
-
-class SideBar extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
         this.logoutUser = this.logoutUser.bind(this);
+        this.profileListener = this.profileListener.bind(this);
 
     }
 
@@ -21,12 +22,31 @@ class SideBar extends React.Component {
         this.props.dispatch(userActions.logout());
     }
 
+    profileListener(event){
+        history.push('/user');
+    }
+
 
     render() {
 
         return (
             <div>
+                <List>
+                    <Subheader>Profile</Subheader>
+                    <ListItem
+                        leftAvatar={
+                            <Avatar src={require('../_assets/img/user/user.jpg')} />
+                        }
+                        primaryText={this.props.user.username}
+                        disableKeyboardFocus={false}
+                        hoverColor="transparent"
+                        onClick={this.profileListener}
+                    />
+                </List>
+                 <Divider />
+
                     <List>
+
                         <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
                         <ListItem primaryText="Starred" leftIcon={<ActionGrade />} />
                         <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
@@ -53,4 +73,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps)(Header);

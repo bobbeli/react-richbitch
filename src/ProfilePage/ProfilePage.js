@@ -6,32 +6,20 @@ import FlatButton from 'material-ui/FlatButton'
 import {userActions} from '../_actions/userAction';
 import LoadingCircle from '../_components/LoadingHandler'
 
-class TestPage extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
 
     }
 
-    componentWillAppear(callback){
-        console.log('willmaount')
-        callback();
-    }
-
-    componentWillLeave(callback){
-        console.log('will Leave')
-    }
-
-
-
     render() {
 
         return (
             <div>
-                <h2>TestPage</h2>
-                <Link to="/">test</Link>
+                <h2>ProfilePage</h2>
             </div>
         );
     }
 }
 
-export default TestPage;
+export default ProfilePage;
