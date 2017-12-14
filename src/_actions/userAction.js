@@ -41,10 +41,30 @@ function login(username, password) {
     }
 }
 
-
+/**
+ * Logout User and Delets local Store user Object
+ * Logout From FireBase Auth
+ * @returns {function(*)}
+ */
 function logout() {
-    userService.logout();
-    return {type: userConstants.LOGOUT}
+    return dispatch => {
+        userService.logout()
+            .then(
+                res => {
+                    dispatch(logout())
+                    dispatch(logoutUser())
+                },
+                error => {
+                    dispatch(alertActions.error(error.message))
+                });
+    };
+
+    function logout() {
+        return {type: userConstants.LOGOUT}
+    }
+    function logoutUser() {
+        return {type: userConstants.LOGOUT_USER}
+    }
 
 }
 
@@ -99,9 +119,11 @@ function update() {
     function update(user) {
         return {type: userConstants.USER_UPDATE, user}
     }
+
     function success() {
         return {type: userConstants.LOGIN_SUCCESS}
     }
+
     function failure(error) {
         return {type: userConstants.LOGIN_FAILURE}
     }

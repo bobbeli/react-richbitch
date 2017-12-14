@@ -25,6 +25,16 @@ export default function reducer(state = {
                 fetching: 'arschloch'
             }
         }
+        case userConstants.USER_UPDATE: {
+            return {
+                ...state,
+                username: action.user.username,
+                firstname: action.user.firstname,
+                lastname: action.user.lastname,
+                email: action.user.email,
+                fetching: 'arschloch'
+            }
+        }
         case 'FETCH_USERS_REJECTED': {
             return {...state, fetching: false, error: action.payload}
         }

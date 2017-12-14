@@ -23,13 +23,16 @@ function login(email, password) {
 
 
 function logout() {
-    // remove user from local storage to log user out
-    /*
-    firebase.auth().signOut().then(function () {
-        console.log('Successfully LogedOut')
-    }).catch(function (error) {
-        console.log('Error LogedOut')
-    });*/
+    return new Promise((resolve, reject) =>{
+        firebase.auth().signOut().then(function () {
+            console.log('Successfully LogedOut')
+            resolve(true)
+        }).catch(function (error) {
+            console.log('Error LogedOut')
+            reject(error)
+        });
+    });
+
 }
 
 /**
