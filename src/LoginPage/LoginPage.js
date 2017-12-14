@@ -10,10 +10,6 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
-        const {dispatch} = this.props;
-
-
-
         this.state = {
             username: '',
             password: '',
@@ -33,13 +29,16 @@ class LoginPage extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const {username, password} = this.state;
+        this.setState({ submitted: true });
 
+        if( username !== '' && password !== ''){
+            this.setState({loading: true});
 
-        this.setState({submitted: true, loading: true});
-
-        if (username && password) {
-            this.props.dispatch(userActions.login(username, password));
+            if (username && password) {
+                this.props.dispatch(userActions.login(username, password));
+            }
         }
+
 
     }
 
@@ -49,10 +48,10 @@ class LoginPage extends React.Component {
         return (
             <div>
                 <h2>Login</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'from-group' + (submitted && !username ? ' has-error' : '')}>
+                <LoadingCircle show={loading} />
 
-                        <LoadingCircle show={loading} />
+                <form name="form" onSubmit={this.handleSubmit}>
+                    <div className={'from-group' + (submitted && !this.username ? ' has-error' : '')}>
 
                         <TextField
                             name="username"
