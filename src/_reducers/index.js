@@ -4,6 +4,7 @@ import alert from './alertReducer'
 import auth from './authenticationReducer'
 import registration from './registrationReducer'
 import user from './userReducer'
+import unregister from './unregisterReducer'
 
 export default combineReducers({
     user,
@@ -11,4 +12,5 @@ export default combineReducers({
     alert,
     auth,
     registration,
+    unregister,
 });

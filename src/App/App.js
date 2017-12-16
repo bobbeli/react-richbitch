@@ -3,14 +3,16 @@ import { Router, Route } from 'react-router-dom';
 import { PrivateRoute } from "../_components/PrivateRoute"
 import './App.css';
 import {connect} from 'react-redux'
-import {userActions} from '../_actions/userAction'
 import {history} from "../_helpers/history"
 import {alertActions} from "../_actions/alertActions";
-import LoginPage from '../LoginPage/LoginPage'
 import NotificationHandler from '../_components/NotificationHandler'
-import HomePage from '../HomePage/HomePage'
-import RegisterPage from '../RegisterPage/RegisterPage'
-import ProfilePage from '../ProfilePage/ProfilePage'
+import asyncComponent from '../_helpers/asyncComponent'
+
+
+const AsyncHome = asyncComponent(() => import('../HomePage/HomePage'));
+const AsyncProfilePage = asyncComponent(() => import('../ProfilePage/ProfilePage'));
+const AsyncRegisterPage = asyncComponent(() => import('../RegisterPage/RegisterPage'));
+const AsyncLoginPage = asyncComponent(() => import('../LoginPage/LoginPage'));
 
 class App extends Component {
 
@@ -18,10 +20,8 @@ class App extends Component {
         super(props);
         const {dispatch} = this.props;
 
-
-
         history.listen((location, action) => {
-            //dispatch(alertActions.clear());
+            dispatch(alertActions.clear());
         })
 
 
@@ -39,15 +39,14 @@ class App extends Component {
 
                 {auth.loggedIn ?
                     <div>
-                        <PrivateRoute exact path="/" auth={auth} component={HomePage} />
-                        <Route path="/user" component={ProfilePage} />
+                        <Route exact path="/" component={AsyncHome} />
+                        <Route path="/user" exact component={AsyncProfilePage} />
                     </div>
                     :
                     <div>
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/register" component={RegisterPage} />
+                        <Route path="/login" component={AsyncLoginPage} />
+                        <Route path="/register" component={AsyncRegisterPage} />
                     </div>
-
                 }
                 </Router>
 

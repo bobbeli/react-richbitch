@@ -12,8 +12,6 @@ export default function reducer(state = {
     fetched: false,
     error: null,
 }, action) {
-    console.log('user reducer updating called', action)
-
     switch (action.type) {
         case userConstants.USER_UPDATE: {
             return {
@@ -25,6 +23,19 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: true,
 
+            }
+        }
+        case userConstants.DELETE_SUCCESS: {
+            return {
+                ...state,
+                id: null,
+                username: null,
+                firstname: null,
+                lastname: null,
+                email: null,
+                fetching: false,
+                fetched: false,
+                error: null,
             }
         }
     }

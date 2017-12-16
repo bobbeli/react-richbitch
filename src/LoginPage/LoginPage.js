@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import {userActions} from '../_actions/userAction';
 import LoadingCircle from '../_components/LoadingHandler'
+import Header from '../_components/Header/Header'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class LoginPage extends React.Component {
 
         return (
             <div>
-                <h2>Login</h2>
+                <Header title="Login" />
                 <LoadingCircle show={loading} />
 
                 <form name="form" onSubmit={this.handleSubmit}>

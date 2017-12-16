@@ -2,6 +2,8 @@ import React from 'react';
 import {userActions} from "../_actions/userAction"
 import {TextField, FlatButton} from 'material-ui'
 import {connect} from 'react-redux';
+import ActionAndroid from 'material-ui/svg-icons/action/android';
+
 
 
 class RegisterPage extends React.Component {
@@ -22,6 +24,7 @@ class RegisterPage extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleGoogle = this.handleGoogle.bind(this);
     }
 
     handleChange(event) {
@@ -46,8 +49,14 @@ class RegisterPage extends React.Component {
         }
     }
 
+    handleGoogle(event){
+        event.preventDefault()
+        this.props.dispatch(userActions.registerGoogle());
+
+    }
+
     render() {
-        const { user, submitted } = this.state
+        const { user, submitted } = this.state;
         return(
             <div>
                 <form name="register" onSubmit={this.handleSubmit}>
@@ -112,6 +121,15 @@ class RegisterPage extends React.Component {
                     </div>
 
                 </form>
+
+                <FlatButton
+                    label="With Google"
+                    labelPosition="before"
+                    primary={true}
+                    icon={<ActionAndroid />}
+                    onClick={this.handleGoogle}
+                />
+
             </div>
         );
     }

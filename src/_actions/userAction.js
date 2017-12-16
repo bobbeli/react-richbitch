@@ -8,7 +8,10 @@ export const userActions = {
     login,
     register,
     logout,
-    update
+    update,
+    registerGoogle,
+    deleteUser,
+    reAuthUser,
 };
 
 function login(username, password) {
@@ -98,6 +101,30 @@ function register(user) {
 
 }
 
+function registerGoogle() {
+    return dispatch => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+
+            // ToDo Handle Google Register
+        }).catch(function(error) {
+            dispatch(alertActions.error(error.message))
+            dispatch(failure(error.message));
+
+        });
+
+        function failure(error) {
+            return {type: userConstants.REGISTER_FAILURE, error}
+        }
+    }
+
+}
+
 /**
  * Update Local User Storage from Firebase
  */
@@ -126,6 +153,77 @@ function update() {
 
     function failure(error) {
         return {type: userConstants.LOGIN_FAILURE}
+    }
+}
+
+/**
+ * Delete User
+ */
+function deleteUser() {
+
+    return dispatch => {
+
+        userService.deleteUser().then((res) => {
+            if(res){
+                dispatch(request());
+                dispatch(logout());
+                dispatch(success());
+                history.push('/')
+            }
+
+        }, error => {
+
+            dispatch(failure(error))
+            dispatch(alertActions.error(error.message))
+        });
+
+    };
+
+    function logout() {
+        return {type: userConstants.LOGOUT_USER}
+    }
+
+    function request() {
+        return {type: userConstants.DELETE_REQUEST}
+    }
+
+    function success() {
+        return {type: userConstants.DELETE_SUCCESS}
+    }
+
+    function failure(error) {
+        return {type: userConstants.DELETE_FAILURE, error}
+    }
+
+}
+
+/**
+ * Re Authenticate User
+ * @param userProvidedPassword
+ * @returns {function(*)}
+ */
+function reAuthUser(userProvidedPassword){
+    return dispatch => {
+        dispatch(request());
+        userService.reAuth(userProvidedPassword).then((res) => {
+            if(res){
+                dispatch(success())
+            }
+
+            }, error => {
+                dispatch(failure(error));
+                dispatch(alertActions.error(error.message))
+            });
+    }
+
+    function failure(error) {
+        return {type: userConstants.RE_AUTH_FAILURE, error}
+    }
+    function success() {
+        return {type: userConstants.RE_AUTH_SUCCESS}
+    }
+    function request() {
+        return {type: userConstants.RE_AUTH_REQUEST}
     }
 }
 

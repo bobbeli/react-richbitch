@@ -4,7 +4,9 @@ export const userService = {
     login,
     logout,
     register,
-    update
+    update,
+    deleteUser,
+    reAuth
 };
 
 function login(email, password) {
@@ -99,5 +101,43 @@ function update() {
                 reject(error);
             });
     });
+}
+
+/**
+ * Delete User on FireBase Server.
+ * @returns {Promise}
+ */
+function deleteUser() {
+    return new Promise((resolve, reject) => {
+        let user = firebase.auth().currentUser;
+
+        user.delete().then(function() {
+            resolve(true)
+        }).catch(function(error) {
+            reject(error)
+        });
+    });
+}
+
+/**
+ * Re Authenticate User
+ * @param userProvidedPassword
+ * @returns {Promise}
+ */
+function reAuth(userProvidedPassword){
+    return new Promise((resolve, reject) => {
+        var user = firebase.auth().currentUser;
+        const credential = firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            userProvidedPassword
+        );
+
+        user.reauthenticateWithCredential(credential).then(function() {
+            resolve(true)
+        }).catch(function(error) {
+            reject(error)
+        });
+    })
+
 }
 
