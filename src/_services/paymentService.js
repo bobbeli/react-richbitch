@@ -1,20 +1,32 @@
 import axios from 'axios'
+import {paymentConstants} from '../_constants/paymentConstants'
 
 export const paymentService = {
-    init,
+    charge,
 
 };
 
-function init() {
+/**
+ * Requests to RichBitch API
+ * Charging User for certain amount.
+ * @param token Object, generated Stripe Token
+ * @param amount Int, will be charged
+ * @returns {Promise}
+ */
+function charge(token, amount) {
     return new Promise((resolve, reject) => {
-       /* axios.post('http://localhost:3737/')
+       axios.post(paymentConstants.API_PATH + '/charge',
+           {
+               stripeToken: token,
+               amount: amount
+           })
             .then((res) => {
-            if(res.status === 200){
-                resolve(res);
-            }
+                if(res.status === 200){
+                    resolve(res);
+                }
             }).catch((err) => {
                 reject(err);
-        })*/
+        })
     });
 
 

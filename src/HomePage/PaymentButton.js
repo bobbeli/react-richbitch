@@ -2,27 +2,28 @@ import React from 'react'
 import {FloatingActionButton} from 'material-ui'
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import './BuyPoints.css'
-import BuyPointsModal from './BuyPointsModal'
+import {history} from '../_helpers/history'
 
-class BuyPoints extends React.Component{
+class PaymentButton extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            modalOpen: false,
+        };
         this.clickHandler = this.clickHandler.bind(this);
     }
 
-    clickHandler(event){
-        event.preventDefault();
+    clickHandler(){
+        history.push('/payment')
     }
 
     render(){
         return (
             <div>
-                <BuyPointsModal />
-
                 <FloatingActionButton
-                    className='floatingButton'
-                    onClick={this.clickHandler}>
-                    <ContentAdd />
+                        className='floatingButton'
+                        onClick={this.clickHandler}>
+                        <ContentAdd />
                 </FloatingActionButton>
 
             </div>
@@ -31,4 +32,4 @@ class BuyPoints extends React.Component{
     }
 }
 
-export default BuyPoints;
+export default PaymentButton;

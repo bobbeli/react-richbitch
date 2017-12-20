@@ -5,6 +5,7 @@ import auth from './authenticationReducer'
 import registration from './registrationReducer'
 import user from './userReducer'
 import unregister from './unregisterReducer'
+import payment from './paymentReducer'
 
 export default combineReducers({
     user,
@@ -13,4 +14,5 @@ export default combineReducers({
     auth,
     registration,
     unregister,
+    payment
 });

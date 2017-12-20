@@ -2,14 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from '../_components/Header/Header'
 import RichBitchContainer from "./Content/RichBitchContainer";
-import BuyPoints from "./Buy/BuyPoints";
+import PaymentButton from "./PaymentButton";
 import {paymentActions} from "../_actions/paymentAction";
+
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.props.dispatch(paymentActions.init())
 
     }
 
@@ -18,7 +17,7 @@ class HomePage extends React.Component {
             <div>
                 <Header title="Home" />
                 <RichBitchContainer/>
-                <BuyPoints/>
+                <PaymentButton/>
 
             </div>
         );

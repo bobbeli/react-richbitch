@@ -7,22 +7,19 @@ import {
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import SliderExampleCustomScale from './BuyPointsSlider'
+import BitchPointsScale from './BitchPointsScale'
+import PaymentMethod from '../Checkout/PaymentMethod'
 
-/**
- * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
- *
- * To use the vertical stepper with the contained content as seen in spec examples,
- * you must use the `<StepContent>` component inside the `<Step>`.
- *
- * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
- */
 class BuyPointsStepper extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            finished: false,
+            stepIndex: 0,
+            amount: 10,
+        };
 
-    state = {
-        finished: false,
-        stepIndex: 0,
-    };
+    }
 
     handleNext = () => {
         const {stepIndex} = this.state;
@@ -39,13 +36,20 @@ class BuyPointsStepper extends React.Component {
         }
     };
 
-    renderStepActions(step) {
+    //ToDo Resolve Amount Problem for Payment
+    handleAmount = (event, value) => {
+        this.setState({
+            amount: value,
+        });
+    };
+
+    renderStepActions(step, label) {
         const {stepIndex} = this.state;
 
         return (
             <div style={{margin: '12px 0'}}>
                 <RaisedButton
-                    label={stepIndex === 2 ? 'Finish' : 'Next'}
+                    label={label}
                     disableTouchRipple={true}
                     disableFocusRipple={true}
                     primary={true}
@@ -72,32 +76,23 @@ class BuyPointsStepper extends React.Component {
             <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
                 <Stepper activeStep={stepIndex} orientation="vertical">
                     <Step>
-                        <StepLabel>Choose Bitch Points</StepLabel>
+                        <StepLabel>Bitch Points</StepLabel>
                         <StepContent>
-                            <p>
-                                Get Rich!
-                                <SliderExampleCustomScale />
-                            </p>
-                            {this.renderStepActions(0)}
+                            <BitchPointsScale handleAmount={this.handleAmount} />
+                            {this.renderStepActions(0, 'Next')}
                         </StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Create an ad group</StepLabel>
+                        <StepLabel>Payment Methods</StepLabel>
                         <StepContent>
-                            <p>An ad group contains one or more ads which target a shared set of keywords.</p>
-                            {this.renderStepActions(1)}
+                            <PaymentMethod amount={this.state.amount} />
+                            {this.renderStepActions(1, 'Pay')}
                         </StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Create an ad</StepLabel>
+                        <StepLabel>Overview</StepLabel>
                         <StepContent>
-                            <p>
-                                Try out different ad text to see what brings in the most customers,
-                                and learn how to enhance your ads using features like ad extensions.
-                                If you run into any problems with your ads, find out how to tell if
-                                they're running and how to resolve approval issues.
-                            </p>
-                            {this.renderStepActions(2)}
+                            {this.renderStepActions(2, 'Done')}
                         </StepContent>
                     </Step>
                 </Stepper>

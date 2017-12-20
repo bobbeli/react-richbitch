@@ -1,21 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Dialog, TextField, FlatButton} from 'material-ui'
-import VerticalLinearStepper from "./BuyPointsStepper";
+import BuyPointsStepper from "./BuyPointsStepper";
 
 class BuyPointsModal extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            modalOpen: false,
-        };
 
         this.handleClose = this.handleClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
     }
     handleClose(){
-        console.log('modal close request');
+        this.props.modalHandler()
+
     }
 
     handleChange(event) {
@@ -31,14 +29,13 @@ class BuyPointsModal extends React.Component {
         return (
             <div>
                 <Dialog
-                    title="Get Rich Bitch"
+                    title="Get Rich, Bitch"
                     modal={false}
-                    open={this.state.modalOpen}
+                    open={this.props.modalOpen}
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}
                 >
 
-                    <VerticalLinearStepper/>
 
                 </Dialog>
             </div>

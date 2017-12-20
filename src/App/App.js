@@ -8,11 +8,11 @@ import {alertActions} from "../_actions/alertActions";
 import NotificationHandler from '../_components/NotificationHandler'
 import asyncComponent from '../_helpers/asyncComponent'
 
-
 const AsyncHome = asyncComponent(() => import('../HomePage/HomePage'));
 const AsyncProfilePage = asyncComponent(() => import('../ProfilePage/ProfilePage'));
 const AsyncRegisterPage = asyncComponent(() => import('../RegisterPage/RegisterPage'));
 const AsyncLoginPage = asyncComponent(() => import('../LoginPage/LoginPage'));
+const AsyncPaymentPage = asyncComponent(() => import('../PaymentPage/PaymentPage'));
 
 class App extends Component {
 
@@ -41,6 +41,7 @@ class App extends Component {
                     <div>
                         <Route exact path="/" component={AsyncHome} />
                         <Route path="/user" exact component={AsyncProfilePage} />
+                        <Route path="/payment" exact component={AsyncPaymentPage} />
                     </div>
                     :
                     <div>
