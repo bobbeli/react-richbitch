@@ -2,24 +2,25 @@ import {alertActions} from './alertActions';
 import {paymentService} from "../_services/paymentService";
 import {paymentConstants} from "../_constants/paymentConstants"
 export const paymentActions = {
-    charge
+    charge,
+    updateAmount,
+    updateStepper
 };
 function charge(token, amount) {
     return dispatch => {
-        dispatch(request());
         paymentService.charge(token, amount)
             .then((res) => {
-                console.log('Charge Requets Res', res.data)
-                dispatch(success(res.data))
-                //dispatch(alertActions.success(res.data))
-            }).catch((error) => {
-                dispatch(alertActions.error(error.message))
-                dispatch(failure(error.message))
-            });
-    }
+                if(res.status === 200){
+                    dispatch(success(res.data))
+                    dispatch(alertActions.success('Payment Successful'))
 
-    function request() {
-        return {type: paymentConstants.PAYMENT_REQUEST}
+                } else {
+                    dispatch(alertActions.error(res.data))
+                }
+            }).catch((error) => {
+                dispatch(alertActions.error(error.response.data.message))
+                dispatch(failure(error.response.data.message))
+            });
     }
 
     function success(token) {
@@ -28,5 +29,26 @@ function charge(token, amount) {
 
     function failure(error) {
         return {type: paymentConstants.PAYMENT_FAILURE, error}
+    }
+}
+
+function updateStepper(index){
+    return dispatch => {
+        dispatch(changed(index));
+    };
+
+    function changed(index) {
+        return {type: paymentConstants.STEPPER_CHANGED, index}
+    }
+
+}
+
+function updateAmount(amount) {
+    return dispatch => {
+        dispatch(update(amount));
+    };
+
+    function update(amount) {
+        return {type: paymentConstants.AMOUNT_CHANGED, amount}
     }
 }

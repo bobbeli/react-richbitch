@@ -21,9 +21,8 @@ function charge(token, amount) {
                amount: amount
            })
             .then((res) => {
-                if(res.status === 200){
-                    resolve(res);
-                }
+                resolve(res);
+
             }).catch((err) => {
                 reject(err);
         })

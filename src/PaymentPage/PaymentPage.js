@@ -1,39 +1,35 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from '../_components/Header/Header'
-import BuyPointsStepper from './Buy/BuyPointsStepper'
 import PaymentStepper from "./PaymentStepper";
+import LoadingHandler from '../_components/LoadingHandler'
+
 
 class PaymentPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            amount: 1
-        };
-        this.handleAmount = this.handleAmount.bind(this);
     }
 
-    handleAmount(event,value){
-        console.log('payment Page', event, value);
-        this.setState({
-            amount: value
-        })
-    }
 
     render() {
               return (
             <div>
                 <Header title="Payment" />
-                <PaymentStepper handleAmount={this.handleAmount} amount={this.state.amount} />
+                {
+                    this.props.payment.fetching ?
+                    <LoadingHandler show={true} /> : null
+                }
+                <PaymentStepper />
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const user = state.user;
+    const {user, payment} = state;
     return {
-        user
+        user,
+        payment
     }
 }
 

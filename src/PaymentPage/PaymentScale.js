@@ -1,5 +1,7 @@
 import React from 'react'
 import {Slider} from 'material-ui'
+import {connect} from 'react-redux'
+import {paymentActions} from "../_actions/paymentAction";
 
 
 class PaymentScale extends React.Component {
@@ -9,7 +11,7 @@ class PaymentScale extends React.Component {
     }
 
     handleSlider = (event, value) => {
-        this.props.handleAmount(event,value);
+        this.props.dispatch(paymentActions.updateAmount(value));
     };
 
 
@@ -20,7 +22,7 @@ class PaymentScale extends React.Component {
                     min={1}
                     max={37}
                     step={1}
-                    value={this.props.amount}
+                    value={this.props.payment.amount}
                     onChange={this.handleSlider}
                 />
             </div>
@@ -28,4 +30,11 @@ class PaymentScale extends React.Component {
     }
 }
 
-export default PaymentScale
+function mapStateToProps(state) {
+    const {payment} = state;
+    return {
+        payment
+    }
+}
+
+export default connect(mapStateToProps)(PaymentScale);

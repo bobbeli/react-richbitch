@@ -1,38 +1,26 @@
 import React from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import {Elements} from 'react-stripe-elements';
+import {connect} from 'react-redux';
 import CheckoutForm from './CheckoutForm'
 
 
 class PaymentMethod extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: 1
-        };
-    }
-
-
-
-
     render() {
-        const types = ['CreditCard', 'test'];
-
-        const paymentMethods = types.map((c, index) =>
-            <MenuItem key={index} value={index + 1} primaryText={c} />
-        );
-        return (
+               return (
             <div>
                 <Elements>
-                     <CheckoutForm amount={this.props.amount} />
+                     <CheckoutForm amount={this.props.payment.amount} handlePrev={this.props.handlePrev} />
                 </Elements>
             </div>
         );
     }
 }
 
+function mapStateToProps(state) {
+    const {payment} = state;
+    return {
+        payment
+    }
+}
 
-export default PaymentMethod;
+export default connect(mapStateToProps)(PaymentMethod);

@@ -17,8 +17,6 @@ class CardSection extends React.Component {
                 <CardCVCElement style={{base: {fontSize: '18px'}}} />
 
                 <PostalCodeElement style={{base: {fontSize: '18px'}}} />
-
-
             </label>
         );
     }
