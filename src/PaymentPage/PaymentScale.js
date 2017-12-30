@@ -11,7 +11,7 @@ class PaymentScale extends React.Component {
     }
 
     handleSlider = (event, value) => {
-        this.props.dispatch(paymentActions.updateAmount(value));
+        this.props.dispatch(paymentActions.updateAmount(value + '.00'));
     };
 
 

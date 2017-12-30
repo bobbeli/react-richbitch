@@ -4,17 +4,17 @@ import {history} from './history';
 import store from './store'
 import {userConstants} from '../_constants/userConstants'
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
-        authDomain: "richbitch-4fc7a.firebaseapp.com",
-        databaseURL: "https://richbitch-4fc7a.firebaseio.com",
-        projectId: "richbitch-4fc7a",
-        storageBucket: "richbitch-4fc7a.appspot.com",
-        messagingSenderId: "964894129974"
-    };
+const firebaseConfig = {
+    apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
+    authDomain: "richbitch-4fc7a.firebaseapp.com",
+    databaseURL: "https://richbitch-4fc7a.firebaseio.com",
+    projectId: "richbitch-4fc7a",
+    storageBucket: "richbitch-4fc7a.appspot.com",
+    messagingSenderId: "964894129974"
+};
 
 
-    firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 
 
@@ -52,8 +52,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
 export const updateUserMiddleware = store => next => action => {
     console.log("Middleware triggered:", action);
-
-
     //next(action);
 }
 

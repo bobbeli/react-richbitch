@@ -6,9 +6,16 @@ export const userService = {
     register,
     update,
     deleteUser,
-    reAuth
+    reAuth,
+    getAllUsers
 };
 
+/**
+ * Login with E-Mail and Password
+ *
+ * Login User on FireBase Instance
+ * @returns {Promise}
+ */
 function login(email, password) {
     return new Promise((resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
@@ -19,11 +26,14 @@ function login(email, password) {
         });
 
     });
-
-
 }
 
-
+/**
+ * Logout User
+ *
+ * LogOut User on FireBase Instance
+ * @returns {Promise} boolean
+ */
 function logout() {
     return new Promise((resolve, reject) =>{
         firebase.auth().signOut().then(function () {
@@ -34,22 +44,19 @@ function logout() {
             reject(error)
         });
     });
-
 }
 
 /**
  * Register User
+ *
  * @param user Object (username, email, password)
- * @returns {Promise.<TResult>}
+ * @returns {Promise.<User>} User Object
  */
 function register(user) {
-
     const {username, firstname, lastname, email, password} = user;
-
     return new Promise((resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((objuser) => {
-
                 let user = {
                     id: objuser.uid,
                     username: username,
@@ -57,19 +64,21 @@ function register(user) {
                     lastname: lastname,
                     email: email
                 }
-
                 writeUserData(user)
-
                 resolve(user);
-
             })
             .catch((error) => {
                 reject(Error(error));
             });
     });
-
 }
 
+/**
+ * Write User to FireBase
+ *
+ * Writes a User Object to FireBase Server
+ * @param User Object of User
+ */
 function writeUserData(user) {
     firebase.database().ref('users/' + user.id).set({
         username: user.username,
@@ -80,7 +89,10 @@ function writeUserData(user) {
 }
 
 /**
- * Update Local User Data
+ * Update User
+ *
+ * Update Local User Object
+ * @returns {Promise} user Object
  */
 function update() {
     return new Promise((resolve, reject) => {
@@ -104,8 +116,10 @@ function update() {
 }
 
 /**
- * Delete User on FireBase Server.
- * @returns {Promise}
+ * Delete User
+ *
+ * Delete User FireBase Server.
+ * @returns {Promise} boolean
  */
 function deleteUser() {
     return new Promise((resolve, reject) => {
@@ -121,8 +135,9 @@ function deleteUser() {
 
 /**
  * Re Authenticate User
+ *
  * @param userProvidedPassword
- * @returns {Promise}
+ * @returns {Promise} boolean
  */
 function reAuth(userProvidedPassword){
     return new Promise((resolve, reject) => {
@@ -138,6 +153,22 @@ function reAuth(userProvidedPassword){
             reject(error)
         });
     })
-
 }
 
+/**
+ * Get all Users
+ *
+ * ReQuest to FireBase Database
+ * @returns {Promise} with all a List of all Users
+ */
+function getAllUsers(){
+    return new Promise((resolve, reject) => {
+        return firebase.database().ref('/users/').once('value')
+            .then((snapshot) => {
+                let userList = snapshot.val() || 'No Users';
+                resolve(userList)
+            }).catch((error) => {
+                reject(error);
+            });
+    });
+}

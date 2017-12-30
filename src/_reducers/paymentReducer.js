@@ -53,7 +53,7 @@ export default function reducer(state = {
         case paymentConstants.STEPPER_FINISHED:
             return {
                 ...state,
-                amount: 1,
+                amount: 1.00,
                 stepperFinished:true,
                 fetching: false,
                 fetched: false,

@@ -27,8 +27,5 @@ function charge(token, amount) {
                 reject(err);
         })
     });
-
-
 }
-
 

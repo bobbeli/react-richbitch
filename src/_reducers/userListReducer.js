@@ -5,8 +5,8 @@ export default function reducer(state = {
     users: [
         {
             id: null,
-            name: null,
-            username: null,
+            firstanme: null,
+            lastname: null,
             email: null,
         },
     ],
@@ -14,20 +14,45 @@ export default function reducer(state = {
     fetched: false,
     error: null,
 }, action) {
-    //ToDo Refactoring User Redux Types to Constants
     switch (action.type) {
-        case 'FETCH_USERS': {
-            return {...state, fetching: true}
+        case userConstants.GETALL_REQUEST: {
+            return {
+                ...state,
+                users: state.users,
+                fetching: true,
+                fetched: false,
+                error: null,
+            }
         }
-        case 'FETCH_USERS_REJECTED': {
-            return {...state, fetching: false, error: action.payload}
+        case userConstants.GETALL_SUCCESS: {
+            let usersNew = [];
+            Object.entries(action.users).map((user) => {
+                let newUser = {
+                    id: user[0],
+                    firstname: user[1].firstname,
+                    lastname: user[1].lastname,
+                    username: user[1].username,
+                    email: user[1].email,
+                };
+                usersNew.push(newUser);
+            });
+            return {
+                ...state,
+                users: usersNew,
+                fetching: false,
+                fetched: true,
+                error: null,
+            }
+
         }
-        case 'FETCH_USERS_FULFILLED': {
+        case userConstants.GETALL_FAILURE: {
             return {
                 ...state,
                 fetching: false,
                 fetched: true,
-                users: action.payload
+                users: state.users,
+                error: action.payload
+
             }
         }
     }

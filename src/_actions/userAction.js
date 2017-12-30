@@ -12,6 +12,7 @@ export const userActions = {
     registerGoogle,
     deleteUser,
     reAuthUser,
+    getAllUsers,
 };
 
 function login(username, password) {
@@ -45,6 +46,8 @@ function login(username, password) {
 }
 
 /**
+ * Logout
+ *
  * Logout User and Delets local Store user Object
  * Logout From FireBase Auth
  * @returns {function(*)}
@@ -71,6 +74,13 @@ function logout() {
 
 }
 
+/**
+ * Register E-Mail
+ *
+ * Register new User and update local Store user Object
+ * Redirect to HomePage (/)
+ * @returns {function(*)}
+ */
 function register(user) {
     return dispatch => {
         dispatch(request({user}));
@@ -101,7 +111,15 @@ function register(user) {
 
 }
 
+/**
+ * Register Google Account
+ *
+ * Register new User and update local Store user Object
+ * Redirect to HomePage (/)
+ * @returns {function(*)}
+ */
 function registerGoogle() {
+    //ToDo Check Functionality of this Function
     return dispatch => {
         var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -126,12 +144,12 @@ function registerGoogle() {
 }
 
 /**
- * Update Local User Storage from Firebase
+ * Update User
+ *
+ * Local User Storage from Firebase will be updated
  */
 function update() {
-
     return dispatch => {
-
         userService.update().then(user => {
             dispatch(update(user));
             dispatch(success());
@@ -158,9 +176,10 @@ function update() {
 
 /**
  * Delete User
+ *
+ * Delete User on Firebase, and Local, Logout user
  */
 function deleteUser() {
-
     return dispatch => {
 
         userService.deleteUser().then((res) => {
@@ -199,6 +218,8 @@ function deleteUser() {
 
 /**
  * Re Authenticate User
+ *
+ *
  * @param userProvidedPassword
  * @returns {function(*)}
  */
@@ -227,4 +248,32 @@ function reAuthUser(userProvidedPassword){
     }
 }
 
+/**
+ * Get all Users
+ *
+ * Load user List from FireBase RealTime DB.
+ * @returns Array of Users
+ */
+function getAllUsers(){
+    return dispatch => {
+        dispatch(request());
+        userService.getAllUsers().then((res) => {
+            if(res){
+                dispatch(success(res))
+            }
+        }, error => {
+            dispatch(failure(error));
+            dispatch(alertActions.error(error.message))
+        });
+    }
 
+    function failure(error) {
+        return {type: userConstants.GETALL_FAILURE, error}
+    }
+    function success(users) {
+        return {type: userConstants.GETALL_SUCCESS, users}
+    }
+    function request() {
+        return {type: userConstants.GETALL_REQUEST}
+    }
+}
