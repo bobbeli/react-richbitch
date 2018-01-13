@@ -1,29 +1,24 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
-import RaisedButton from 'material-ui/RaisedButton';
+import {connect} from 'react-redux'
+import {alertActions} from "../_actions/alertActions";
 
-export default class NotificationHandler extends React.Component {
+class NotificationHandler extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            open: true,
-        };
     }
 
-
     handleRequestClose = () => {
-        this.setState({
-            open: false,
-        })
+        this.props.dispatch(alertActions.clear())
     };
 
     render() {
         return (
             <div>
                 <Snackbar
-                    open={this.state.open}
+                    open={true}
                     message={this.props.alert.message}
-                    autoHideDuration={10000}
+                    autoHideDuration={5000}
                     onRequestClose={this.handleRequestClose}
                     className={this.props.alert.type}
                 />
@@ -31,3 +26,12 @@ export default class NotificationHandler extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    const { alert } = state;
+    return {
+        alert,
+    }
+}
+
+export default connect(mapStateToProps)(NotificationHandler);

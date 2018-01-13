@@ -1,6 +1,7 @@
 import {alertActions} from './alertActions';
 import {paymentService} from "../_services/paymentService";
 import {paymentConstants} from "../_constants/paymentConstants"
+import {pointConstants} from "../_constants/pointConstants"
 import {pointService} from "../_services/pointService";
 export const paymentActions = {
     charge,
@@ -13,8 +14,17 @@ function charge(token, amount) {
             .then((res) => {
                 if(res.status === 200){
                     dispatch(success(res.data))
-                    pointService.addPoints(amount);
                     dispatch(alertActions.success('Payment Successful'))
+
+                    // Updating Local Points
+                    pointService.addPoints(amount)
+                        .then((res) => {
+                            dispatch(update((res)));
+                            dispatch(alertActions.success('Your Amount has been updated'));
+                        }).catch((error) => {
+                            dispatch(alertActions.error(error))
+                    });
+
                 } else {
                     dispatch(alertActions.error(res.data))
                 }
@@ -30,6 +40,10 @@ function charge(token, amount) {
 
     function failure(error) {
         return {type: paymentConstants.PAYMENT_FAILURE, error}
+    }
+
+    function update(totalPoints){
+        return {type: pointConstants.TOTAL_POINTS_UPDATE, totalPoints}
     }
 }
 

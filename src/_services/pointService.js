@@ -9,7 +9,7 @@ export const pointService = {
 
 
 /**
- * Add
+ * Add Points
  * @param uid
  * @param amount
  */
@@ -22,9 +22,11 @@ function addPoints(amount) {
             let newPoints = crateNewPointOnDB(user, amount);
             let updateTotal = updateTotalPoints(user);
 
+            // TODO is this functionality smart enough for No Internet Acces Problems and other ... dont thing so.
             Promise.all([newPoints, updateTotal])
                 .then((res) =>{
                     resolve(res[1])
+                    console.log('res ', res)
                 }).catch((err) => {
                     reject(err)
                 })
@@ -49,20 +51,27 @@ function crateNewPointOnDB(user, amount){
 
 function updateTotalPoints(user){
     return new Promise((resolve, reject) => {
-        let totalPoints = sumAllPoints(user);
-        let updates = {};
-        updates['/users/' + user.uid + '/totalPoints'] = totalPoints;
 
-        if(typeof totalPoints !== 'undefined' && typeof totalPoints !== 'undefined'){
+        let totalPointsSumUp = firebase.database().ref('users/' + user.uid + '/points');
+
+        totalPointsSumUp.on('value', (snapshot) => {
+            let points = snapshot.val();
+            let totalPoints = 0;
+            Object.entries(points).map((point) => {
+                totalPoints = totalPoints + Number.parseInt(point[1].amount);
+            });
+
+            let updates = {};
+            updates['/users/' + user.uid + '/totalPoints'] = totalPoints;
+
             try{
                 firebase.database().ref().update(updates);
                 resolve(totalPoints)
             }catch (err){
                 reject(err);
             }
-        }else{
-            reject('Could not update TotalPoints on Firebase DB');
-        }
+        });
+
     })
 
 }

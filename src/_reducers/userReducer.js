@@ -1,6 +1,7 @@
 /* TODO: rewrite Reducer as in eample code */
 
 import {userConstants} from "../_constants/userConstants";
+import {pointConstants} from "../_constants/pointConstants";
 
 export default function reducer(state = {
     id: null,
@@ -39,6 +40,13 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: false,
                 error: null,
+            }
+        }
+
+        case pointConstants.TOTAL_POINTS_UPDATE: {
+            return {
+                ...state,
+                totalPoints: action.totalPoints
             }
         }
     }

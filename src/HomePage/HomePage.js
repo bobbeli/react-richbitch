@@ -8,6 +8,7 @@ import {pointService} from "../_services/pointService";
 import firebase from 'firebase';
 import {userActions} from "../_actions/userAction";
 import LoadingHandler from '../_components/LoadingHandler'
+import {pointActions} from "../_actions/pointAction";
 
 
 class HomePage extends React.Component {
@@ -41,7 +42,9 @@ class HomePage extends React.Component {
     }
 
     handleSubmit(){
-        pointService.addPoints(this.state.points);
+        this.props.dispatch(pointActions.addPoint(this.state.points));
+
+
     }
 
     render() {

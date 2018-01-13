@@ -23,11 +23,7 @@ class App extends Component {
         history.listen((location, action) => {
             dispatch(alertActions.clear());
         })
-
-
     }
-
-
 
     render() {
         const { alert, user, auth } = this.props;
@@ -36,7 +32,6 @@ class App extends Component {
         return (
             <div className="App">
                 <Router history={history}>
-
                 {auth.loggedIn ?
                     <div>
                         <Route exact path="/" component={AsyncHome} />
@@ -50,7 +45,6 @@ class App extends Component {
                     </div>
                 }
                 </Router>
-
 
                 {alert.message &&
                     <NotificationHandler alert={alert} />
