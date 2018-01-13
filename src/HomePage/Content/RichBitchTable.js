@@ -61,8 +61,9 @@ class RichBitchTable extends Component {
             return (
                 <TableRow>
                     <TableRowColumn>{val.firstname}</TableRowColumn>
-                    <TableRowColumn>{val.username}</TableRowColumn>
                     <TableRowColumn>{val.email}</TableRowColumn>
+                    <TableRowColumn>{val.totalPoints}</TableRowColumn>
+
                 </TableRow>
             );
         })

@@ -62,7 +62,8 @@ function register(user) {
                     username: username,
                     firstname: firstname,
                     lastname: lastname,
-                    email: email
+                    email: email,
+                    totalPoints: 0
                 }
                 writeUserData(user)
                 resolve(user);
@@ -85,6 +86,7 @@ function writeUserData(user) {
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
+        totalPoints: user.totalPoints
     });
 }
 
@@ -104,7 +106,8 @@ function update() {
                     username: (snapshot.val() && snapshot.val().username) || 'Anonymous',
                     lastname: (snapshot.val() && snapshot.val().lastname) || 'Anonymous',
                     firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
-                    email: (snapshot.val() && snapshot.val().email) || 'Anonymous'
+                    email: (snapshot.val() && snapshot.val().email) || 'Anonymous',
+                    totalPoints: (snapshot.val() && snapshot.val().totalPoints) || 'Anonymous'
                 }
                 resolve(user);
 

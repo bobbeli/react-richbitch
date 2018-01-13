@@ -8,6 +8,7 @@ export default function reducer(state = {
     firstname: null,
     lastname: null,
     email: null,
+    totalPoints: null,
     fetching: false,
     fetched: false,
     error: null,
@@ -20,6 +21,7 @@ export default function reducer(state = {
                 firstname: action.user.firstname,
                 lastname: action.user.lastname,
                 email: action.user.email,
+                totalPoints: action.user.totalPoints,
                 fetching: false,
                 fetched: true,
 
@@ -33,6 +35,7 @@ export default function reducer(state = {
                 firstname: null,
                 lastname: null,
                 email: null,
+                totalPoints: null,
                 fetching: false,
                 fetched: false,
                 error: null,

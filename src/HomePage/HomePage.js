@@ -7,6 +7,7 @@ import PaymentButton from "./PaymentButton";
 import {pointService} from "../_services/pointService";
 import firebase from 'firebase';
 import {userActions} from "../_actions/userAction";
+import LoadingHandler from '../_components/LoadingHandler'
 
 
 class HomePage extends React.Component {
@@ -35,6 +36,10 @@ class HomePage extends React.Component {
         });
     }
 
+    componentWillUpdate(){
+
+    }
+
     handleSubmit(){
         pointService.addPoints(this.state.points);
     }
@@ -44,6 +49,7 @@ class HomePage extends React.Component {
             <div>
                 <Header title="Home" />
                 <RichBitchContainer/>
+                <LoadingHandler show={this.props.userList.fetching} />
                 <TextField
                     name="points"
                     floatingLabelText="Points"

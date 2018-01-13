@@ -8,6 +8,7 @@ export default function reducer(state = {
             firstanme: null,
             lastname: null,
             email: null,
+            totalPoints: null,
         },
     ],
     fetching: false,
@@ -32,6 +33,7 @@ export default function reducer(state = {
                     firstname: user[1].firstname,
                     lastname: user[1].lastname,
                     username: user[1].username,
+                    totalPoints: user[1].totalPoints,
                     email: user[1].email,
                 };
                 usersNew.push(newUser);
