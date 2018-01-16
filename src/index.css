@@ -1,5 +1,28 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Questrial'
 }
+
+
+.removeAutoFill input:-webkit-autofill,
+.removeAutoFill input:-webkit-autofill:hover,
+.removeAutoFill input:-webkit-autofill:focus,
+.removeAutoFill input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+  transition-delay: background-color 5000s, color 5000s;
+}
+
+
+a{
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+
+p{
+  color: #ffffff;
+  font-size: 12px;
+}
+

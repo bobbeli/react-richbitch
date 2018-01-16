@@ -25,9 +25,17 @@ class CheckoutForm extends React.Component {
         });
 
         paymentRequest.on('token', ({complete, token, ...data}) => {
-            console.log('Received Stripe token: ', token);
+
             console.log('Received customer information: ', data);
-            complete('success');
+            if(token.error){
+                this.props.dispatch(alertActions.error(token.error.message))
+                let error = {error: 'No stripe Token available'}
+                this.props.dispatch({type: paymentConstants.PAYMENT_FAILURE, error});
+            } else{
+                this.props.dispatch(paymentActions.charge(token, this.props.amount, complete))
+            }
+
+
         });
 
         paymentRequest.canMakePayment().then(result => {

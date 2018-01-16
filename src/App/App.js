@@ -31,6 +31,7 @@ class App extends Component {
         //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
+                <div className="App-container">
                 <Router history={history}>
                 {auth.loggedIn ?
                     <div>
@@ -49,7 +50,7 @@ class App extends Component {
                 {alert.message &&
                     <NotificationHandler alert={alert} />
                 }
-
+                </div>
             </div>
         );
     }

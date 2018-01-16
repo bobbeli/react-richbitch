@@ -2,9 +2,8 @@ import React from 'react';
 import {userActions} from "../_actions/userAction"
 import {TextField, FlatButton} from 'material-ui'
 import {connect} from 'react-redux';
-import ActionAndroid from 'material-ui/svg-icons/action/android';
-
-
+import SimpleTextField from "../_components/Elements/SimpleTextField";
+import './RegisterPage.css'
 
 class RegisterPage extends React.Component {
 
@@ -49,52 +48,27 @@ class RegisterPage extends React.Component {
         }
     }
 
-    handleGoogle(event){
-        event.preventDefault()
-        this.props.dispatch(userActions.registerGoogle());
-
-    }
 
     render() {
         const { user, submitted } = this.state;
+
         return(
             <div>
+
                 <form name="register" onSubmit={this.handleSubmit}>
                     <div className={'from-group' + (submitted && !user.username ? ' has-error' : '')}>
 
-                        <TextField
+                        <SimpleTextField
                             name="username"
-                            floatingLabelText="User Name"
+                            floatingLabelText="First / Last"
                             type="text"
                             errorText={ submitted && !user.username && 'User Name is required '}
                             onChange={this.handleChange}
                         />
                     </div>
 
-                    <div className={'from-group' + (submitted && !user.firstname ? ' has-error' : '')}>
-
-                        <TextField
-                            name="firstname"
-                            floatingLabelText="First Name"
-                            type="text"
-                            errorText={ submitted && !user.firstname && 'First Name is required '}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-
-                    <div className={'from-group' + (submitted && !user.lastname ? ' has-error' : '')}>
-
-                        <TextField
-                            name="lastname"
-                            floatingLabelText="Last Name"
-                            type="text"
-                            errorText={ submitted && !user.lastname && 'Last Name is required '}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-
                     <div className={'from-group' + (submitted && !user.email ? ' has-error' : '')}>
-                        <TextField
+                        <SimpleTextField
                             name="email"
                             floatingLabelText="Email"
                             type="email"
@@ -102,10 +76,8 @@ class RegisterPage extends React.Component {
                             onChange={this.handleChange}
                         />
                     </div>
-
                     <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-
-                        <TextField
+                        <SimpleTextField
                             name="password"
                             floatingLabelText="Password"
                             type="password"
@@ -121,14 +93,6 @@ class RegisterPage extends React.Component {
                     </div>
 
                 </form>
-
-                <FlatButton
-                    label="With Google"
-                    labelPosition="before"
-                    primary={true}
-                    icon={<ActionAndroid />}
-                    onClick={this.handleGoogle}
-                />
 
             </div>
         );

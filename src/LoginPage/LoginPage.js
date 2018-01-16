@@ -1,11 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import {userActions} from '../_actions/userAction';
 import LoadingCircle from '../_components/LoadingHandler'
-import Header from '../_components/Header/Header'
+import ActionAndroid from 'material-ui/svg-icons/action/android';
+import './LoginPage.css';
+import {Styles} from '../_assets/Styles'
+import SimpleTextField from "../_components/Elements/SimpleTextField";
+import Logo from '../_components/Elements/Logo'
+import Facebook from '../_assets/img/facebook.svg'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -41,52 +45,89 @@ class LoginPage extends React.Component {
         }
         this.setState({loading: false});
 
+    }
 
+    handleGoogle(event){
+        event.preventDefault()
+        this.props.dispatch(userActions.registerGoogle());
 
     }
 
     render() {
         const {username, password, submitted, loading} = this.state;
 
+        const style = {
+            icons: {
+                color: 'white',
+                textAlign: 'center'
+            }
+        }
+
+
         return (
-            <div>
-                <Header title="Login" />
+            <div className="LoginPage">
                 <LoadingCircle show={loading} />
-
-                <form name="form" onSubmit={this.handleSubmit}>
+                <Logo />
+                <form className="loginForm" name="form" onSubmit={this.handleSubmit}>
                     <div className={'from-group' + (submitted && !this.username ? ' has-error' : '')}>
-
-                        <TextField
+                        <SimpleTextField
                             name="username"
-                            floatingLabelText="Username"
                             type="text"
+                            floatingLabelText="Username"
+                            onChange={this.handleChange}
                             errorText={ submitted && !username &&
                                 "Username is required"
                             }
-                            onChange={this.handleChange}
-
                         />
                     </div>
                     <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <TextField
+                        <SimpleTextField
                             name="password"
                             floatingLabelText="Password"
                             type="password"
+                            onChange={this.handleChange}
                             errorText={ submitted && !password &&
                                 "Password is required"
                             }
-                            onChange={this.handleChange}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="loginButton">
                         <FlatButton
                             type="submit"
                         >Login</FlatButton>
+                        <p>or sign in with:</p>
+                    </div>
 
-                        <FlatButton secondary={true}>
-                            <Link to="/register" className="btn btn-link">Register</Link>
+                    <div className="socialRegister">
+                        <FlatButton
+                            labelPosition="before"
+                            primary={true}
+                            icon={<ActionAndroid />}
+                            onClick={this.handleGoogle}
+                            style={style.icons}
+                        />
+
+                        <FlatButton
+                            labelPosition="before"
+                            primary={true}
+                            icon={<Facebook />}
+                            onClick={this.handleGoogle}
+                            style={style.icons}
+                        />
+
+                    </div>
+
+                    <div className="registerButton">
+                        <FlatButton
+                            secondary={true}
+                            style={Styles.buttonLeft}>
+                            <Link to="/register" className="btn btn-link">register</Link>
                         </FlatButton>
-
+                        <FlatButton
+                            secondary={true}
+                            style={Styles.buttonRight}>
+                            <Link to="/password" className="btn btn-link">password</Link>
+                        </FlatButton>
                     </div>
                 </form>
             </div>

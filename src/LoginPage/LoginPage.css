@@ -1,0 +1,20 @@
+.LoginPage {
+
+}
+
+.loginForm{
+	padding-top: 42vH;
+}
+
+.loginButton{
+	margin: 40px 0px 0px 0px;
+	text-align: center;
+
+}
+
+.registerButton{
+	position: fixed;
+	bottom: 5vH;
+	width: 90vW;
+	max-width: 400px;
+}

@@ -8,12 +8,17 @@ export const paymentActions = {
     updateAmount,
     updateStepper
 };
-function charge(token, amount) {
+function charge(token, amount, complete) {
     return dispatch => {
         paymentService.charge(token, amount)
             .then((res) => {
                 if(res.status === 200){
-                    dispatch(success(res.data))
+                    dispatch(success(res.data));
+
+                    if(typeof  complete !== 'undefined'){
+                        complete('success');
+                    }
+
                     dispatch(alertActions.success('Payment Successful'))
 
                     // Updating Local Points
@@ -26,6 +31,9 @@ function charge(token, amount) {
                     });
 
                 } else {
+                    if(typeof  complete !== 'undefined'){
+                        complete('fail');
+                    }
                     dispatch(alertActions.error(res.data))
                 }
             }).catch((error) => {

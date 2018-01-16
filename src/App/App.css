@@ -1,11 +1,26 @@
 .App {
+  height: 100vH;
+  background: radial-gradient(at left 50%,  #313D50 30%, #1B2028 90%);
+}
+
+.App-container{
+  width:90vW;
+  margin: auto;
+  max-width: 400px;
+}
+
+.App-logo-container {
+  top: 10vH;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+  width: 100%
 
+}
 .App-header {
   background-color: #222;
   height: 150px;
