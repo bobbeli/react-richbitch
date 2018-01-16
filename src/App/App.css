@@ -10,11 +10,11 @@
 }
 
 .App-logo-container {
-  top: 10vH;
+  top: 6vH;
   position: absolute;
   left: 50%;
-  margin-left: -50px;
-  width: 100px;
+  margin-left: -35px;
+  width: 70px;
 }
 
 .App-logo {

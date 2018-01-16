@@ -9,7 +9,6 @@ import './LoginPage.css';
 import {Styles} from '../_assets/Styles'
 import SimpleTextField from "../_components/Elements/SimpleTextField";
 import Logo from '../_components/Elements/Logo'
-import Facebook from '../_assets/img/facebook.svg'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -20,10 +19,29 @@ class LoginPage extends React.Component {
             password: '',
             submitted: false,
             loading: false,
+            inputActive: false,
         }
+
+        console.log('height', window.innerHeight)
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleGoogle = this.handleGoogle.bind(this);
+        this.updateDimensions = this.updateDimensions.bind(this);
+
+    }
+
+    updateDimensions() {
+        this.setState({height: window.innerHeight});
+    }
+    componentWillMount() {
+        this.updateDimensions();
+    }
+    componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
     }
 
     handleChange(event) {
@@ -67,7 +85,7 @@ class LoginPage extends React.Component {
         return (
             <div className="LoginPage">
                 <LoadingCircle show={loading} />
-                <Logo />
+                { this.state.height > 480 ? <Logo /> : null}
                 <form className="loginForm" name="form" onSubmit={this.handleSubmit}>
                     <div className={'from-group' + (submitted && !this.username ? ' has-error' : '')}>
                         <SimpleTextField
@@ -95,40 +113,36 @@ class LoginPage extends React.Component {
                         <FlatButton
                             type="submit"
                         >Login</FlatButton>
-                        <p>or sign in with:</p>
                     </div>
 
-                    <div className="socialRegister">
-                        <FlatButton
-                            labelPosition="before"
-                            primary={true}
-                            icon={<ActionAndroid />}
-                            onClick={this.handleGoogle}
-                            style={style.icons}
-                        />
 
-                        <FlatButton
-                            labelPosition="before"
-                            primary={true}
-                            icon={<Facebook />}
-                            onClick={this.handleGoogle}
-                            style={style.icons}
-                        />
-
-                    </div>
-
-                    <div className="registerButton">
-                        <FlatButton
-                            secondary={true}
-                            style={Styles.buttonLeft}>
-                            <Link to="/register" className="btn btn-link">register</Link>
-                        </FlatButton>
-                        <FlatButton
-                            secondary={true}
-                            style={Styles.buttonRight}>
-                            <Link to="/password" className="btn btn-link">password</Link>
-                        </FlatButton>
-                    </div>
+                    { this.state.height > 480 ?
+                        <div>
+                        <div className="socialLogin">
+                            <p>or sign in with:</p>
+                            <FlatButton
+                                labelPosition="before"
+                                primary={true}
+                                icon={<ActionAndroid />}
+                                onClick={this.handleGoogle}
+                                style={style.icons}
+                            />
+                        </div>
+                        <div className="registerButton">
+                            <FlatButton
+                                secondary={true}
+                                style={Styles.buttonLeft}>
+                                <Link to="/register" className="btn btn-link">register</Link>
+                            </FlatButton>
+                            <FlatButton
+                                secondary={true}
+                                style={Styles.buttonRight}>
+                                <Link to="/password" className="btn btn-link">password</Link>
+                            </FlatButton>
+                            </div>
+                        </div>
+                        :
+                        null}
                 </form>
             </div>
         );
