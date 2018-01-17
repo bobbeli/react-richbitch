@@ -3,6 +3,7 @@ import {userActions} from '../_actions/userAction'
 import {history} from './history';
 import store from './store'
 import {userConstants} from '../_constants/userConstants'
+import Navigation from "../_components/Navigation";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
@@ -15,9 +16,6 @@ const firebaseConfig = {
 
 
 firebase.initializeApp(firebaseConfig);
-
-
-
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -50,8 +48,13 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 
-export const updateUserMiddleware = store => next => action => {
-    console.log("Middleware triggered:", action);
-    //next(action);
+export const updateLoaderMiddleware = store => next => action => {
+    const {payment, auth, registration, unregister, user, userList} = store.getState();
+
+    if(payment.fetching || auth.fetching || registration.fetching || unregister.fetching
+        || user.fetching || userList.fetching){
+
+    }
+    next(action);
 }
 

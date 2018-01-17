@@ -1,5 +1,4 @@
 import React from 'react';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ReactTransitionGroup from 'react-addons-transition-group'
 import LoadingElement from './LoadingElement'
 
@@ -8,7 +7,6 @@ class LoadingCircle extends React.Component {
     constructor(props){
         super(props);
     }
-
 
     render(){
 
@@ -19,8 +17,6 @@ class LoadingCircle extends React.Component {
         );
     }
 }
-
-
 
 
 export default LoadingCircle;

@@ -7,6 +7,10 @@ import {alertActions} from '../../_actions/alertActions'
 import {paymentActions} from "../../_actions/paymentAction";
 import {RaisedButton, FlatButton} from 'material-ui'
 import {paymentConstants} from "../../_constants/paymentConstants"
+import Navigation from "../../_components/Navigation";
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import IconButton from 'material-ui/IconButton';
+
 
 class CheckoutForm extends React.Component {
 
@@ -92,16 +96,23 @@ class CheckoutForm extends React.Component {
                             />
                         </div>
                     ) : (<div>
-                        <CardSection />
-                            <FlatButton
-                                label="Back"
-                                onClick={this.props.handlePrev}
-                                style={{marginRight: 12}}
-                            />
-                            <RaisedButton
-                                label='Pay'
-                                primary={true}
-                                onClick={this.handleSubmit}
+                            <CardSection />
+                            <Navigation
+                                left={
+                                    <IconButton
+                                        className="floatingButtonLeft"
+                                        fullWidth={false}
+                                        secondary={true}
+                                        onClick={this.props.handlePrev}>
+                                        <Back/>
+                                    </IconButton>
+                                }
+                                right={<RaisedButton
+                                    label='Pay'
+                                    className='floatingButtonRight'
+                                    primary={true}
+                                    onClick={this.handleSubmit}
+                                />}
                             />
                         </div>)
                 }

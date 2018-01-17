@@ -84,7 +84,6 @@ class LoginPage extends React.Component {
 
         return (
             <div className="LoginPage">
-                <LoadingCircle show={loading} />
                 { this.state.height > 480 ? <Logo /> : null}
                 <form className="loginForm" name="form" onSubmit={this.handleSubmit}>
                     <div className={'from-group' + (submitted && !this.username ? ' has-error' : '')}>

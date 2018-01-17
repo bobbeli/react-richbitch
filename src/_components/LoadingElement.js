@@ -22,11 +22,12 @@ class LoadingElement extends React.Component {
         const style = {
             container: {
                 position: 'absolute',
-                backgroundColor: '#c4c4c4',
+                background: 'radial-gradient(at right 50%,  #313D50 30%, #1B2028 90%)',
                 width: '100%',
                 height: '100vH',
                 zIndex:'9000',
                 top: '0',
+                opacity: '0.7'
             },
             refresh: {
                 display: 'inline-block',
@@ -46,7 +47,7 @@ class LoadingElement extends React.Component {
                         left={0}
                         top={0}
                         status="loading"
-                        loadingColor="#000000"
+                        loadingColor="#EFAD00"
                         style={style.refresh}
                     />
                 </div>

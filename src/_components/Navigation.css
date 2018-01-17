@@ -1,0 +1,6 @@
+.footerNavigation{
+	position: fixed;
+	bottom: 5vH;
+	width: 90vW;
+	max-width: 400px;
+}

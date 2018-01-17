@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Questrial'
+  font-family: 'Montserrat'
 }
 
 
@@ -24,5 +24,38 @@ a{
 p{
   color: #ffffff;
   font-size: 12px;
+  font-weight: 400;
 }
 
+p.normal {
+  font-style: normal;
+}
+
+p.italic {
+  font-style: italic;
+}
+
+p.oblique {
+  font-style: oblique;
+}
+
+h1, h2, h3, h4 {
+  color: white;
+  font-weight: 600;
+}
+
+h1{
+  font-size: 1.6em;
+}
+
+h2{
+  font-size: 1.4em;
+}
+
+h3{
+  font-size: 1.3em;
+}
+
+h3.subtitle {
+  font-weight: 100;
+}

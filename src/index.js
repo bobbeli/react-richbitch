@@ -11,33 +11,17 @@ import {init} from './_helpers/firebaseDB'
 import {StripeProvider} from 'react-stripe-elements';
 import WebFont from 'webfontloader';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import {Theme} from './_assets/PrestigeMuiTheme'
 
 WebFont.load({
     google: {
-        families: ['Questrial']
+        families: ['Montserrat:100,400,600,900,100italic,400italic,700italic,900italic']
     }
 });
 
-const muiTheme = getMuiTheme({
-    fontFamily: 'Questrial',
-    palette: {
-        primary1Color: '#1B2028',
-        primary2Color: '#28323B',
-        primary3Color: '#313D50',
-        accent1Color: '#CC8F1B',
-        accent2Color: '#EFAD00',
-        accent3Color: '#E9A916',
-        textColor: '#ffffff',
-        alternateTextColor: '#C3C3C3',
-        canvasColor: '#1B2028',
-        borderColor: '#ffffff',
-        disabledColor: '#C3C3C3',
-        pickerHeaderColor: '#1B2028',
-        clockCircleColor: '#1B2028',
-        shadowColor: '#1B2028',
-    },
-})
+
+
+const muiTheme = getMuiTheme(Theme);
 
 ReactDOM.render((
         <Provider store={store}>

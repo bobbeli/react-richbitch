@@ -1,14 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Header from '../_components/Header/Header'
-import {TextField} from 'material-ui'
 import RichBitchContainer from "./Content/RichBitchContainer";
 import PaymentButton from "./PaymentButton";
-import {pointService} from "../_services/pointService";
-import firebase from 'firebase';
 import {userActions} from "../_actions/userAction";
-import LoadingHandler from '../_components/LoadingHandler'
 import {pointActions} from "../_actions/pointAction";
+import SimpleTextField from "../_components/Elements/SimpleTextField";
+import MenuButton from "./MenuButton";
+import FooterNavigation from "../_components/Navigation";
 
 
 class HomePage extends React.Component {
@@ -21,10 +19,9 @@ class HomePage extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.loadAllUsers();
     }
 
-    loadAllUsers(){
+    componentWillMount(){
         this.props.dispatch(userActions.getAllUsers());
     }
 
@@ -50,10 +47,8 @@ class HomePage extends React.Component {
     render() {
               return (
             <div>
-                <Header title="Home" />
                 <RichBitchContainer/>
-                <LoadingHandler show={this.props.userList.fetching} />
-                <TextField
+                <SimpleTextField
                     name="points"
                     floatingLabelText="Points"
                     type="number"
@@ -61,7 +56,9 @@ class HomePage extends React.Component {
                 />
                 <button onClick={this.handleSubmit}>TestPoints</button>
 
-                <PaymentButton/>
+
+                <FooterNavigation left={<PaymentButton/>} right={<MenuButton/>} />
+
 
             </div>
         );

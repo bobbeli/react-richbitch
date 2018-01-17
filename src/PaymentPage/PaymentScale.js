@@ -51,18 +51,19 @@ class PaymentScale extends React.Component {
             37: 24157817,
         }
 
-        this.props.dispatch(paymentActions.updateAmount(fibbo[value] + '.00'));
+        this.props.dispatch(paymentActions.updateAmount(fibbo[value] + '.00', value));
     };
 
 
     render() {
+
         return (
             <div>
                 <Slider
                     min={1}
                     max={37}
                     step={1}
-                    value={this.props.payment.amount}
+                    value={this.props.payment.price}
                     onChange={this.handleSlider}
                 />
             </div>

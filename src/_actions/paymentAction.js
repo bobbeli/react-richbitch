@@ -66,12 +66,14 @@ function updateStepper(index){
 
 }
 
-function updateAmount(amount) {
+function updateAmount(amount, price) {
     return dispatch => {
-        dispatch(update(amount));
+        dispatch(update(amount, price));
     };
 
-    function update(amount) {
-        return {type: paymentConstants.AMOUNT_CHANGED, amount}
+    function update(amount, price) {
+        return {type: paymentConstants.AMOUNT_CHANGED, amount, price}
     }
 }
+
+

@@ -12,6 +12,13 @@ import PaymentMethod from "./Checkout/PaymentMethod";
 import {paymentActions} from "../_actions/paymentAction";
 import {paymentConstants} from "../_constants/paymentConstants";
 import {history} from "../_helpers/history"
+import Navigation from "../_components/Navigation";
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import IconButton from 'material-ui/IconButton';
+import './PaymentPage.css'
+import {List, ListItem} from 'material-ui/List';
+
+
 
 class PaymentStepper extends React.Component {
 
@@ -23,6 +30,7 @@ class PaymentStepper extends React.Component {
         };
 
         this.getStepContent = this.getStepContent.bind(this);
+        this.getPriceAndAmount = this.getPriceAndAmount.bind(this);
 
     }
 
@@ -46,18 +54,31 @@ class PaymentStepper extends React.Component {
         }
     };
 
+    getPriceAndAmount(){
+        return (<div>
+
+            <div className="amountContainer">
+                <div className="leftSide"><h3 className="subtitle">Price</h3></div>
+                <div className="rightSide"><h3>{this.props.payment.price} $</h3></div>
+                <div className="leftSide"><h3 className="subtitle">Prestige</h3></div>
+                <div className="rightSide"><h3>{this.props.payment.amount}</h3></div>
+            </div>
+        </div>);
+    }
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
                 return <div>
-                        <PaymentScale /> <br />
-                    $ {this.props.payment.amount}
-                    </div>;
+                            <PaymentScale /> <br />
+                            {this.getPriceAndAmount()}
+                        </div>;
             case 1:
-                return <div>
-                    <span>$ {this.props.payment.amount} get Rich Bitch</span>
-                    <PaymentMethod handlePrev={this.handlePrev} />
-                </div>;
+                return  <div>
+                            {this.getPriceAndAmount()}
+                            <h2>Payment</h2>
+                            <PaymentMethod handlePrev={this.handlePrev} />
+                        </div>;
             case 2:
                 return 'Phu, congrats you are Rich!';
             default:
@@ -87,18 +108,25 @@ class PaymentStepper extends React.Component {
                         {this.getStepContent(stepperIndex)}
                         {
                            ! this.props.payment.stepperIndex == 1 &&
-                               <div style={{marginTop: 12}}>
-                                   <FlatButton
-                                       label="Back"
-                                       onClick={this.handlePrev}
-                                       style={{marginRight: 12}}
-                                   />
-                                   <RaisedButton
-                                       label={stepperIndex === 2 ? 'Finish' : 'Next'}
-                                       primary={true}
-                                       onClick={this.handleNext}
-                                   />
-                               </div>
+                               <Navigation
+                                   left={
+                                       <IconButton
+                                           className="floatingButtonLeft"
+                                           fullWidth={false}
+                                           secondary={true}
+                                           onClick={this.handlePrev}>
+                                           <Back/>
+                                       </IconButton>
+                                    }
+                                    right={<RaisedButton
+                                        className='floatingButtonRight'
+                                        label={stepperIndex === 2 ? 'Finish' : 'Next'}
+                                        primary={true}
+                                        onClick={this.handleNext}
+                                        />
+                                    }
+                               />
+
                         }
 
                     </div>

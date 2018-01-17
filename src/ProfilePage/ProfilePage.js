@@ -1,65 +1,115 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Header from '../_components/Header/Header'
-import {List, Subheader, FlatButton, ListItem, Divider} from 'material-ui'
+import {List, Subheader, ListItem, Divider, FlatButton} from 'material-ui'
 import ActionFace from 'material-ui/svg-icons/action/face';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 import {userActions} from "../_actions/userAction";
 import ReAuthHandler from "../_components/ReAuthHandler";
+import Navigation from "../_components/Navigation";
+import Delete from 'material-ui/svg-icons/action/delete';
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import Exit from 'material-ui/svg-icons/action/exit-to-app';
+import IconButton from 'material-ui/IconButton';
+import {history} from '../_helpers/history';
+import './ProfilePage.css'
+
 
 
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {showModal: false};
         this.deleteUser = this.deleteUser.bind(this);
+        this.handleBack = this.handleBack.bind(this);
+        this.handleLogOut = this.handleLogOut.bind(this);
     }
 
     deleteUser(event){
-        event.preventDefault();
-        this.props.dispatch(userActions.deleteUser())
+        this.setState({showModal: true})
+    }
+
+    handleBack(){
+        history.push('/');
+    }
+
+    handleLogOut(){
+        this.props.dispatch(userActions.logout())
     }
 
     render() {
-        const {user, unregister} = this.props;
-
+        const {user, auth} = this.props;
+        const style = {
+            color: {
+                color: 'white',
+                background: 'white'
+            }
+        }
         return (
             <div>
-                <Header title="Profile"/>
                 <List>
                     <Subheader>General</Subheader>
 
                     <ListItem
                         disabled={true}
-                        leftIcon={<ActionFace />}
+                        leftIcon={<ActionFace color='white' />}
                         primaryText={user.username}
-                        secondaryText="Username"
                         insetChildren={false}
                     />
 
 
                 </List>
-                <Divider inset={true} />
                 <List>
                     <ListItem
-                        leftIcon={<CommunicationEmail />}
+                        disabled={true}
+                        leftIcon={<CommunicationEmail color='white' />}
                         primaryText={user.email}
-                        secondaryText="E-Mail"
                     />
                 </List>
 
-                <FlatButton label="Delete Account" fullWidth={true} secondary={true} onClick={this.deleteUser} />
-                {unregister.reAuth && <ReAuthHandler title="Re-Authenticate" text="Please provide Password for deleting User" button="delete" /> }
+                <div className="logoutButton">
+                    <FlatButton
+                        onClick={this.handleLogOut}
+                        fullWidth={true}
+                    >Logout</FlatButton>
+                </div>
+
+                <Navigation
+                    left={
+                        <IconButton
+                            className="floatingButtonLeft"
+                            fullWidth={false}
+                            secondary={true}
+                            onClick={this.handleBack}
+                            tooltipPosition="bottom-center"
+                            tooltip="Back to Home" >
+                            <Back/>
+                        </IconButton>
+                    }
+                    right={
+                        <IconButton
+                            className="floatingButtonRight"
+                            fullWidth={false}
+                            secondary={true}
+                            onClick={this.deleteUser}
+                            tooltipPosition="bottom-center"
+                            tooltip="Delete Account">
+                            <Delete/>
+                        </IconButton>
+                    }
+                />
+
+                {this.state.showModal || this.props.auth.reAuth ? <ReAuthHandler title="Re-Authenticate" text="Please provide Password for deleting User" button="delete" /> : null }
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const {user, unregister} = state;
+    const {user, auth} = state;
     return {
         user,
-        unregister
+        auth
     }
 }
 

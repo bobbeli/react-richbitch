@@ -1,5 +1,7 @@
-.floatingButton {
-	position:absolute;
-	right: 20px;
-	bottom: 20px;
+.floatingButtonRight {
+	float: right;
+}
+
+.floatingButtonLeft {
+	float: left;
 }

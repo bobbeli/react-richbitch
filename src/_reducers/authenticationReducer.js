@@ -1,7 +1,12 @@
 import { userConstants } from '../_constants/userConstants';
 
 let user = '';
-const initialState = user ? { loggedIn: true, user } : {};
+const initialState = {
+    fetching: false,
+    fetched: false,
+    loggingIn: false,
+    reAuth: false,
+};
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {

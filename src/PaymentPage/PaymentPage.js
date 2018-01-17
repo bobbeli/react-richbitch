@@ -14,11 +14,6 @@ class PaymentPage extends React.Component {
     render() {
               return (
             <div>
-                <Header title="Payment" />
-                {
-                    this.props.payment.fetching ?
-                    <LoadingHandler show={true} /> : null
-                }
                 <PaymentStepper />
             </div>
         );

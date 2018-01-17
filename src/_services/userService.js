@@ -53,15 +53,13 @@ function logout() {
  * @returns {Promise.<User>} User Object
  */
 function register(user) {
-    const {username, firstname, lastname, email, password} = user;
+    const {username, email, password} = user;
     return new Promise((resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((objuser) => {
                 let user = {
                     id: objuser.uid,
                     username: username,
-                    firstname: firstname,
-                    lastname: lastname,
                     email: email,
                     totalPoints: 0
                 }
@@ -83,8 +81,6 @@ function register(user) {
 function writeUserData(user) {
     firebase.database().ref('users/' + user.id).set({
         username: user.username,
-        firstname: user.firstname,
-        lastname: user.lastname,
         email: user.email,
         totalPoints: user.totalPoints
     });

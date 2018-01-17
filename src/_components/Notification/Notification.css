@@ -1,0 +1,20 @@
+.alert-danger div{
+	background-color: #85251B;
+	line-height: normal;
+	padding: 10px 0px;
+	height: auto !important;
+}
+.alert-danger {
+	background-color: #85251B;
+}
+
+
+.alert-success div{
+	background-color: #CC8F1B;
+	line-height: normal;
+	padding: 10px 0px;
+	height: auto !important;
+}
+.alert-success {
+	background-color: #CC8F1B;
+}

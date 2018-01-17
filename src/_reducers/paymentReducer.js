@@ -3,6 +3,7 @@ import {paymentConstants} from "../_constants/paymentConstants"
 export default function reducer(state = {
     id: null,
     amount: 1.00,
+    price: 1.00,
     fetching: false,
     fetched: false,
     error: null,
@@ -28,6 +29,8 @@ export default function reducer(state = {
                 fetched: true,
                 error: null,
                 amount: action.token.amount,
+                price: action.token.price,
+
                 stepperFinished: false,
                 stepperIndex:2,
             };
@@ -35,6 +38,7 @@ export default function reducer(state = {
             return {
                 ...state,
                 amount: state.amount,
+                price: state.price,
                 fetching: false,
                 fetched: true,
                 error: action.error,
@@ -45,6 +49,7 @@ export default function reducer(state = {
             return {
                 ...state,
                 amount: state.amount,
+                price: state.price,
                 fetching: false,
                 fetched: false,
                 stepperFinished: false,
@@ -54,6 +59,7 @@ export default function reducer(state = {
             return {
                 ...state,
                 amount: 1.00,
+                price: 1.00,
                 stepperFinished:true,
                 fetching: false,
                 fetched: false,
@@ -63,6 +69,7 @@ export default function reducer(state = {
             return {
                 ...state,
                 amount: action.amount,
+                price: action.price,
                 fetching: false,
                 fetched: false,
                 stepperIndex:0,

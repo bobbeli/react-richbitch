@@ -1,6 +1,8 @@
 .App {
   height: 100vH;
   background: radial-gradient(at left 50%,  #313D50 30%, #1B2028 90%);
+  overflow-x:hidden;
+  overflow-y:hidden;
 }
 
 .App-container{

@@ -19,6 +19,8 @@ class ReAuthHandler extends React.Component {
 
     handleClose(){
         console.log('modal close request');
+        this.setState({modalOpen: false});
+        //this.setState({modalOpen: !this.state.modalOpen});
     }
 
 
@@ -29,11 +31,13 @@ class ReAuthHandler extends React.Component {
         this.setState({
             password:  value
         });
+
+        this.reAuth = this.reAuth.bind(this);
     }
 
     reAuth(event){
         event.preventDefault()
-        this.props.dispatch(userActions.reAuth(this.state.password));
+        this.props.dispatch(userActions.reAuthUser(this.state.password));
     }
 
     render(){
@@ -56,6 +60,10 @@ class ReAuthHandler extends React.Component {
                   <FlatButton
                     onClick={this.reAuth}
                   >{this.props.button}</FlatButton>
+                  <FlatButton
+                      onClick={this.handleClose}
+                      secondary={true}
+                  >close</FlatButton>
 
               </Dialog>
           </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
 import {connect} from 'react-redux'
-import {alertActions} from "../_actions/alertActions";
+import {alertActions} from "../../_actions/alertActions";
+import './Notification.css'
 
 class NotificationHandler extends React.Component {
     constructor(props){
@@ -18,7 +19,7 @@ class NotificationHandler extends React.Component {
                 <Snackbar
                     open={true}
                     message={this.props.alert.message}
-                    autoHideDuration={5000}
+                    autoHideDuration={6000}
                     onRequestClose={this.handleRequestClose}
                     className={this.props.alert.type}
                 />

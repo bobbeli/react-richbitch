@@ -5,8 +5,9 @@ import './App.css';
 import {connect} from 'react-redux'
 import {history} from "../_helpers/history"
 import {alertActions} from "../_actions/alertActions";
-import NotificationHandler from '../_components/NotificationHandler'
+import NotificationHandler from '../_components/Notification/NotificationHandler'
 import asyncComponent from '../_helpers/asyncComponent'
+import LoadingHandler from '../_components/LoadingHandler'
 
 const AsyncHome = asyncComponent(() => import('../HomePage/HomePage'));
 const AsyncProfilePage = asyncComponent(() => import('../ProfilePage/ProfilePage'));
@@ -26,11 +27,18 @@ class App extends Component {
     }
 
     render() {
-        const { alert, user, auth } = this.props;
+        const { alert, user, auth, userList, payment, unregister } = this.props;
 
         //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
+                {
+                    user.fetching || userList.fetching || auth.fetching || unregister.fetching || payment.fetching ?
+                        <LoadingHandler show={true} />
+                        :
+                        null
+                }
+
                 <div className="App-container">
                 <Router history={history}>
                 {auth.loggedIn ?
@@ -57,11 +65,14 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    const { alert, user, auth } = state;
+    const { alert, user, auth, userList, payment, unregister } = state;
     return {
         alert,
         user,
-        auth
+        auth,
+        userList,
+        payment,
+        unregister
     }
 }
 

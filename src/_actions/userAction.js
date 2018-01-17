@@ -227,10 +227,9 @@ function reAuthUser(userProvidedPassword){
     return dispatch => {
         dispatch(request());
         userService.reAuth(userProvidedPassword).then((res) => {
-            if(res){
-                dispatch(success())
-            }
-
+                if(res){
+                    dispatch(success())
+                }
             }, error => {
                 dispatch(failure(error));
                 dispatch(alertActions.error(error.message))

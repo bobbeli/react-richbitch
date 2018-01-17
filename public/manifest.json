@@ -1,15 +1,27 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
+  "short_name": "Prestige",
+  "name": "Prestige App",
+  "icons": [{
+    "src": "images/icon-128x128.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  }, {
+    "src": "images/apple-touch-icon.png",
+    "type": "image/png",
+    "sizes": "152x152"
+  },{
+    "src": "images/ms-touch-icon-144x144-precomposed.png",
+    "type": "image/png",
+    "sizes": "144x144"
+  }, {
+    "src": "images/chrome-touch-icon-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#313D50",
+  "background_color": "#1B2028",
+  "orientation": "portrait"
+
 }

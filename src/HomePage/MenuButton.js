@@ -1,20 +1,17 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import Burger from 'material-ui/svg-icons/action/subject';
 import './BuyPoints.css'
 import {history} from '../_helpers/history'
 
-class PaymentButton extends React.Component{
+class MenuButton extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            modalOpen: false,
-        };
         this.clickHandler = this.clickHandler.bind(this);
     }
 
     clickHandler(){
-        history.push('/payment')
+        history.push('/user');
     }
 
     render(){
@@ -22,15 +19,16 @@ class PaymentButton extends React.Component{
             <div>
 
                 <IconButton
-                    className='floatingButtonRight'
+                    className='floatingButtonLeft'
                     onClick={this.clickHandler}
-                    >
-                    <ContentAdd />
+                    touch={true}>
+                    <Burger />
                 </IconButton>
+
             </div>
 
         );
     }
 }
 
-export default PaymentButton;
+export default MenuButton;

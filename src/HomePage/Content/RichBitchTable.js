@@ -59,7 +59,7 @@ class RichBitchTable extends Component {
         let users = this.props.userList.users;
         const rows = users.map((val)=> {
             return (
-                <TableRow>
+                <TableRow key={val.email}>
                     <TableRowColumn>{val.firstname}</TableRowColumn>
                     <TableRowColumn>{val.email}</TableRowColumn>
                     <TableRowColumn>{val.totalPoints}</TableRowColumn>

@@ -4,6 +4,10 @@ import {TextField, FlatButton} from 'material-ui'
 import {connect} from 'react-redux';
 import SimpleTextField from "../_components/Elements/SimpleTextField";
 import './RegisterPage.css'
+import Navigation from "../_components/Navigation";
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import IconButton from 'material-ui/IconButton';
+import {history} from "../_helpers/history"
 
 class RegisterPage extends React.Component {
 
@@ -23,6 +27,7 @@ class RegisterPage extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
     handleChange(event) {
@@ -42,9 +47,13 @@ class RegisterPage extends React.Component {
 
         this.setState({ submitted: true });
         const { user } = this.state;
-        if (user.username && user.username && user.password) {
+        if (user.username && user.password) {
             this.props.dispatch(userActions.register(user));
         }
+    }
+
+    handleBack(){
+        history.push('/login');
     }
 
 
@@ -92,6 +101,20 @@ class RegisterPage extends React.Component {
                     </div>
 
                 </form>
+
+                <Navigation
+                    left={
+                        <IconButton
+                            className="floatingButtonLeft"
+                            fullWidth={false}
+                            secondary={true}
+                            onClick={this.handleBack}
+                            tooltipPosition="bottom-center"
+                            tooltip="Back to Login" >
+                            <Back/>
+                        </IconButton>
+                    }
+                />
 
             </div>
         );
