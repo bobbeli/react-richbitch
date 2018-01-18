@@ -10,6 +10,8 @@ export const userActions = {
     logout,
     update,
     registerGoogle,
+    registerFacebook,
+    registerTwitter,
     deleteUser,
     reAuthUser,
     getAllUsers,
@@ -68,6 +70,7 @@ function logout() {
     function logout() {
         return {type: userConstants.LOGOUT}
     }
+
     function logoutUser() {
         return {type: userConstants.LOGOUT_USER}
     }
@@ -83,7 +86,7 @@ function logout() {
  */
 function register(user) {
     return dispatch => {
-        dispatch(request({user}));
+        dispatch(request());
 
         userService.register(user)
             .then(
@@ -119,29 +122,56 @@ function register(user) {
  * @returns {function(*)}
  */
 function registerGoogle() {
-    //ToDo Check Functionality of this Function
     return dispatch => {
-        var provider = new firebase.auth.GoogleAuthProvider();
+        dispatch({type: userConstants.LOGIN_REQUEST});
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
+        let provider = new firebase.auth.GoogleAuthProvider();
 
-            // ToDo Handle Google Register
-        }).catch(function(error) {
-            dispatch(alertActions.error(error.message))
-            dispatch(failure(error.message));
-
-        });
-
-        function failure(error) {
-            return {type: userConstants.REGISTER_FAILURE, error}
-        }
+        firebase.auth().signInWithRedirect(provider);
     }
 
 }
+
+/**
+ * Register Facebook Account
+ *
+ * Register new User and update local Store user Object
+ * Redirect to HomePage (/)
+ * @returns {function(*)}
+ */
+function registerFacebook() {
+    return dispatch => {
+        dispatch({type: userConstants.LOGIN_REQUEST});
+
+        let provider = new firebase.auth.FacebookAuthProvider();
+
+        firebase.auth().signInWithRedirect(provider);
+
+
+    }
+
+}
+
+
+/**
+ * Register Twitter Account
+ *
+ * Register new User and update local Store user Object
+ * Redirect to HomePage (/)
+ * @returns {function(*)}
+ */
+function registerTwitter() {
+    return dispatch => {
+        dispatch({type: userConstants.LOGIN_REQUEST});
+
+        let provider = new firebase.auth.TwitterAuthProvider();
+
+        firebase.auth().signInWithRedirect(provider);
+    }
+
+}
+
+
 
 /**
  * Update User
@@ -183,7 +213,7 @@ function deleteUser() {
     return dispatch => {
 
         userService.deleteUser().then((res) => {
-            if(res){
+            if (res) {
                 dispatch(request());
                 dispatch(logout());
                 dispatch(success());
@@ -223,25 +253,27 @@ function deleteUser() {
  * @param userProvidedPassword
  * @returns {function(*)}
  */
-function reAuthUser(userProvidedPassword){
+function reAuthUser(userProvidedPassword) {
     return dispatch => {
         dispatch(request());
         userService.reAuth(userProvidedPassword).then((res) => {
-                if(res){
-                    dispatch(success())
-                }
-            }, error => {
-                dispatch(failure(error));
-                dispatch(alertActions.error(error.message))
-            });
+            if (res) {
+                dispatch(success())
+            }
+        }, error => {
+            dispatch(failure(error));
+            dispatch(alertActions.error(error.message))
+        });
     }
 
     function failure(error) {
         return {type: userConstants.RE_AUTH_FAILURE, error}
     }
+
     function success() {
         return {type: userConstants.RE_AUTH_SUCCESS}
     }
+
     function request() {
         return {type: userConstants.RE_AUTH_REQUEST}
     }
@@ -253,11 +285,11 @@ function reAuthUser(userProvidedPassword){
  * Load user List from FireBase RealTime DB.
  * @returns Array of Users
  */
-function getAllUsers(){
+function getAllUsers() {
     return dispatch => {
         dispatch(request());
         userService.getAllUsers().then((res) => {
-            if(res){
+            if (res) {
                 dispatch(success(res))
             }
         }, error => {
@@ -269,9 +301,11 @@ function getAllUsers(){
     function failure(error) {
         return {type: userConstants.GETALL_FAILURE, error}
     }
+
     function success(users) {
         return {type: userConstants.GETALL_SUCCESS, users}
     }
+
     function request() {
         return {type: userConstants.GETALL_REQUEST}
     }

@@ -3,7 +3,8 @@ import {userActions} from '../_actions/userAction'
 import {history} from './history';
 import store from './store'
 import {userConstants} from '../_constants/userConstants'
-import Navigation from "../_components/Navigation";
+import {userService} from '../_services/userService';
+import {alertActions} from "../_actions/alertActions"
 
 const firebaseConfig = {
     apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
@@ -17,27 +18,53 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+/**
+ * Result of Social Media Register / Login Request
+ */
+firebase.auth().getRedirectResult().then((result) => {
+
+    console.log('Called Get Redirect result ', result)
+
+    if (result.user || firebase.auth().currentUser) {
+        store.dispatch({type: 'LOADER_STOP'});
+
+        userService.registerWithSocialLogin(result.user)
+            .then(user => {
+                    //store.dispatch({type: userConstants.LOGIN_SUCCESS});
+                    history.push('/')
+                },
+                error => {
+                    store.dispatch({type: userConstants.LOGIN_FAILURE});
+                    store.dispatch(alertActions.error(error.message))
+                });
+
+    } else {
+        store.dispatch({type: 'LOADER_STOP'});
+        history.push('/')
+    }
+
+
+    }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+
+        store.dispatch({type: 'LOADER_STOP'});
+        store.dispatch({type: userConstants.LOGIN_FAILURE});
+        store.dispatch(alertActions.error(error.message))
+
+    });
+
 firebase.auth().onAuthStateChanged((user) => {
+    console.log('Called on auth State changed');
+
     if (user) {
-        console.log('called on auth State changed');
         store.dispatch(userActions.update());
         store.dispatch({type: userConstants.LOGIN_SUCCESS});
-        /*
-        let userId = firebase.auth().currentUser.uid;
-        return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-
-            let user = {
-                username: (snapshot.val() && snapshot.val().username) || 'Anonymous',
-                lastname: (snapshot.val() && snapshot.val().lastname) || 'Anonymous',
-                firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
-                email: (snapshot.val() && snapshot.val().email) || 'Anonymous'
-            }
-            store.dispatch({type: userConstants.USER_UPDATE, user});
-
-           history.push('/')
-
-        });*/
-
 
     } else {
         // No user is signed in.
@@ -45,6 +72,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch({type: userConstants.LOGOUT});
         history.push('/login')
     }
+
 });
 
 

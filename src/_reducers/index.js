@@ -6,6 +6,7 @@ import registration from './registrationReducer'
 import user from './userReducer'
 import unregister from './unregisterReducer'
 import payment from './paymentReducer'
+import loader from './loaderReducer'
 
 export default combineReducers({
     user,
@@ -14,5 +15,6 @@ export default combineReducers({
     auth,
     registration,
     unregister,
-    payment
+    payment,
+    loader
 });

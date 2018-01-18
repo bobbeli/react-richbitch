@@ -7,7 +7,8 @@ export const userService = {
     update,
     deleteUser,
     reAuth,
-    getAllUsers
+    getAllUsers,
+    registerWithSocialLogin
 };
 
 /**
@@ -35,7 +36,7 @@ function login(email, password) {
  * @returns {Promise} boolean
  */
 function logout() {
-    return new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
         firebase.auth().signOut().then(function () {
             console.log('Successfully LogedOut')
             resolve(true)
@@ -63,13 +64,47 @@ function register(user) {
                     email: email,
                     totalPoints: 0
                 }
-                writeUserData(user)
+
+                writeUserData(user);
                 resolve(user);
+
             })
             .catch((error) => {
                 reject(Error(error));
             });
     });
+}
+
+function registerWithSocialLogin(user) {
+    return new Promise((resolve, reject) => {
+
+        firebase.database().ref('users/')
+            .child(user.uid)
+            .once('value', function(snapshot){
+                let exists = (snapshot.val() !== null);
+
+                if(exists){
+                    console.log('user already exist')
+                    resolve(true)
+                } else {
+                    console.log('create new User')
+
+                    let {displayName, email, uid} = user;
+
+                    let newUser = {
+                        id: uid,
+                        username: displayName,
+                        email: email,
+                        totalPoints: 0
+                    };
+
+                    writeUserData(newUser);
+                    resolve(newUser);
+                }
+            })
+    });
+
+
 }
 
 /**
@@ -124,9 +159,9 @@ function deleteUser() {
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
 
-        user.delete().then(function() {
+        user.delete().then(function () {
             resolve(true)
-        }).catch(function(error) {
+        }).catch(function (error) {
             reject(error)
         });
     });
@@ -138,7 +173,7 @@ function deleteUser() {
  * @param userProvidedPassword
  * @returns {Promise} boolean
  */
-function reAuth(userProvidedPassword){
+function reAuth(userProvidedPassword) {
     return new Promise((resolve, reject) => {
         var user = firebase.auth().currentUser;
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -146,9 +181,9 @@ function reAuth(userProvidedPassword){
             userProvidedPassword
         );
 
-        user.reauthenticateWithCredential(credential).then(function() {
+        user.reauthenticateWithCredential(credential).then(function () {
             resolve(true)
-        }).catch(function(error) {
+        }).catch(function (error) {
             reject(error)
         });
     })
@@ -160,7 +195,7 @@ function reAuth(userProvidedPassword){
  * ReQuest to FireBase Database
  * @returns {Promise} with all a List of all Users
  */
-function getAllUsers(){
+function getAllUsers() {
     return new Promise((resolve, reject) => {
         return firebase.database().ref('/users/').once('value')
             .then((snapshot) => {

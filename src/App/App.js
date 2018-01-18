@@ -21,19 +21,18 @@ class App extends Component {
         super(props);
         const {dispatch} = this.props;
 
-        history.listen((location, action) => {
-            dispatch(alertActions.clear());
-        })
+        this.props.dispatch({type: 'LOADER_START'});
+
     }
 
     render() {
-        const { alert, user, auth, userList, payment, unregister } = this.props;
+        const { alert, user, auth, userList, payment, unregister, loader } = this.props;
 
         //ToDo add Routes to Home and Register Page
         return (
             <div className="App">
                 {
-                    user.fetching || userList.fetching || auth.fetching || unregister.fetching || payment.fetching ?
+                    user.fetching || userList.fetching || auth.fetching || unregister.fetching || payment.fetching || loader.loading ?
                         <LoadingHandler show={true} />
                         :
                         null
@@ -43,7 +42,7 @@ class App extends Component {
                 <Router history={history}>
                 {auth.loggedIn ?
                     <div>
-                        <Route exact path="/" component={AsyncHome} />
+                        <Route path="/" exact component={AsyncHome} />
                         <Route path="/user" exact component={AsyncProfilePage} />
                         <Route path="/payment" exact component={AsyncPaymentPage} />
                     </div>
@@ -65,14 +64,15 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    const { alert, user, auth, userList, payment, unregister } = state;
+    const { alert, user, auth, userList, payment, unregister, loader} = state;
     return {
         alert,
         user,
         auth,
         userList,
         payment,
-        unregister
+        unregister,
+        loader
     }
 }
 

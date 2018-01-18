@@ -57,19 +57,28 @@ function updateTotalPoints(user){
         totalPointsSumUp.on('value', (snapshot) => {
             let points = snapshot.val();
             let totalPoints = 0;
-            Object.entries(points).map((point) => {
-                totalPoints = totalPoints + Number.parseInt(point[1].amount);
-            });
 
-            let updates = {};
-            updates['/users/' + user.uid + '/totalPoints'] = totalPoints;
+            if(typeof points !== 'undefinded' || points !== null){
+                Object.entries(points).map((point) => {
+                    totalPoints = totalPoints + Number.parseInt(point[1].amount);
+                });
 
-            try{
-                firebase.database().ref().update(updates);
-                resolve(totalPoints)
-            }catch (err){
-                reject(err);
+                let updates = {};
+                updates['/users/' + user.uid + '/totalPoints'] = totalPoints;
+
+                try{
+                    firebase.database().ref().update(updates);
+                    resolve(totalPoints)
+                }catch (err){
+                    reject(err);
+                }
+
+            } else {
+                reject('No Points')
             }
+
+
+
         });
 
     })

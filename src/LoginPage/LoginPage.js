@@ -3,12 +3,14 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton'
 import {userActions} from '../_actions/userAction';
-import LoadingCircle from '../_components/LoadingHandler'
-import ActionAndroid from 'material-ui/svg-icons/action/android';
 import './LoginPage.css';
 import {Styles} from '../_assets/Styles'
 import SimpleTextField from "../_components/Elements/SimpleTextField";
 import Logo from '../_components/Elements/Logo'
+import FacebookIcon from '../_components/Elements/FacebookIcon'
+import GoogleIcon from '../_components/Elements/GoogleIcon'
+import TwitterIcon from '../_components/Elements/TwitterIcon'
+import IconButton from 'material-ui/IconButton';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -22,11 +24,11 @@ class LoginPage extends React.Component {
             inputActive: false,
         }
 
-        console.log('height', window.innerHeight)
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGoogle = this.handleGoogle.bind(this);
+        this.handleFacebook = this.handleFacebook.bind(this);
+        this.handleTwitter = this.handleTwitter.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
 
     }
@@ -68,7 +70,16 @@ class LoginPage extends React.Component {
     handleGoogle(event){
         event.preventDefault()
         this.props.dispatch(userActions.registerGoogle());
+    }
 
+    handleFacebook(event){
+        event.preventDefault()
+        this.props.dispatch(userActions.registerFacebook());
+    }
+
+    handleTwitter(event){
+        event.preventDefault()
+        this.props.dispatch(userActions.registerTwitter());
     }
 
     render() {
@@ -117,16 +128,23 @@ class LoginPage extends React.Component {
 
                     { this.state.height > 480 ?
                         <div>
-                        <div className="socialLogin">
-                            <p>or sign in with:</p>
-                            <FlatButton
-                                labelPosition="before"
-                                primary={true}
-                                icon={<ActionAndroid />}
-                                onClick={this.handleGoogle}
-                                style={style.icons}
-                            />
-                        </div>
+                            <div className="socialLogin">
+                                <p>or sign in with:</p>
+                                <IconButton
+                                    onClick={this.handleGoogle}>
+                                    <GoogleIcon/>
+                                </IconButton>
+
+                                <IconButton
+                                    onClick={this.handleFacebook}>
+                                   <FacebookIcon/>
+                                </IconButton>
+
+                                <IconButton
+                                    onClick={this.handleTwitter}>
+                                    <TwitterIcon/>
+                                </IconButton>
+                            </div>
                         <div className="registerButton">
                             <FlatButton
                                 secondary={true}
