@@ -8,6 +8,8 @@ import Navigation from "../_components/Navigation";
 import Back from 'material-ui/svg-icons/navigation/chevron-left';
 import IconButton from 'material-ui/IconButton';
 import {history} from "../_helpers/history"
+import AnimatedWrapper from '../_helpers/AnimatedWrapper'
+
 
 class RegisterPage extends React.Component {
 
@@ -106,8 +108,6 @@ class RegisterPage extends React.Component {
                     left={
                         <IconButton
                             className="floatingButtonLeft"
-                            fullWidth={false}
-                            secondary={true}
                             onClick={this.handleBack}
                             tooltipPosition="bottom-center"
                             tooltip="Back to Login" >
@@ -127,5 +127,4 @@ function mapStateToProps(state) {
         registration
     }
 }
-
-export default connect(mapStateToProps)(RegisterPage);
+export default AnimatedWrapper(connect(mapStateToProps)(RegisterPage));

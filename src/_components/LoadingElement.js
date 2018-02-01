@@ -1,22 +1,12 @@
 import React from 'react';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import ReactTransitionGroup from 'react-addons-transition-group'
-import TweenMax from 'gsap'
+import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 class LoadingElement extends React.Component {
 
     constructor(props){
         super(props);
     }
 
-    componentWillEnter (callback) {
-        const el = this.container;
-        TweenMax.fromTo(el, 0.3, {opacity: 0}, {opacity: 1, onComplete: callback});
-    }
-
-    componentWillLeave (callback) {
-        const el = this.container;
-        TweenMax.fromTo(el, 0.3, {opacity: 1}, {opacity: 0, onComplete: callback});
-    }
 
     render(){
         const style = {
@@ -40,7 +30,7 @@ class LoadingElement extends React.Component {
         };
 
         return (
-            <div style={style.container} ref={c => this.container = c}>
+            <div className="Loader" style={style.container} ref={c => this.container = c}>
                 <div style={style.center}>
                     <RefreshIndicator
                         size={40}

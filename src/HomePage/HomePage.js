@@ -7,7 +7,10 @@ import {pointActions} from "../_actions/pointAction";
 import SimpleTextField from "../_components/Elements/SimpleTextField";
 import MenuButton from "./MenuButton";
 import FooterNavigation from "../_components/Navigation";
-
+import AnimatedWrapper from '../_helpers/AnimatedWrapper'
+import IconButton from 'material-ui/IconButton';
+import PrestigeCard from '../_components/Elements/PrestigeCard'
+import creditCard from '../_assets/img/prestigeCard.png'
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -40,13 +43,18 @@ class HomePage extends React.Component {
 
     handleSubmit(){
         this.props.dispatch(pointActions.addPoint(this.state.points));
-
-
     }
 
     render() {
-              return (
-            <div>
+
+        const style = {
+
+                width: '100%'
+
+        }
+
+        return (
+            <div ref={a => this.container = a}>
                 <RichBitchContainer/>
                 <SimpleTextField
                     name="points"
@@ -54,11 +62,14 @@ class HomePage extends React.Component {
                     type="number"
                     onChange={this.handleChange}
                 />
+
                 <button onClick={this.handleSubmit}>TestPoints</button>
 
 
-                <FooterNavigation left={<PaymentButton/>} right={<MenuButton/>} />
+                <img src={creditCard} style={style} />
 
+
+                <FooterNavigation left={<PaymentButton/>} right={<MenuButton/>} />
 
             </div>
         );
@@ -72,4 +83,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default AnimatedWrapper(connect(mapStateToProps)(HomePage));

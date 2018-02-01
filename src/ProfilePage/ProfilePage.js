@@ -8,10 +8,10 @@ import ReAuthHandler from "../_components/ReAuthHandler";
 import Navigation from "../_components/Navigation";
 import Delete from 'material-ui/svg-icons/action/delete';
 import Back from 'material-ui/svg-icons/navigation/chevron-left';
-import Exit from 'material-ui/svg-icons/action/exit-to-app';
 import IconButton from 'material-ui/IconButton';
 import {history} from '../_helpers/history';
 import './ProfilePage.css'
+import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 
 
 
@@ -89,8 +89,6 @@ class ProfilePage extends React.Component {
                     right={
                         <IconButton
                             className="floatingButtonRight"
-                            fullWidth={false}
-                            secondary={true}
                             onClick={this.deleteUser}
                             tooltipPosition="bottom-center"
                             tooltip="Delete Account">
@@ -113,4 +111,5 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(ProfilePage);
+
+export default AnimatedWrapper(connect(mapStateToProps)(ProfilePage));

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PageShell from '../_components/PageShell'
 
 export default function asyncComponent(importComponent) {
     class AsyncComponent extends Component {

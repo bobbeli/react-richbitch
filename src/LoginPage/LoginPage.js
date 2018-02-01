@@ -11,6 +11,7 @@ import FacebookIcon from '../_components/Elements/FacebookIcon'
 import GoogleIcon from '../_components/Elements/GoogleIcon'
 import TwitterIcon from '../_components/Elements/TwitterIcon'
 import IconButton from 'material-ui/IconButton';
+import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -173,4 +174,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(LoginPage);
+export default AnimatedWrapper(connect(mapStateToProps)(LoginPage));

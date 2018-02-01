@@ -23,13 +23,14 @@ firebase.initializeApp(firebaseConfig);
  */
 firebase.auth().getRedirectResult().then((result) => {
 
-    console.log('Called Get Redirect result ', result)
-
-    if (result.user || firebase.auth().currentUser) {
+    if (result.user !== null ) {
         store.dispatch({type: 'LOADER_STOP'});
+
+        console.log('user ', result.user);
 
         userService.registerWithSocialLogin(result.user)
             .then(user => {
+                    console.log('social media successfull redirect to Home')
                     //store.dispatch({type: userConstants.LOGIN_SUCCESS});
                     history.push('/')
                 },
@@ -40,7 +41,14 @@ firebase.auth().getRedirectResult().then((result) => {
 
     } else {
         store.dispatch({type: 'LOADER_STOP'});
-        history.push('/')
+        let storeObj = store.getState();
+        if(storeObj.auth.loggingIn){
+            history.push('/')
+        }else{
+            history.push('/login')
+
+        }
+
     }
 
 
@@ -59,9 +67,8 @@ firebase.auth().getRedirectResult().then((result) => {
 
     });
 
-firebase.auth().onAuthStateChanged((user) => {
-    console.log('Called on auth State changed');
 
+firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         store.dispatch(userActions.update());
         store.dispatch({type: userConstants.LOGIN_SUCCESS});
@@ -74,6 +81,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 
 });
+
 
 
 export const updateLoaderMiddleware = store => next => action => {
