@@ -5,6 +5,7 @@ import store from './store'
 import {userConstants} from '../_constants/userConstants'
 import {userService} from '../_services/userService';
 import {alertActions} from "../_actions/alertActions"
+import {prestigeActions} from "../_actions/prestigeAction"
 
 const firebaseConfig = {
     apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
@@ -79,9 +80,18 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch({type: userConstants.LOGOUT});
         history.push('/login')
     }
-
 });
 
+/**
+ * Listen to User changes on Firebase DB
+ * @type {firebase.database.Reference}
+ */
+var ref = firebase.database().ref("users");
+firebase.database().ref().on('value', (snapshot) => {
+    console.log('User Data changed ', snapshot)
+    store.dispatch(userActions.getAllUsers());
+
+});
 
 
 export const updateLoaderMiddleware = store => next => action => {

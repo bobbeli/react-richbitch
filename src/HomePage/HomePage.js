@@ -1,16 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import RichBitchContainer from "./Content/RichBitchContainer";
 import PaymentButton from "./PaymentButton";
 import {userActions} from "../_actions/userAction";
 import {pointActions} from "../_actions/pointAction";
-import SimpleTextField from "../_components/Elements/SimpleTextField";
 import MenuButton from "./MenuButton";
 import FooterNavigation from "../_components/Navigation";
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
-import IconButton from 'material-ui/IconButton';
-import PrestigeCard from '../_components/Elements/PrestigeCard'
-import creditCard from '../_assets/img/prestigeCard.png'
+import Logo from '../_components/Elements/Logo'
+import PrestigeCard from "../_components/Elements/PrestigeCard";
+import {FlatButton} from 'material-ui'
+import SocialButton from "./SocialButton";
+
+
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -55,21 +56,10 @@ class HomePage extends React.Component {
 
         return (
             <div ref={a => this.container = a}>
-                <RichBitchContainer/>
-                <SimpleTextField
-                    name="points"
-                    floatingLabelText="Points"
-                    type="number"
-                    onChange={this.handleChange}
-                />
+                <Logo/>
+                <PrestigeCard/>
 
-                <button onClick={this.handleSubmit}>TestPoints</button>
-
-
-                <img src={creditCard} style={style} />
-
-
-                <FooterNavigation left={<PaymentButton/>} right={<MenuButton/>} />
+                <FooterNavigation right={<SocialButton/>} top={<PaymentButton/>} left={<MenuButton/>} />
 
             </div>
         );

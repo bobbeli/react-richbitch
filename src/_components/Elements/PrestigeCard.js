@@ -1,18 +1,46 @@
 import React from 'react';
-import SvgIcon from 'material-ui/SvgIcon';
-import {white} from 'material-ui/styles/colors';
+import {connect} from 'react-redux';
+import logo from '../../_assets/img/prestigeCard.png'
 
 
-const PGCard = (props) => (
-    <SvgIcon {...props}>
+class PrestigeCard extends React.Component {
+    componentWillUpdate(nextProps, nextState){
+        let totalPoints = nextProps.prestige.totalPointsRight.toString();
 
-    </SvgIcon>
-);
+        if(totalPoints.length >= 6){
+            nextProps.prestige.totalPointsRight = totalPoints.substring(totalPoints.length - 6, totalPoints.length);
+            nextProps.prestige.totalPointsLeft = totalPoints.substring(0, totalPoints.length - 6);
+        }else{
+            nextProps.prestige.totalPointsLeft = '';
 
-const PrestigeCard = () => (
-    <div>
-        <PGCard color={white} viewBox='0 0 450 300' />
-    </div>
-);
+        }
 
-export default PrestigeCard;
+
+    }
+    render() {
+        return (
+            <div className="App-card-container">
+                <img src={logo} className="App-card" alt="Presetige Card" />
+                <div className="App-card-user">
+                    <span className="App-card-username">
+                        {this.props.prestige.username}
+                    </span>
+                    <span className="App-card-totalpoints-right">
+                        {this.props.prestige.totalPointsRight}
+                    </span>
+                    <span className="App-card-totalpoints-left">
+                        {this.props.prestige.totalPointsLeft}
+                    </span>
+                </div>
+            </div>
+        );
+    }
+}
+
+function mapStateToProps(state) {
+    const {prestige} = state;
+    return {
+        prestige
+    }
+}
+export default connect(mapStateToProps)(PrestigeCard);

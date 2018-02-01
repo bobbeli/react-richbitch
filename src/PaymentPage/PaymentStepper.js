@@ -112,8 +112,6 @@ class PaymentStepper extends React.Component {
                                    left={
                                        <IconButton
                                            className="floatingButtonLeft"
-                                           fullWidth={false}
-                                           secondary={true}
                                            onClick={this.handlePrev}>
                                            <Back/>
                                        </IconButton>

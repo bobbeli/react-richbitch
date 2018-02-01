@@ -1,5 +1,5 @@
 import React from 'react'
-import IconButton from 'material-ui/IconButton';
+import {FlatButton, IconButton} from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import './BuyPoints.css'
 import {history} from '../_helpers/history'
@@ -21,12 +21,11 @@ class PaymentButton extends React.Component{
         return (
             <div>
 
-                <IconButton
-                    className='floatingButtonRight'
+                <FlatButton
+                    fullWidth={true}
                     onClick={this.clickHandler}
-                    >
-                    <ContentAdd />
-                </IconButton>
+                    className="prestigeButton"
+                >Get Prestige</FlatButton>
             </div>
 
         );

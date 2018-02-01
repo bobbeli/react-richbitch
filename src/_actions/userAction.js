@@ -3,6 +3,7 @@ import {userService} from '../_services/userService';
 import {alertActions} from './alertActions';
 import {history} from '../_helpers/history';
 import firebase from 'firebase'
+import {prestigeActions} from "./prestigeAction"
 
 export const userActions = {
     login,
@@ -290,7 +291,9 @@ function getAllUsers() {
         dispatch(request());
         userService.getAllUsers().then((res) => {
             if (res) {
+
                 dispatch(success(res))
+                dispatch(prestigeActions.calcPrestige());
             }
         }, error => {
             dispatch(failure(error));

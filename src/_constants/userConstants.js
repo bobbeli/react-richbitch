@@ -9,6 +9,8 @@ export const userConstants = {
 
     USER_UPDATE: 'UPDATE_LOCAL_USER',
 
+    PRESTIGE_UPDATE: 'UPDATE_PRESIGE_USER',
+
     LOGOUT: 'USERS_LOGOUT',
     LOGOUT_USER: 'USERS_DELETE_LOCAL',
 

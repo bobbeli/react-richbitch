@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import {history} from '../_helpers/history';
 import './ProfilePage.css'
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
+import LogoutButton from "./LogoutButton";
 
 
 
@@ -67,19 +68,10 @@ class ProfilePage extends React.Component {
                     />
                 </List>
 
-                <div className="logoutButton">
-                    <FlatButton
-                        onClick={this.handleLogOut}
-                        fullWidth={true}
-                    >Logout</FlatButton>
-                </div>
-
                 <Navigation
                     left={
                         <IconButton
                             className="floatingButtonLeft"
-                            fullWidth={false}
-                            secondary={true}
                             onClick={this.handleBack}
                             tooltipPosition="bottom-center"
                             tooltip="Back to Home" >
@@ -95,6 +87,8 @@ class ProfilePage extends React.Component {
                             <Delete/>
                         </IconButton>
                     }
+
+                    top={<LogoutButton handleLogOut={this.handleLogOut} />}
                 />
 
                 {this.state.showModal || this.props.auth.reAuth ? <ReAuthHandler title="Re-Authenticate" text="Please provide Password for deleting User" button="delete" /> : null }

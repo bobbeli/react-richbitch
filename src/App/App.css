@@ -21,8 +21,57 @@
 
 .App-logo {
   width: 100%
+}
+
+.App-card-container {
+  position: absolute;
+  top: 32vH;
+}
+
+.App-card {
+  width: 100%
+}
+
+.App-card-user {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+.App-card-username{
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: white;
+}
+.App-card-totalpoints-right{
+  font-weight: lighter;
+  letter-spacing: 5px;
+  font-size: 1.2em;
+  top: 45%;
+  position: absolute;
+  right: 20px;
+  color:white;
 
 }
+
+.App-card-totalpoints-left{
+  font-weight: lighter;
+  letter-spacing: 5px;
+  font-size: 1.2em;
+  top: 45%;
+  width: 105px;
+  position: absolute;
+  left: 20px;
+  text-align: right;
+  color:white;
+
+}
+
+
+
+
+
 .App-header {
   background-color: #222;
   height: 150px;

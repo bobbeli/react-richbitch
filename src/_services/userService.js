@@ -197,7 +197,7 @@ function reAuth(userProvidedPassword) {
  */
 function getAllUsers() {
     return new Promise((resolve, reject) => {
-        return firebase.database().ref('/users/').once('value')
+        return firebase.database().ref('/users/').orderByChild('users/totalPoints').once('value')
             .then((snapshot) => {
                 let userList = snapshot.val() || 'No Users';
                 resolve(userList)
