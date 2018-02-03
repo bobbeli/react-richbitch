@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {List, Subheader, ListItem, Divider, FlatButton} from 'material-ui'
 import ActionFace from 'material-ui/svg-icons/action/face';
+import CreditCard from 'material-ui/svg-icons/action/credit-card';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 import {userActions} from "../_actions/userAction";
 import ReAuthHandler from "../_components/ReAuthHandler";
@@ -13,6 +14,7 @@ import {history} from '../_helpers/history';
 import './ProfilePage.css'
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 import LogoutButton from "./LogoutButton";
+import LogoIcon from '../_components/Elements/LogoIcon'
 
 
 
@@ -67,6 +69,28 @@ class ProfilePage extends React.Component {
                         primaryText={user.email}
                     />
                 </List>
+
+                <List>
+                    <Subheader>Spendings</Subheader>
+
+                    <ListItem
+                        disabled={true}
+                        primaryText={this.props.user.totalPoints +' Prestige'}
+                        secondaryText="Your Prestige Value "
+
+                    />
+                    <ListItem
+                        disabled={true}
+                        primaryText={'ToDo $'}
+                        secondaryText="Total Amount you've spent so far. "
+                    />
+
+
+
+
+                </List>
+
+
 
                 <Navigation
                     left={

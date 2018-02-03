@@ -44,6 +44,7 @@ class PaymentStepper extends React.Component {
         }
     };
 
+
     handlePrev = () => {
         let {stepperIndex} = this.props.payment;
         if(stepperIndex === 0){
@@ -76,11 +77,28 @@ class PaymentStepper extends React.Component {
             case 1:
                 return  <div>
                             {this.getPriceAndAmount()}
-                            <h2>Payment</h2>
-                            <PaymentMethod handlePrev={this.handlePrev} />
+                            <PaymentMethod handlePrev={this.handlePrev} testMode={true} />
+                            <p>
+
+                                Test Mode: active
+                                <br />
+                                <br />
+                                No Credit Cards available.
+                            </p>
                         </div>;
             case 2:
-                return 'Phu, congrats you are Rich!';
+                return <div>
+                    <h2>Congratulations</h2>
+                    <p>
+                        Your new Prestige value is: {this.props.user.totalPoints}<br />
+
+                    </p>
+                    <RaisedButton
+                        label='Next'
+                        primary={true}
+                        onClick={this.handleNext}
+                    />
+                </div>;
             default:
                 return 'You\'re a long way from home sonny jim!';
         }
@@ -135,9 +153,11 @@ class PaymentStepper extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {payment} = state;
+    const {payment, prestige, user} = state;
     return {
-        payment
+        payment,
+        prestige,
+        user
     }
 }
 

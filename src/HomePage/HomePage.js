@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import {connect} from 'react-redux';
 import PaymentButton from "./PaymentButton";
 import {userActions} from "../_actions/userAction";
@@ -25,9 +26,6 @@ class HomePage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillMount(){
-        this.props.dispatch(userActions.getAllUsers());
-    }
 
     handleChange(event) {
         const { name, value } = event.target;
@@ -57,7 +55,10 @@ class HomePage extends React.Component {
         return (
             <div ref={a => this.container = a}>
                 <Logo/>
-                <PrestigeCard/>
+                <Link to="/list">
+                    <PrestigeCard/>
+                </Link>
+
 
                 <FooterNavigation right={<SocialButton/>} top={<PaymentButton/>} left={<MenuButton/>} />
 

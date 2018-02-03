@@ -89,7 +89,7 @@ firebase.auth().onAuthStateChanged((user) => {
 var ref = firebase.database().ref("users");
 firebase.database().ref().on('value', (snapshot) => {
     console.log('User Data changed ', snapshot)
-    store.dispatch(userActions.getAllUsers());
+    store.dispatch(userActions.updateAllUsers());
 
 });
 

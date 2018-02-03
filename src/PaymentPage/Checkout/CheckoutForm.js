@@ -10,6 +10,8 @@ import {paymentConstants} from "../../_constants/paymentConstants"
 import Navigation from "../../_components/Navigation";
 import Back from 'material-ui/svg-icons/navigation/chevron-left';
 import IconButton from 'material-ui/IconButton';
+import {pointService}from '../../_services/pointService'
+import {pointConstants} from "../../_constants/pointConstants"
 
 
 class CheckoutForm extends React.Component {
@@ -56,25 +58,56 @@ class CheckoutForm extends React.Component {
     handleSubmit = (ev) => {
         ev.preventDefault();
         // Payment Requests Starts
-        this.props.dispatch({type: paymentConstants.PAYMENT_REQUEST})
 
-        this.props.stripe.createToken()
-            .then((token) => {
-                if(token.error){
-                    this.props.dispatch(alertActions.error(token.error.message))
-                    let error = {error: 'No stripe Token available'}
-                    this.props.dispatch({type: paymentConstants.PAYMENT_FAILURE, error});
-                } else{
-                    this.props.dispatch(paymentActions.charge(token, this.props.amount))
-                }
+        if(this.props.testMode){
+            this.props.dispatch({type: paymentConstants.PAYMENT_REQUEST});
+
+            let token = {
+                id: 'SuperTestId',
+                amount: this.props.amount,
+                price: this.props.price
+            }
+            this.props.dispatch({type: paymentConstants.PAYMENT_SUCCESS, token});
+
+
+            this.props.dispatch(alertActions.success('Payment Successful'))
+
+            // Updating Local Points
+            pointService.addPoints(this.props.amount)
+                .then((res) => {
+                    let totalPoints = res;
+                    this.props.dispatch({type: pointConstants.TOTAL_POINTS_UPDATE, totalPoints});
+                    this.props.dispatch(alertActions.success('Your Amount has been updated'));
+                }).catch((error) => {
+                this.props.dispatch(alertActions.error(error))
             });
+
+        }else{
+
+            this.props.stripe.createToken()
+                .then((token) => {
+                    if(token.error){
+                        this.props.dispatch(alertActions.error(token.error.message))
+                        let error = {error: 'No stripe Token available'}
+                        this.props.dispatch({type: paymentConstants.PAYMENT_FAILURE, error});
+                    } else{
+                        this.props.dispatch(paymentActions.charge(token, this.props.amount))
+                    }
+                });
+        }
+
     }
 
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+
+
+
                 {
+                    this.props.testMode ? null : (
+
                     this.state.canMakePayment ? (
                         <div>
                         <PaymentRequestButtonElement
@@ -97,25 +130,27 @@ class CheckoutForm extends React.Component {
                         </div>
                     ) : (<div>
                             <CardSection />
-                            <Navigation
-                                left={
-                                    <IconButton
-                                        className="floatingButtonLeft"
-                                        fullWidth={false}
-                                        secondary={true}
-                                        onClick={this.props.handlePrev}>
-                                        <Back/>
-                                    </IconButton>
-                                }
-                                right={<RaisedButton
-                                    label='Pay'
-                                    className='floatingButtonRight'
-                                    primary={true}
-                                    onClick={this.handleSubmit}
-                                />}
-                            />
-                        </div>)
+
+                        </div>))
                 }
+
+                <Navigation
+                    left={
+                        <IconButton
+                            className="floatingButtonLeft"
+                            fullWidth={false}
+                            secondary={true}
+                            onClick={this.props.handlePrev}>
+                            <Back/>
+                        </IconButton>
+                    }
+                    right={<RaisedButton
+                        label='Pay'
+                        className='floatingButtonRight'
+                        primary={true}
+                        onClick={this.handleSubmit}
+                    />}
+                />
 
 
             </form>

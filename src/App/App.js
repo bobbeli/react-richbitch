@@ -12,6 +12,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import PaymentPage from '../PaymentPage/PaymentPage'
 import LoginPage from '../LoginPage/LoginPage'
 import RegisterPage from '../RegisterPage/RegisterPage'
+import ListPage from '../ListPage/ListPage'
 import firebase from 'firebase';
 
 const firstChild = props => {
@@ -56,6 +57,14 @@ class App extends React.Component {
                                 children={({ match, ...rest }) => (
                                     <ReactTransitionGroup component={firstChild}>
                                         {match && <Home {...rest} />}
+                                    </ReactTransitionGroup>
+                                )}/>
+                            <Route
+                                path="/list"
+                                onEnter={this.requireAuth()}
+                                children={({ match, ...rest }) => (
+                                    <ReactTransitionGroup component={firstChild}>
+                                        {match && <ListPage {...rest} />}
                                     </ReactTransitionGroup>
                                 )}/>
                             <Route

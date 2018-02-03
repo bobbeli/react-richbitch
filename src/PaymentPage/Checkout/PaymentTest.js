@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 import CheckoutForm from './CheckoutForm'
 
 
-class PaymentMethod extends React.Component {
+class PaymentTest extends React.Component {
     render() {
                return (
             <div>
                 <Elements>
-                     <CheckoutForm amount={this.props.payment.amount} price={this.props.payment.price} handlePrev={this.props.handlePrev} testMode={this.props.testMode} />
+                     <CheckoutForm amount={this.props.payment.amount} handlePrev={this.props.handlePrev} />
                 </Elements>
             </div>
         );
@@ -23,4 +23,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(PaymentMethod);
+export default connect(mapStateToProps)(PaymentTest);

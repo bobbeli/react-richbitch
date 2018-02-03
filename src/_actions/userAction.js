@@ -15,7 +15,7 @@ export const userActions = {
     registerTwitter,
     deleteUser,
     reAuthUser,
-    getAllUsers,
+    updateAllUsers,
 };
 
 function login(username, password) {
@@ -286,14 +286,34 @@ function reAuthUser(userProvidedPassword) {
  * Load user List from FireBase RealTime DB.
  * @returns Array of Users
  */
-function getAllUsers() {
+function updateAllUsers() {
     return dispatch => {
         dispatch(request());
+
         userService.getAllUsers().then((res) => {
             if (res) {
+                let users = listToArray(res);
 
-                dispatch(success(res))
-                dispatch(prestigeActions.calcPrestige());
+                // ReCalc Prestige Value for Users
+                dispatch(prestigeActions.calcPrestige(users));
+                dispatch(success(users));
+
+                // Update Local User Obj.
+                let currentUser = users.find(getLocalUser);
+                dispatch(update(currentUser));
+
+                // Update Rank of User
+                let rank = users.length;
+                let temp = 0;
+                for (var [key, value] of users.entries()) {
+                    temp = temp + 1;
+                    if(value.email === firebase.auth().currentUser.email){
+                        rank = temp;
+                    }
+                }
+
+                dispatch(updateRank(rank))
+
             }
         }, error => {
             dispatch(failure(error));
@@ -305,11 +325,41 @@ function getAllUsers() {
         return {type: userConstants.GETALL_FAILURE, error}
     }
 
+    function request() {
+        return {type: userConstants.GETALL_REQUEST}
+    }
+
+    function update(user){
+        return {type: userConstants.USER_UPDATE, user}
+    }
+
+    function updateRank(rank){
+        return {type: userConstants.RANK_UPDATE, rank}
+    }
+
     function success(users) {
         return {type: userConstants.GETALL_SUCCESS, users}
     }
 
-    function request() {
-        return {type: userConstants.GETALL_REQUEST}
-    }
+}
+
+function listToArray(users){
+    let usersArray = [];
+
+    Object.entries(users).map((user) => {
+        let newUser = {
+            id: user[0],
+            firstname: user[1].firstname,
+            lastname: user[1].lastname,
+            username: user[1].username,
+            totalPoints: user[1].totalPoints,
+            email: user[1].email,
+        };
+        usersArray.push(newUser);
+    });
+    return usersArray;
+}
+
+function getLocalUser(user){
+    return user.email == firebase.auth().currentUser.email
 }

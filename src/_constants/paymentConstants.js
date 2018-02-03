@@ -1,5 +1,7 @@
 export const paymentConstants = {
     API_PATH: 'http://localhost:3737/payment',
+    API_PATH_LIVE: 'https://warm-cliffs-27450.herokuapp.com/payment',
+
 
     PAYMENT_REQUEST: 'USERS_PAYMENT_REQUEST',
     PAYMENT_SUCCESS: 'USERS_PAYMENT_SUCCESS',

@@ -22,6 +22,7 @@ export default function reducer(state = {
                 amount: state.amount,
             };
         case paymentConstants.PAYMENT_SUCCESS:
+            console.log('payment redu ', action)
             return {
                 ...state,
                 id: action.token.id,

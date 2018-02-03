@@ -9,6 +9,7 @@ export default function reducer(state = {
     firstname: null,
     lastname: null,
     email: null,
+    rank: null,
     totalPoints: null,
     fetching: false,
     fetched: false,
@@ -23,6 +24,7 @@ export default function reducer(state = {
                 lastname: action.user.lastname,
                 email: action.user.email,
                 totalPoints: action.user.totalPoints,
+                rank: action.user.rank,
                 fetching: false,
                 fetched: true,
 
@@ -36,6 +38,7 @@ export default function reducer(state = {
                 firstname: null,
                 lastname: null,
                 email: null,
+                rank: null,
                 totalPoints: null,
                 fetching: false,
                 fetched: false,
@@ -47,6 +50,14 @@ export default function reducer(state = {
             return {
                 ...state,
                 totalPoints: action.totalPoints
+            }
+        }
+
+        case userConstants.RANK_UPDATE: {
+            console.log('update local rak', action)
+            return {
+                ...state,
+                rank: action.rank
             }
         }
     }

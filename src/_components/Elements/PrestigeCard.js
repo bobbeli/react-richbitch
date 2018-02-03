@@ -5,7 +5,11 @@ import logo from '../../_assets/img/prestigeCard.png'
 
 class PrestigeCard extends React.Component {
     componentWillUpdate(nextProps, nextState){
-        let totalPoints = nextProps.prestige.totalPointsRight.toString();
+        let  totalPoints = '0';
+        nextProps.prestige.totalPoints
+        if(nextProps.prestige.totalPointsRight !== null){
+            totalPoints = nextProps.prestige.totalPointsRight.toString();
+        }
 
         if(totalPoints.length >= 6){
             nextProps.prestige.totalPointsRight = totalPoints.substring(totalPoints.length - 6, totalPoints.length);

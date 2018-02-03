@@ -6,14 +6,14 @@ export const prestigeActions = {
     calcPrestige,
 };
 
-function calcPrestige() {
+function calcPrestige(users) {
     return dispatch => {
 
-        findUserWithHighestPrestige().then((user)=> {
-            dispatch(update((user)));
-
+        findUserWithHighestPrestige(users).then((users)=> {
+                dispatch(update(users[0]));
+        }, (error) => {
+            console.log(error);
         });
-
 
 
     }
@@ -22,22 +22,24 @@ function calcPrestige() {
         return {type: userConstants.PRESTIGE_UPDATE, user}
     }
 
+
 }
 
-function findUserWithHighestPrestige() {
+function findUserWithHighestPrestige(usersArray) {
     return new Promise((resolve, reject) => {
-        let userList = store.getState().userList.users;
-
-        userList.sort((a, b) => {
+        usersArray.sort((a, b) => {
             if(a.totalPoints < b.totalPoints){
-                return -1;
-            }else{
                 return 1;
+            }else{
+                return -1;
             }
         })
 
-        console.log('sorted array ', userList)
-        resolve(userList[userList.length-1])
+        if(usersArray.length < 1){
+            reject('No Data')
+        }else{
+            resolve(usersArray)
+        }
 
     });
 }

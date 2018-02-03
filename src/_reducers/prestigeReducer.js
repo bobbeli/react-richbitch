@@ -14,11 +14,11 @@ export default function reducer(state = {
 }, action) {
     switch (action.type) {
         case userConstants.PRESTIGE_UPDATE: {
-            console.log('prestige user', action)
             return {
                 ...state,
                 username: action.user.username,
                 email: action.user.email,
+                totalPoints: action.user.totalPoints,
                 totalPointsRight: action.user.totalPoints,
                 totalPointsLeft: action.user.totalPoints,
                 fetching: false,

@@ -26,21 +26,10 @@ export default function reducer(state = {
             }
         }
         case userConstants.GETALL_SUCCESS: {
-            let usersNew = [];
-            Object.entries(action.users).map((user) => {
-                let newUser = {
-                    id: user[0],
-                    firstname: user[1].firstname,
-                    lastname: user[1].lastname,
-                    username: user[1].username,
-                    totalPoints: user[1].totalPoints,
-                    email: user[1].email,
-                };
-                usersNew.push(newUser);
-            });
+
             return {
                 ...state,
-                users: usersNew,
+                users: action.users,
                 fetching: false,
                 fetched: true,
                 error: null,

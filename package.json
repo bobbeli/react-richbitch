@@ -2,6 +2,7 @@
   "name": "richbitch",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gnochi.ch/",
   "dependencies": {
     "animated": "^0.2.1",
     "axios": "^0.17.1",

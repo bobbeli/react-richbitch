@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-
+import store from '../_helpers/store'
 export const userService = {
     login,
     logout,
@@ -62,7 +62,8 @@ function register(user) {
                     id: objuser.uid,
                     username: username,
                     email: email,
-                    totalPoints: 0
+                    totalPoints: 0,
+                    rank: getRankForRegister()
                 }
 
                 writeUserData(user);
@@ -78,24 +79,24 @@ function register(user) {
 function registerWithSocialLogin(user) {
     return new Promise((resolve, reject) => {
 
+
         firebase.database().ref('users/')
             .child(user.uid)
             .once('value', function(snapshot){
                 let exists = (snapshot.val() !== null);
 
                 if(exists){
-                    console.log('user already exist')
                     resolve(true)
                 } else {
-                    console.log('create new User')
 
                     let {displayName, email, uid} = user;
-
+                    //ToDo Set User Rank (lenght of user list)
                     let newUser = {
                         id: uid,
                         username: displayName,
                         email: email,
-                        totalPoints: 0
+                        totalPoints: 0,
+                        rank: getRankForRegister()
                     };
 
                     writeUserData(newUser);
@@ -117,8 +118,18 @@ function writeUserData(user) {
     firebase.database().ref('users/' + user.id).set({
         username: user.username,
         email: user.email,
-        totalPoints: user.totalPoints
+        totalPoints: user.totalPoints,
+        rank: user.rank
     });
+}
+
+/**
+ * Get Rank
+ */
+
+function getRankForRegister(){
+    const {userList} = store.getState();
+    return userList.length;
 }
 
 /**
@@ -137,6 +148,7 @@ function update() {
                     username: (snapshot.val() && snapshot.val().username) || 'Anonymous',
                     lastname: (snapshot.val() && snapshot.val().lastname) || 'Anonymous',
                     firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
+                    rank: (snapshot.val() && snapshot.val().rank) || 'Anonymous',
                     email: (snapshot.val() && snapshot.val().email) || 'Anonymous',
                     totalPoints: (snapshot.val() && snapshot.val().totalPoints) || 'Anonymous'
                 }
