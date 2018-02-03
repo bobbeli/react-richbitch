@@ -1,0 +1,38 @@
+.user-rank {
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	margin-bottom: 50px;
+}
+
+.user-rank-out-of{
+	color: white
+}
+
+.user-rank-score{
+	color: white;
+	font-size: 3.4em;
+	font-weight: 700;
+}
+
+.headingOne{
+	padding-top: 80px;
+	text-align: center;
+	font-size: 2em;
+	text-transform: uppercase;
+	color: #CC8F1B;
+}
+
+.headingThree{
+	color: white;
+	text-transform: uppercase;
+	text-align: center;
+
+	font-weight: 100;
+}
+
+.rightColumn{
+	text-align: right !important;
+
+}

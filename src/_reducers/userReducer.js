@@ -17,14 +17,15 @@ export default function reducer(state = {
 }, action) {
     switch (action.type) {
         case userConstants.USER_UPDATE: {
+            console.log('user updat', action.user)
             return {
                 ...state,
-                username: action.user.username,
-                firstname: action.user.firstname,
-                lastname: action.user.lastname,
-                email: action.user.email,
-                totalPoints: action.user.totalPoints,
-                rank: action.user.rank,
+                username: action.user.username || 'Anonymous',
+                firstname: action.user.firstname || 'Anonymous',
+                lastname: action.user.lastname || 'Anonymous',
+                email: action.user.email || 'Anonymous',
+                totalPoints: action.user.totalPoints || 'Anonymous',
+                rank: action.user.rank || 'Anonymous',
                 fetching: false,
                 fetched: true,
 

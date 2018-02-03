@@ -300,7 +300,9 @@ function updateAllUsers() {
 
                 // Update Local User Obj.
                 let currentUser = users.find(getLocalUser);
-                dispatch(update(currentUser));
+                if(typeof currentUser !== 'undefined'){
+                    dispatch(update(currentUser));
+                }
 
                 // Update Rank of User
                 let rank = users.length;

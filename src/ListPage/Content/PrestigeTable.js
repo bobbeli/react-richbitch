@@ -9,41 +9,23 @@ import {
     TableBody,
     TableRowColumn
 } from 'material-ui/Table';
+import firebase from 'firebase'
 
 
 class PrestigeTable extends Component {
 
-    renderRow() {
-        let {userList} = this.props;
-
-        if(userList.fetched === true) {
-            if (typeof userList !== 'undefined') {
-                Object.entries(userList.users).map((users, index) => {
-                    Object.entries(users).map((user, index) => {
-                            return ([
-                                <TableRow key="2">">
-                                    <TableHeaderColumn>{user[index].username}</TableHeaderColumn>
-                                    <TableHeaderColumn>{user[index].email}</TableHeaderColumn>
-                                </TableRow>
-                            ]);
-
-
-                    })
-
-                })
-            }
-        }
-    }
 
     render() {
         let users = this.props.userList.users;
         const rows = users.map((val)=> {
+            let style = '';
+            if(val.email === firebase.auth().currentUser.email){
+                style = {color: '#CC8F1B'}
+            }
             return (
-                <TableRow key={val.email}>
-                    <TableRowColumn>{val.username}</TableRowColumn>
-                    <TableRowColumn>{val.email}</TableRowColumn>
-                    <TableRowColumn>{val.totalPoints}</TableRowColumn>
-
+                <TableRow key={val.email} selectable={false}>
+                    <TableRowColumn style={style}>{val.username}</TableRowColumn>
+                    <TableRowColumn  style={style} className='rightColumn' >{val.totalPoints}</TableRowColumn>
                 </TableRow>
             );
         })

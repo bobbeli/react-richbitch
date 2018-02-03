@@ -1,6 +1,6 @@
 import firebase from 'firebase'
-
-
+import store from '../_helpers/store'
+import {userActions} from '../_actions/userAction'
 export const pointService = {
     addPoints,
     updateTotalPoints,
@@ -25,6 +25,7 @@ function addPoints(amount) {
             // TODO is this functionality smart enough for No Internet Acces Problems and other ... dont thing so.
             Promise.all([newPoints, updateTotal])
                 .then((res) =>{
+                    store.dispatch(userActions.updateAllUsers());
                     resolve(res[1])
                     console.log('res ', res)
                 }).catch((err) => {

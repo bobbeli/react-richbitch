@@ -27,12 +27,12 @@ firebase.auth().getRedirectResult().then((result) => {
     if (result.user !== null ) {
         store.dispatch({type: 'LOADER_STOP'});
 
-        console.log('user ', result.user);
 
         userService.registerWithSocialLogin(result.user)
             .then(user => {
                     console.log('social media successfull redirect to Home')
                     //store.dispatch({type: userConstants.LOGIN_SUCCESS});
+                    store.dispatch(userActions.updateAllUsers())
                     history.push('/')
                 },
                 error => {
@@ -71,8 +71,10 @@ firebase.auth().getRedirectResult().then((result) => {
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        store.dispatch(userActions.update());
+        console.log('user state changed ', user)
+        store.dispatch(userActions.updateAllUsers())
         store.dispatch({type: userConstants.LOGIN_SUCCESS});
+        history.push('/')
 
     } else {
         // No user is signed in.

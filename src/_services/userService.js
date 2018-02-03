@@ -63,7 +63,7 @@ function register(user) {
                     username: username,
                     email: email,
                     totalPoints: 0,
-                    rank: getRankForRegister()
+                    rank: 0
                 }
 
                 writeUserData(user);
@@ -96,7 +96,7 @@ function registerWithSocialLogin(user) {
                         username: displayName,
                         email: email,
                         totalPoints: 0,
-                        rank: getRankForRegister()
+                        rank: 0
                     };
 
                     writeUserData(newUser);
@@ -148,9 +148,9 @@ function update() {
                     username: (snapshot.val() && snapshot.val().username) || 'Anonymous',
                     lastname: (snapshot.val() && snapshot.val().lastname) || 'Anonymous',
                     firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
-                    rank: (snapshot.val() && snapshot.val().rank) || 'Anonymous',
+                    rank: (snapshot.val() && snapshot.val().rank) || '0',
                     email: (snapshot.val() && snapshot.val().email) || 'Anonymous',
-                    totalPoints: (snapshot.val() && snapshot.val().totalPoints) || 'Anonymous'
+                    totalPoints: (snapshot.val() && snapshot.val().totalPoints) || '0'
                 }
                 resolve(user);
 
