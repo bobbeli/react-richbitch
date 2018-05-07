@@ -2,7 +2,7 @@
   "name": "richbitch",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gnochi.ch/",
+  "homepage": "https://richbitch-4fc7a.firebaseapp.com/",
   "dependencies": {
     "animated": "^0.2.1",
     "axios": "^0.17.1",
@@ -29,6 +29,8 @@
     "start": "react-scripts start && cra-append-sw --mode dev ./src/customServicseWorkers.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "firebase deploy --only hosting"
+
   }
 }

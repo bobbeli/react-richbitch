@@ -1,5 +1,5 @@
-# Rich Bitch
-Version: 0.0.1
+# Prestige
+Version: 0.0.2
 
 Author: gnochi
 

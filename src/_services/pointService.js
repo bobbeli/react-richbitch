@@ -41,12 +41,12 @@ function crateNewPointOnDB(user, amount){
     return new Promise((resolve, reject) => {
         let pointsID = firebase.database().ref().child('points').push().key;
 
-            firebase.database().ref('users/' + user.uid + '/points/' + pointsID).set({
-                createdAd: Date.now(),
-                amount: amount
-            })
-            .then(() => resolve(true))
-            .catch((err) => reject(err))
+        firebase.database().ref('users/' + user.uid + '/points/' + pointsID).set({
+            createdAd: Date.now(),
+            amount: amount
+        })
+        .then(() => resolve(true))
+        .catch((err) => reject(err))
     });
 }
 

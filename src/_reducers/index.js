@@ -8,6 +8,7 @@ import unregister from './unregisterReducer'
 import payment from './paymentReducer'
 import loader from './loaderReducer'
 import prestige from './prestigeReducer'
+import push from './pushReducer'
 
 export default combineReducers({
     user,
@@ -18,5 +19,6 @@ export default combineReducers({
     unregister,
     payment,
     loader,
-    prestige
+    prestige,
+    push
 });

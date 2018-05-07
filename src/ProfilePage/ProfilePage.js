@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {List, Subheader, ListItem, Divider, FlatButton} from 'material-ui'
+import {List, Subheader, ListItem, Toggle} from 'material-ui'
 import ActionFace from 'material-ui/svg-icons/action/face';
-import CreditCard from 'material-ui/svg-icons/action/credit-card';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 import {userActions} from "../_actions/userAction";
 import ReAuthHandler from "../_components/ReAuthHandler";
@@ -14,7 +13,7 @@ import {history} from '../_helpers/history';
 import './ProfilePage.css'
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 import LogoutButton from "./LogoutButton";
-import LogoIcon from '../_components/Elements/LogoIcon'
+import {pushActions} from "../_actions/pushActions";
 
 
 
@@ -26,6 +25,7 @@ class ProfilePage extends React.Component {
         this.deleteUser = this.deleteUser.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
+        this.handlePushNotifications = this.handlePushNotifications.bind(this);
     }
 
     deleteUser(event){
@@ -40,8 +40,16 @@ class ProfilePage extends React.Component {
         this.props.dispatch(userActions.logout())
     }
 
+    handlePushNotifications(event, isNotChecked){
+        if(isNotChecked){
+            this.props.dispatch(pushActions.unsubscribePushNotifications())
+        }else{
+            this.props.dispatch(pushActions.subscribePushNotifications())
+        }
+    }
+
     render() {
-        const {user, auth} = this.props;
+        const {user, auth, push} = this.props;
         const style = {
             color: {
                 color: 'white',
@@ -86,10 +94,18 @@ class ProfilePage extends React.Component {
                     />
 
 
-
-
                 </List>
 
+
+                <List>
+                    <Subheader>Notifications</Subheader>
+
+                    <Toggle
+                        label="Push Notifications"
+                        defaultToggled={true}
+                        onToggle={this.handlePushNotifications}
+                    />
+                </List>
 
 
                 <Navigation
@@ -122,10 +138,11 @@ class ProfilePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {user, auth} = state;
+    const {user, auth, push} = state;
     return {
         user,
-        auth
+        auth,
+        push
     }
 }
 

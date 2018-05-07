@@ -7,6 +7,7 @@ import {userService} from '../_services/userService';
 import {alertActions} from "../_actions/alertActions"
 import {prestigeActions} from "../_actions/prestigeAction"
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyA2kuyJIWakmM8x7S08ERWhj5O3WolPdGU",
     authDomain: "richbitch-4fc7a.firebaseapp.com",
@@ -18,6 +19,7 @@ const firebaseConfig = {
 
 
 firebase.initializeApp(firebaseConfig);
+
 
 /**
  * Result of Social Media Register / Login Request
@@ -105,4 +107,25 @@ export const updateLoaderMiddleware = store => next => action => {
     }
     next(action);
 }
+
+export const messaging = firebase.messaging();
+
+messaging.onMessage(function(payload) {
+    console.log('Message received. ', payload);
+    store.dispatch(alertActions.success(payload.notification.body))
+
+
+
+});
+
+messaging.onTokenRefresh(function() {
+    messaging.getToken().then(function(refreshedToken) {
+        // Todo handle refresh Token
+        console.log('Token refreshed by firebase');
+    }).catch(function(err) {
+        console.log('Unable to retrieve refreshed token ', err);
+    });
+});
+
+
 

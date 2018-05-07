@@ -38,11 +38,11 @@ class App extends React.Component {
     }
 
     render() {
-        const { alert, user, auth, userList, payment, unregister, loader } = this.props;
+        const { alert, user, auth, userList, payment, unregister, loader, push } = this.props;
         return (
             <div className="App">
                 {
-                    user.fetching || userList.fetching || auth.fetching || unregister.fetching || payment.fetching || loader.loading ?
+                    user.fetching || userList.fetching || auth.fetching || unregister.fetching || payment.fetching || loader.loading ||  push.fetching ?
                         <LoadingElement />
                         :
                         null
@@ -110,7 +110,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { alert, user, auth, userList, payment, unregister, loader} = state;
+    const { alert, user, auth, userList, payment, unregister, loader, push} = state;
     return {
         alert,
         user,
@@ -118,7 +118,8 @@ function mapStateToProps(state) {
         userList,
         payment,
         unregister,
-        loader
+        loader,
+        push
     }
 }
 

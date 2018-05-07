@@ -7,7 +7,6 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './_helpers/store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {init} from './_helpers/firebaseDB'
 import {StripeProvider} from 'react-stripe-elements';
 import WebFont from 'webfontloader';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -19,6 +18,14 @@ WebFont.load({
     }
 });
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../firebase-messaging-sw.js')
+        .then(function(registration) {
+            console.log('Registration successful, scope is:', registration.scope);
+        }).catch(function(err) {
+        console.log('Service worker registration failed, error:', err);
+    });
+}
 
 
 const muiTheme = getMuiTheme(Theme);
