@@ -6,6 +6,7 @@ import {userConstants} from '../_constants/userConstants'
 import {userService} from '../_services/userService';
 import {alertActions} from "../_actions/alertActions"
 import {prestigeActions} from "../_actions/prestigeAction"
+import {connectivityActions} from "../_actions/connectivityActions";
 
 
 const firebaseConfig = {
@@ -32,9 +33,14 @@ firebase.auth().getRedirectResult().then((result) => {
 
         userService.registerWithSocialLogin(result.user)
             .then(user => {
-                    console.log('social media successfull redirect to Home')
-                    //store.dispatch({type: userConstants.LOGIN_SUCCESS});
-                    store.dispatch(userActions.updateAllUsers())
+
+                    let storeObj = store.getState();
+                    store.dispatch(connectivityActions.setConnectivity());
+
+                    if(storeObj.connectivity.isOnline){
+                        store.dispatch(userActions.updateAllUsers())
+                    }
+
                     history.push('/')
                 },
                 error => {
@@ -57,12 +63,12 @@ firebase.auth().getRedirectResult().then((result) => {
 
     }).catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        let errorCode = error.code;
+        let errorMessage = error.message;
         // The email of the user's account used.
-        var email = error.email;
+        let email = error.email;
         // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
+        let credential = error.credential;
 
         store.dispatch({type: 'LOADER_STOP'});
         store.dispatch({type: userConstants.LOGIN_FAILURE});
@@ -73,9 +79,11 @@ firebase.auth().getRedirectResult().then((result) => {
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log('user state changed ', user)
-        store.dispatch(userActions.updateAllUsers())
-        store.dispatch({type: userConstants.LOGIN_SUCCESS});
+        let storeObj = store.getState();
+        store.dispatch(connectivityActions.setConnectivity());
+        if(storeObj.connectivity.isOnline){
+            store.dispatch(userActions.updateAllUsers())
+        }
         history.push('/')
 
     } else {
@@ -93,7 +101,12 @@ firebase.auth().onAuthStateChanged((user) => {
 var ref = firebase.database().ref("users");
 firebase.database().ref().on('value', (snapshot) => {
     console.log('User Data changed ', snapshot)
-    store.dispatch(userActions.updateAllUsers());
+    let storeObj = store.getState();
+    store.dispatch(connectivityActions.setConnectivity());
+    if(storeObj.connectivity.isOnline){
+        store.dispatch(userActions.updateAllUsers())
+    }
+
 
 });
 

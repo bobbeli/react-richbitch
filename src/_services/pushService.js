@@ -24,7 +24,7 @@ function subscribe(uid) {
                         token: currentToken
                     })
                     .then((res) => {
-                        resolve(res);
+                        resolve(currentToken);
                     }).catch((err) => {
                         reject(err);
                 })

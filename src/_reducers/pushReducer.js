@@ -4,6 +4,7 @@ export default function reducer(state = {
     failure: false,
     fetching: false,
     fetched: false,
+    token: null,
 }, action) {
     switch (action.type) {
         case pushConstants.PUSH_SUBSCRIPTION_REQUEST:
@@ -21,6 +22,7 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: true,
                 pushEnabled: true,
+                token: action.token,
             };
         case pushConstants.PUSH_SUBSCRIPTION_FAILURE:
             return {
@@ -47,6 +49,7 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: true,
                 pushEnabled: false,
+                token: null,
             };
 
         case pushConstants.PUSH_UNSUBSCRIPTION_FAILURE:

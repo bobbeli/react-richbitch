@@ -10,6 +10,7 @@ export default function reducer(state = {
     lastname: null,
     email: null,
     rank: null,
+    pushToken: null,
     totalPoints: null,
     fetching: false,
     fetched: false,
@@ -17,7 +18,6 @@ export default function reducer(state = {
 }, action) {
     switch (action.type) {
         case userConstants.USER_UPDATE: {
-            console.log('user updat', action.user)
             return {
                 ...state,
                 username: action.user.username || 'Anonymous',
@@ -26,6 +26,7 @@ export default function reducer(state = {
                 email: action.user.email || 'Anonymous',
                 totalPoints: action.user.totalPoints || 'Anonymous',
                 rank: action.user.rank || 'Anonymous',
+                pushToken: action.user.pushToken || 'Anonymous',
                 fetching: false,
                 fetched: true,
 
@@ -40,6 +41,7 @@ export default function reducer(state = {
                 lastname: null,
                 email: null,
                 rank: null,
+                pushToken: null,
                 totalPoints: null,
                 fetching: false,
                 fetched: false,
@@ -55,10 +57,22 @@ export default function reducer(state = {
         }
 
         case userConstants.RANK_UPDATE: {
-            console.log('update local rak', action)
             return {
                 ...state,
                 rank: action.rank
+            }
+        }
+        case userConstants.PUSH_TOKEN_UNSUBSCRIBE: {
+            return {
+                ...state,
+                pushToken: null
+            }
+        }
+
+        case userConstants.PUSH_TOKEN_SUBSCRIBE: {
+            return {
+                ...state,
+                pushToken: action.pushToken
             }
         }
     }

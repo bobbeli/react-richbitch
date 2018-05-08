@@ -56,6 +56,9 @@ class ProfilePage extends React.Component {
                 background: 'white'
             }
         }
+
+        let pushToken = user.pushToken ? true : false;
+
         return (
             <div>
                 <List>
@@ -102,7 +105,7 @@ class ProfilePage extends React.Component {
 
                     <Toggle
                         label="Push Notifications"
-                        defaultToggled={true}
+                        defaultToggled={!pushToken}
                         onToggle={this.handlePushNotifications}
                     />
                 </List>

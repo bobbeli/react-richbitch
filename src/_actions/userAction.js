@@ -298,6 +298,7 @@ function updateAllUsers() {
                 dispatch(prestigeActions.calcPrestige(users));
                 dispatch(success(users));
 
+
                 // Update Local User Obj.
                 let currentUser = users.find(getLocalUser);
                 if(typeof currentUser !== 'undefined'){
@@ -356,6 +357,7 @@ function listToArray(users){
             username: user[1].username,
             totalPoints: user[1].totalPoints,
             email: user[1].email,
+            pushToken: user[1].pushToken,
         };
         usersArray.push(newUser);
     });

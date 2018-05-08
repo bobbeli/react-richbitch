@@ -6,13 +6,15 @@ export default function reducer(state = {}, action) {
             return {
                 ...state,
                 type: 'alert-success',
-                message: action.message
+                message: action.notify.message,
+                duration: action.notify.duration
             };
         case alertConstants.ERROR:
             return {
                 ...state,
                 type: 'alert-danger',
-                message: action.message
+                message: action.notify.message,
+                duration: action.notify.duration
             };
         case alertConstants.CLEAR:
             return {};

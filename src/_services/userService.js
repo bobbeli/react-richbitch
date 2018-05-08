@@ -150,8 +150,11 @@ function update() {
                     firstname: (snapshot.val() && snapshot.val().firstname) || 'Anonymous',
                     rank: (snapshot.val() && snapshot.val().rank) || '0',
                     email: (snapshot.val() && snapshot.val().email) || 'Anonymous',
-                    totalPoints: (snapshot.val() && snapshot.val().totalPoints) || '0'
+                    totalPoints: (snapshot.val() && snapshot.val().totalPoints) || '0',
+                    pushToken: (snapshot.val() && snapshot.val().pushToken) || 'null'
                 }
+                console.log('master giggu', user)
+
                 resolve(user);
 
             })

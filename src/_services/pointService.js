@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import store from '../_helpers/store'
 import {userActions} from '../_actions/userAction'
+import {history} from "../_helpers/history";
 export const pointService = {
     addPoints,
     updateTotalPoints,
@@ -22,15 +23,24 @@ function addPoints(amount) {
             let newPoints = crateNewPointOnDB(user, amount);
             let updateTotal = updateTotalPoints(user);
 
-            // TODO is this functionality smart enough for No Internet Acces Problems and other ... dont thing so.
-            Promise.all([newPoints, updateTotal])
-                .then((res) =>{
-                    store.dispatch(userActions.updateAllUsers());
-                    resolve(res[1])
-                    console.log('res ', res)
-                }).catch((err) => {
+            let storeObj = store.getState();
+            if(storeObj.connectivity.isOnline){
+
+                Promise.all([newPoints, updateTotal])
+                    .then((res) =>{
+                        store.dispatch(userActions.updateAllUsers());
+                        resolve(res[1])
+                        console.log('res ', res)
+                    }).catch((err) => {
                     reject(err)
                 })
+
+            }else{
+                reject('No Internet Connection')
+
+            }
+
+
         }else {
             reject('No Internet Connection')
         }

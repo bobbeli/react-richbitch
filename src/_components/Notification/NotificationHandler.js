@@ -19,7 +19,7 @@ class NotificationHandler extends React.Component {
                 <Snackbar
                     open={true}
                     message={this.props.alert.message}
-                    autoHideDuration={2500}
+                    autoHideDuration={this.props.alert.duration ? this.props.alert.duration : 2800}
                     onRequestClose={this.handleRequestClose}
                     className={this.props.alert.type}
                 />

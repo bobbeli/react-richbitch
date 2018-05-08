@@ -9,6 +9,7 @@ import payment from './paymentReducer'
 import loader from './loaderReducer'
 import prestige from './prestigeReducer'
 import push from './pushReducer'
+import connectivity from './connectivityReducer'
 
 export default combineReducers({
     user,
@@ -20,5 +21,6 @@ export default combineReducers({
     payment,
     loader,
     prestige,
-    push
+    push,
+    connectivity
 });

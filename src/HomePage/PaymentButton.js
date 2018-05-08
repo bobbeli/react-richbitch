@@ -3,6 +3,9 @@ import {FlatButton, IconButton} from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import './BuyPoints.css'
 import {history} from '../_helpers/history'
+import AnimatedWrapper from "../_helpers/AnimatedWrapper";
+import {connect} from "react-redux";
+import {alertActions} from "../_actions/alertActions";
 
 class PaymentButton extends React.Component{
     constructor(props){
@@ -14,7 +17,11 @@ class PaymentButton extends React.Component{
     }
 
     clickHandler(){
-        history.push('/payment')
+        if(!this.props.connectivity.isOnline){
+            this.props.dispatch(alertActions.error('Offline: Its not possible to get Prestige', 5000))
+        }else{
+            history.push('/payment')
+        }
     }
 
     render(){
@@ -32,4 +39,12 @@ class PaymentButton extends React.Component{
     }
 }
 
-export default PaymentButton;
+
+function mapStateToProps(state) {
+    const {connectivity} = state;
+    return {
+        connectivity
+    }
+}
+
+export default connect(mapStateToProps)(PaymentButton);
