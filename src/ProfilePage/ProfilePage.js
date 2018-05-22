@@ -14,8 +14,7 @@ import './ProfilePage.css'
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 import LogoutButton from "./LogoutButton";
 import {pushActions} from "../_actions/pushActions";
-
-
+import isPushApiSupported from "../_helpers/PushApiChecker";
 
 
 class ProfilePage extends React.Component {
@@ -58,6 +57,8 @@ class ProfilePage extends React.Component {
         }
 
         let pushToken = user.pushToken ? true : false;
+        let pushSupported = isPushApiSupported();
+
 
         return (
             <div>
@@ -99,7 +100,6 @@ class ProfilePage extends React.Component {
 
                 </List>
 
-
                 <List>
                     <Subheader>Notifications</Subheader>
 
@@ -107,8 +107,18 @@ class ProfilePage extends React.Component {
                         label="Push Notifications"
                         defaultToggled={!pushToken}
                         onToggle={this.handlePushNotifications}
+                        disabled={!pushSupported}
                     />
+                    {
+                        !pushSupported ?
+                            <p>Your Browser doesnt Support Push Notifications</p>
+                            :
+                            null
+                    }
                 </List>
+
+
+
 
 
                 <Navigation

@@ -61,6 +61,9 @@ class RegisterPage extends React.Component {
 
     render() {
         const { user, submitted } = this.state;
+        const style = {
+            float: 'right'
+        }
 
         return(
             <div>
@@ -99,6 +102,7 @@ class RegisterPage extends React.Component {
 
                     <FlatButton
                         type="submit"
+                        style={style}
                     >Register</FlatButton>
                     </div>
 

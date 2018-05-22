@@ -9,6 +9,7 @@ let log4js = require('log4js');
 let admin = require('firebase-admin');
 let logConf = require('./constants/log_conf');
 
+
 /**
  * Logger
  * Load configuration File and choose Log Category (APP)

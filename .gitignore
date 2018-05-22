@@ -25,4 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 /functions/prestige-api-firebase-adminsdk.json
+/functions/prestige-api-firebase-adminsdk-service-account.json
 /functions/.env.defaults
+/functions/firebase-debug.log
+/firebase-debug.log

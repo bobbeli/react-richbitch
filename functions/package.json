@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
-    "shell": "firebase experimental:functions:shell",
+    "shell": "firebase experimental:functions:shell --debug",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"

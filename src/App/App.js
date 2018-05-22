@@ -11,6 +11,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import PaymentPage from '../PaymentPage/PaymentPage'
 import LoginPage from '../LoginPage/LoginPage'
 import RegisterPage from '../RegisterPage/RegisterPage'
+import PasswordPage from '../PasswordPage/PasswordPage'
 import ListPage from '../ListPage/ListPage'
 import firebase from 'firebase';
 import {connectivityActions} from "../_actions/connectivityActions";
@@ -26,7 +27,7 @@ class App extends React.Component {
         super(props);
         const {dispatch} = this.props;
 
-        this.props.dispatch({type: 'LOADER_START'});
+       // this.props.dispatch({type: 'LOADER_START'});
 
         this.requireAuth = this.requireAuth.bind(this);
 
@@ -34,7 +35,16 @@ class App extends React.Component {
 
     requireAuth(){
         if(!firebase.auth().currentUser){
-            history.push('/login');
+            if(!this.props.loader.loading){
+                if(this.props.user.passwordReset){
+                    history.push('/password')
+                } else {
+                    history.push('/login');
+                }
+            }
+
+
+
         }
     }
 
@@ -99,6 +109,13 @@ class App extends React.Component {
                                         </ReactTransitionGroup>
                                     )}/>
                                 <Route
+                                    path="/password"
+                                    children={({ match, ...rest }) => (
+                                        <ReactTransitionGroup component={firstChild}>
+                                            {match && <PasswordPage {...rest} />}
+                                        </ReactTransitionGroup>
+                                    )}/>
+                                <Route
                                     path="/login"
                                     children={({ match, ...rest }) => (
                                         <ReactTransitionGroup component={firstChild}>
@@ -127,7 +144,7 @@ function mapStateToProps(state) {
         payment,
         unregister,
         loader,
-        push
+        push,
     }
 }
 

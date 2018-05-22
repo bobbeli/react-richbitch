@@ -15,7 +15,6 @@ export const pointService = {
  * @param amount
  */
 function addPoints(amount) {
-
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
         if (user != null) {
@@ -93,7 +92,6 @@ function updateTotalPoints(user){
         });
 
     })
-
 }
 
 function sumAllPoints(user){

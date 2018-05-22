@@ -90,7 +90,8 @@ function registerWithSocialLogin(user) {
                 } else {
 
                     let {displayName, email, uid} = user;
-                    //ToDo Set User Rank (lenght of user list)
+                    // ToDo Set User Rank (lenght of user list)
+                    // ToDo add UserRegister Type to User Object
                     let newUser = {
                         id: uid,
                         username: displayName,

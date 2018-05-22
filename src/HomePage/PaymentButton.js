@@ -1,9 +1,7 @@
 import React from 'react'
 import {FlatButton, IconButton} from 'material-ui';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import './BuyPoints.css'
 import {history} from '../_helpers/history'
-import AnimatedWrapper from "../_helpers/AnimatedWrapper";
 import {connect} from "react-redux";
 import {alertActions} from "../_actions/alertActions";
 

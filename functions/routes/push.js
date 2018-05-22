@@ -75,12 +75,28 @@ pushDispatcher.route('/send')
         let registrationToken = req.body.token;
 
         let message = {
-            notification: {
-                title: 'Prestige',
-                body: 'Check out the new Prestige-Rank'
+            android: {
+                ttl: 3600 * 1000, // 1 hour in milliseconds
+                priority: 'high',
+                notification: {
+                    title: '$GOOG up 1.43% on the day',
+                    body: '$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day.',
+                    icon: 'stock_ticker_update',
+                    color: '#f45342',
+                    clickAction: 'https://google.com'
+                }
+            },
+            webpush: {
+                notification: {
+                    title: 'Prestige',
+                    body: 'Check out the new Prestige-Rank',
+                    icon : 'https://content.cdn.intranetdashboard.com/images/icon-push-notifications.png'
+                }
             },
             token: registrationToken
         };
+
+        logger.info('Notification ' + message);
 
         // Send a message to devices subscribed to the combination of topics
         // specified by the provided condition.

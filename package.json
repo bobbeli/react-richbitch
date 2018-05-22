@@ -1,12 +1,13 @@
 {
   "name": "richbitch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "homepage": "https://richbitch-4fc7a.firebaseapp.com/",
   "dependencies": {
     "animated": "^0.2.1",
     "axios": "^0.17.1",
     "cra-append-sw": "^2.1.1",
+    "detect-browser": "^2.4.0",
     "firebase": "^4.8.0",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
@@ -31,6 +32,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy --only hosting"
-
   }
 }

@@ -16,6 +16,7 @@ export const userActions = {
     deleteUser,
     reAuthUser,
     updateAllUsers,
+    userprofileExist,
 };
 
 function login(username, password) {
@@ -26,7 +27,7 @@ function login(username, password) {
             .then((user) => {
                 dispatch(success());
                 dispatch(this.update())
-                history.push('/')
+                history.push('/');
 
             }).catch((error) => {
             dispatch(failure());
@@ -128,7 +129,15 @@ function registerGoogle() {
 
         let provider = new firebase.auth.GoogleAuthProvider();
 
-        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().signInWithRedirect(provider)
+            .catch((err) => {
+                dispatch(failure(err.message));
+                dispatch(alertActions.error(err.message, 3500));
+            });
+    }
+
+    function failure(error) {
+        return {type: userConstants.LOGIN_FAILURE, error}
     }
 
 }
@@ -146,9 +155,15 @@ function registerFacebook() {
 
         let provider = new firebase.auth.FacebookAuthProvider();
 
-        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().signInWithRedirect(provider)
+            .catch((err) => {
+                    dispatch(failure(err.message));
+                    dispatch(alertActions.error(err.message, 3500));
+            });
+    }
 
-
+    function failure(error) {
+        return {type: userConstants.LOGIN_FAILURE, error}
     }
 
 }
@@ -167,7 +182,15 @@ function registerTwitter() {
 
         let provider = new firebase.auth.TwitterAuthProvider();
 
-        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().signInWithRedirect(provider)
+            .catch((err) => {
+                    dispatch(failure(err.message));
+                    dispatch(alertActions.error(err.message, 3500));
+                });
+    }
+
+    function failure(error) {
+        return {type: userConstants.LOGIN_FAILURE, error}
     }
 
 }
@@ -366,4 +389,48 @@ function listToArray(users){
 
 function getLocalUser(user){
     return user.email == firebase.auth().currentUser.email
+}
+
+function userprofileExist(email){
+    return dispatch => {
+        dispatch({type: 'LOADER_START'});
+
+        firebase.auth().fetchProvidersForEmail(email)
+            .then((userIDs) => {
+                if(userIDs.length > 0){
+
+                    firebase.auth().sendPasswordResetEmail(email).then(function() {
+                        dispatch(alertActions.success('You have received a password reset Mail.'))
+                        dispatch(success());
+                        dispatch({type: 'LOADER_STOP'});
+
+                    }).catch(function(error) {
+                        dispatch(failure());
+                        dispatch(alertActions.error('Something went wrong. Try again later.'))
+                        dispatch({type: 'LOADER_STOP'});
+
+                    });
+
+                }else {
+                    dispatch(failure());
+                    dispatch(alertActions.error(email + ' does not exist'))
+                    dispatch({type: 'LOADER_STOP'});
+
+
+                }
+            }).catch((err) => {
+                dispatch(failure());
+                dispatch(alertActions.error(err.message));
+                dispatch({type: 'LOADER_STOP'});
+
+        })
+    }
+
+    function success() {
+        return {type: userConstants.USER_EMAIL_EXIST_SUCCESS}
+    }
+
+    function failure() {
+        return {type: userConstants.USER_EMAIL_EXIST_FAILURE}
+    }
 }

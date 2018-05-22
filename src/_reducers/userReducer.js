@@ -15,6 +15,9 @@ export default function reducer(state = {
     fetching: false,
     fetched: false,
     error: null,
+    userEmailExist:false,
+    passwordReset: false,
+
 }, action) {
     switch (action.type) {
         case userConstants.USER_UPDATE: {
@@ -73,6 +76,22 @@ export default function reducer(state = {
             return {
                 ...state,
                 pushToken: action.pushToken
+            }
+        }
+
+        case userConstants.USER_EMAIL_EXIST_SUCCESS: {
+            return {
+                ...state,
+                passwordReset: true,
+                userEmailExist: true
+            }
+        }
+
+        case userConstants.USER_EMAIL_EXIST_FAILURE: {
+            return {
+                ...state,
+                passwordReset: true,
+                userEmailExist: false
             }
         }
     }

@@ -55,7 +55,6 @@ firebase.auth().getRedirectResult().then((result) => {
             history.push('/')
         }else{
             history.push('/login')
-
         }
 
     }

@@ -16,6 +16,10 @@ class Navigation extends React.Component{
                 {this.props.left}
                 {this.props.right}
 
+                <div className="appVersion">
+                    Version {process.env.REACT_APP_VERSION_NUMBER} | {process.env.NODE_ENV}
+                </div>
+
             </div>
 
         );
