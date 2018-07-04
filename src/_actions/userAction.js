@@ -98,6 +98,7 @@ function register(user) {
                     // history.push('/')
                 },
                 error => {
+                    history.push('/register')
                     dispatch(failure(error.message));
                     dispatch(alertActions.error(error.message))
                 })

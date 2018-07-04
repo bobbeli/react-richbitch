@@ -13,7 +13,7 @@ class PrestigeContainer extends Component {
         this.handleBack = this.handleBack.bind(this);
     }
     handleBack(){
-        history.push('/');
+        history.push('/home');
     }
 
     render() {

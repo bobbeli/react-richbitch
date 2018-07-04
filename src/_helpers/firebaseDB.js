@@ -42,7 +42,7 @@ firebase.auth().getRedirectResult()
                             store.dispatch(userActions.updateAllUsers())
                         }
 
-                        history.push('/')
+                        history.push('/home')
                     },
                     error => {
                         store.dispatch({type: userConstants.LOGIN_FAILURE});
@@ -76,7 +76,9 @@ firebase.auth().getRedirectResult()
 
     });
 
-
+/**
+ * Called on User State changed
+ */
 firebase.auth().onAuthStateChanged((user) => {
     if (user.uid != null) {
         let storeObj = store.getState();
@@ -84,12 +86,12 @@ firebase.auth().onAuthStateChanged((user) => {
         if(storeObj.connectivity.isOnline){
             store.dispatch(userActions.updateAllUsers())
         }
-        //history.push('/')
+        history.push('/home')
 
     } else {
         console.log('user is signed out ', user)
         store.dispatch({type: userConstants.LOGOUT});
-        history.push('/login')
+        //history.push('/login')
     }
 });
 
@@ -124,7 +126,7 @@ export const messaging = firebase.messaging();
 
 messaging.onMessage(function(payload) {
     console.log('Message received. ', payload);
-    store.dispatch(alertActions.success(payload.notification.body))
+    store.dispatch(alertActions.success(payload.data.body))
 
 
 

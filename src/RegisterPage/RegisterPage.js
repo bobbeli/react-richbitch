@@ -49,7 +49,7 @@ class RegisterPage extends React.Component {
 
         this.setState({ submitted: true });
         const { user } = this.state;
-        if (user.username && user.password) {
+        if (user.username && user.password.length >= 6) {
             this.props.dispatch(userActions.register(user));
         }
     }
@@ -73,7 +73,7 @@ class RegisterPage extends React.Component {
 
                         <SimpleTextField
                             name="username"
-                            floatingLabelText="First / Last"
+                            floatingLabelText="Username"
                             type="text"
                             errorText={ submitted && !user.username && 'User Name is required '}
                             onChange={this.handleChange}
@@ -94,7 +94,7 @@ class RegisterPage extends React.Component {
                             name="password"
                             floatingLabelText="Password"
                             type="password"
-                            errorText={ submitted && !user.password && 'Password is required '}
+                            errorText={ submitted && user.password.length <= 6 && 'Password requires 6 characters '}
                             onChange={this.handleChange}
                         />
                     </div>
@@ -131,4 +131,4 @@ function mapStateToProps(state) {
         registration
     }
 }
-export default AnimatedWrapper(connect(mapStateToProps)(RegisterPage));
+export default connect(mapStateToProps)(RegisterPage);

@@ -3,9 +3,6 @@ import {connect} from 'react-redux';
 import PrestigeContainer from './Content/PrestigeContainer'
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 
-
-
-
 class ListPage extends React.Component {
     constructor(props) {
         super(props);

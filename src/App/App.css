@@ -43,28 +43,29 @@
   bottom: 20px;
   left: 30px;
   color: white;
+  font-weight: 400;
 }
 .App-card-totalpoints-right{
-  font-weight: lighter;
   letter-spacing: 5px;
-  font-size: 1.2em;
+  font-size: 1em;
   top: 45%;
   position: absolute;
   right: 20px;
-  color:white;
+  color: #CC8F1B;
+  font-weight: 500;
 
 }
 
 .App-card-totalpoints-left{
-  font-weight: lighter;
   letter-spacing: 5px;
-  font-size: 1.2em;
+  font-size: 1em;
   top: 45%;
-  width: 105px;
+  width: 90px;
   position: absolute;
   left: 20px;
   text-align: right;
-  color:white;
+  color: #CC8F1B;
+  font-weight: 500;
 
 }
 
