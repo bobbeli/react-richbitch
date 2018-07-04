@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 import {history} from "../_helpers/history"
 import NotificationHandler from '../_components/Notification/NotificationHandler'
 import LoadingElement from '../_components/LoadingElement'
-import ReactTransitionGroup from 'react-addons-transition-group'
 import HomePage from '../HomePage/HomePage'
 import ProfilePage from '../ProfilePage/ProfilePage';
 import PaymentPage from '../PaymentPage/PaymentPage'
@@ -15,10 +14,10 @@ import LoginPage from '../LoginPage/LoginPage'
 import RegisterPage from '../RegisterPage/RegisterPage'
 import PasswordPage from '../PasswordPage/PasswordPage'
 import ListPage from '../ListPage/ListPage'
-import PageNotFound from '../PageNotFound/PageNotFound'
 import NotLoggedIn from '../NotLoggedIn/NotLoggedIn'
 import firebase from 'firebase';
 import {PrivateRoute} from '../_components/PrivateRoute'
+import IntroModal from '../_components/IntroModal/IntroModal'
 
 const firstChild = props => {
     const childrenArray = React.Children.toArray(props.children);
@@ -55,49 +54,53 @@ class App extends React.Component {
                             :
                             null
                     }
+
                     <div className="App-container">
-                    <Router history={history}>
-                        <div>
-                            <Route
-                                path="/register"
-                                component={RegisterPage}
-                            />
-                            <Route
-                                path="/notloggedin"
-                                component={NotLoggedIn}
-                            />
-                            <Route
-                                path="/password"
-                                component={PasswordPage}
-                            />
-                            <Route
-                                path="/login"
-                                component={LoginPage}
-                            />
-                            <PrivateRoute
-                                path="/home"
-                                component={HomePage}
-                            />
-                            <PrivateRoute
-                                path="/list"
-                                component={ListPage}
-                            />
-                            <PrivateRoute
-                                path="/user"
-                                component={ProfilePage}
-                            />
-                            <PrivateRoute
-                                path="/payment"
-                                component={PaymentPage}
-                            />
+
+                        <IntroModal />
+
+                        <Router history={history}>
+                            <div>
+                                <Route
+                                    path="/register"
+                                    component={RegisterPage}
+                                />
+                                <Route
+                                    path="/notloggedin"
+                                    component={NotLoggedIn}
+                                />
+                                <Route
+                                    path="/password"
+                                    component={PasswordPage}
+                                />
+                                <Route
+                                    path="/login"
+                                    component={LoginPage}
+                                />
+                                <PrivateRoute
+                                    path="/home"
+                                    component={HomePage}
+                                />
+                                <PrivateRoute
+                                    path="/list"
+                                    component={ListPage}
+                                />
+                                <PrivateRoute
+                                    path="/user"
+                                    component={ProfilePage}
+                                />
+                                <PrivateRoute
+                                    path="/payment"
+                                    component={PaymentPage}
+                                />
 
 
-                        </div>
-                    </Router>
+                            </div>
+                        </Router>
 
-                    {alert.message &&
-                        <NotificationHandler alert={alert} />
-                    }
+                        {alert.message &&
+                            <NotificationHandler alert={alert} />
+                        }
                 </div>
             </div>
         );

@@ -77,7 +77,6 @@ class CheckoutForm extends React.Component {
                 .then((res) => {
                     let totalPoints = res;
                     this.props.dispatch({type: pointConstants.TOTAL_POINTS_UPDATE, totalPoints});
-                    this.props.dispatch(alertActions.success('Your Amount has been updated'));
                 }).catch((error) => {
                 this.props.dispatch(alertActions.error(error))
             });

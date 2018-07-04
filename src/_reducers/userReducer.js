@@ -17,6 +17,7 @@ export default function reducer(state = {
     error: null,
     userEmailExist:false,
     passwordReset: false,
+    showHelperModal: true,
 
 }, action) {
     switch (action.type) {
@@ -92,6 +93,20 @@ export default function reducer(state = {
                 ...state,
                 passwordReset: true,
                 userEmailExist: false
+            }
+        }
+
+        case userConstants.DISABLE_HELPER_MODAL: {
+            return {
+                ...state,
+                showHelperModal: false
+            }
+        }
+
+        case userConstants.ACTIVATE_HELPER_MODAL: {
+            return {
+                ...state,
+                showHelperModal: true
             }
         }
     }
