@@ -124,4 +124,4 @@ function mapStateToProps(state) {
         registration, user
     }
 }
-export default AnimatedWrapper(connect(mapStateToProps)(PasswordPage));
+export default connect(mapStateToProps)(PasswordPage);

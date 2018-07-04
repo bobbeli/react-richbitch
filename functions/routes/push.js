@@ -74,17 +74,6 @@ pushDispatcher.route('/send')
     .post((req, res) => {
         let registrationToken = req.body.token;
 
-        /*
-        let message = {
-            webpush: {
-                notification: {
-                    title: 'Prestige',
-                    body: 'Check out the new Prestige-Rank',
-                    icon : 'https://content.cdn.intranetdashboard.com/images/icon-push-notifications.png'
-                }
-            },
-            token: registrationToken
-        };*/
 
         let message = {
             token:registrationToken,

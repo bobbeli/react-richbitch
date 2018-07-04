@@ -1,21 +1,19 @@
 import React from 'react';
+import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 
 
-class NotFoundPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-
+class NotLoggedIn extends React.Component {
 
     render() {
 
+
         return(
             <div>
-                <h1>Hello from 404</h1>
+                <h1>You're not logged in</h1>
+                <br />
+                <Link to="/login">Loggin</Link>
 
 
             </div>
@@ -23,10 +21,11 @@ class NotFoundPage extends React.Component {
     }
 }
 
+
 function mapStateToProps(state) {
     const {registration, user} = state;
     return {
         registration, user
     }
 }
-export default AnimatedWrapper(connect(mapStateToProps)(NotFoundPage));
+export default connect(mapStateToProps)(NotLoggedIn);

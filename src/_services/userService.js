@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 import store from '../_helpers/store'
+import {history} from '../_helpers/history'
+
 export const userService = {
     login,
     logout,
@@ -39,6 +41,7 @@ function logout() {
     return new Promise((resolve, reject) => {
         firebase.auth().signOut().then(function () {
             console.log('Successfully LogedOut')
+            history.push("/");
             resolve(true)
         }).catch(function (error) {
             console.log('Error LogedOut')

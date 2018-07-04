@@ -102,10 +102,10 @@ class LoginPage extends React.Component {
                         <SimpleTextField
                             name="username"
                             type="text"
-                            floatingLabelText="Username"
+                            floatingLabelText="E-Mail"
                             onChange={this.handleChange}
                             errorText={ submitted && !username &&
-                                "Username is required"
+                                "E-Mail is required"
                             }
                         />
                     </div>
@@ -174,4 +174,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default AnimatedWrapper(connect(mapStateToProps)(LoginPage));
+export default connect(mapStateToProps)(LoginPage);

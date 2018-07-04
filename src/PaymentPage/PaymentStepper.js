@@ -38,7 +38,7 @@ class PaymentStepper extends React.Component {
         let {stepperIndex} = this.props.payment;
         if(stepperIndex >= 2){
             this.props.dispatch({type: paymentConstants.STEPPER_FINISHED});
-            history.push('/')
+            history.push('/home')
         } else {
             this.props.dispatch(paymentActions.updateStepper(stepperIndex + 1));
         }
@@ -48,7 +48,7 @@ class PaymentStepper extends React.Component {
     handlePrev = () => {
         let {stepperIndex} = this.props.payment;
         if(stepperIndex === 0){
-            history.push('/')
+            history.push('/home')
         }
         if (stepperIndex > 0) {
             this.props.dispatch(paymentActions.updateStepper(stepperIndex - 1));

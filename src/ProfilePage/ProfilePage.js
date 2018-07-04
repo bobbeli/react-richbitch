@@ -32,7 +32,7 @@ class ProfilePage extends React.Component {
     }
 
     handleBack(){
-        history.push('/');
+        history.push('/home');
     }
 
     handleLogOut(){
