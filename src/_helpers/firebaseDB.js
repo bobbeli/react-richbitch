@@ -25,39 +25,40 @@ firebase.initializeApp(firebaseConfig);
 /**
  * Result of Social Media Register / Login Request
  */
-firebase.auth().getRedirectResult().then((result) => {
+firebase.auth().getRedirectResult()
+    .then((result) => {
 
-    if (result.user !== null ) {
-        store.dispatch({type: 'LOADER_STOP'});
+        if (result.user !== null ) {
+            store.dispatch({type: 'LOADER_STOP'});
 
 
-        userService.registerWithSocialLogin(result.user)
-            .then(user => {
+            userService.registerWithSocialLogin(result.user)
+                .then(user => {
 
-                    let storeObj = store.getState();
-                    store.dispatch(connectivityActions.setConnectivity());
+                        let storeObj = store.getState();
+                        store.dispatch(connectivityActions.setConnectivity());
 
-                    if(storeObj.connectivity.isOnline){
-                        store.dispatch(userActions.updateAllUsers())
-                    }
+                        if(storeObj.connectivity.isOnline){
+                            store.dispatch(userActions.updateAllUsers())
+                        }
 
-                    history.push('/')
-                },
-                error => {
-                    store.dispatch({type: userConstants.LOGIN_FAILURE});
-                    store.dispatch(alertActions.error(error.message))
-                });
+                        history.push('/')
+                    },
+                    error => {
+                        store.dispatch({type: userConstants.LOGIN_FAILURE});
+                        store.dispatch(alertActions.error(error.message))
+                    });
 
-    } else {
-        store.dispatch({type: 'LOADER_STOP'});
-        let storeObj = store.getState();
-        if(storeObj.auth.loggingIn){
-            history.push('/')
-        }else{
-            history.push('/login')
-        }
+        } /*else {
+            store.dispatch({type: 'LOADER_STOP'});
+            let storeObj = store.getState();
+            if(storeObj.auth.loggingIn){
+                history.push('/')
+            }else{
+                history.push('/login')
+            }
 
-    }
+        }*/
 
 
     }).catch(function(error) {
@@ -77,16 +78,15 @@ firebase.auth().getRedirectResult().then((result) => {
 
 
 firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
+    if (user.uid != null) {
         let storeObj = store.getState();
         store.dispatch(connectivityActions.setConnectivity());
         if(storeObj.connectivity.isOnline){
             store.dispatch(userActions.updateAllUsers())
         }
-        history.push('/')
+        //history.push('/')
 
     } else {
-        // No user is signed in.
         console.log('user is signed out ', user)
         store.dispatch({type: userConstants.LOGOUT});
         history.push('/login')
@@ -99,7 +99,7 @@ firebase.auth().onAuthStateChanged((user) => {
  */
 var ref = firebase.database().ref("users");
 firebase.database().ref().on('value', (snapshot) => {
-    console.log('User Data changed ', snapshot)
+
     let storeObj = store.getState();
     store.dispatch(connectivityActions.setConnectivity());
     if(storeObj.connectivity.isOnline){

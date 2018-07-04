@@ -9,13 +9,10 @@ const AnimatedWrapper = WrappedComponent => class AnimatedWrapper
         };
     }
     componentWillAppear(cb) {
-        console.log('componentWillAppear', this.props.location.pathname)
         Animated.spring(this.state.animate, { toValue: 1 }).start();
         cb();
     }
     componentWillEnter(cb) {
-        console.log('componentWillEnter', this.props.location.pathname)
-
         setTimeout(
             () => Animated.spring(this.state.animate, { toValue: 1 }).start(),
             250
@@ -23,7 +20,6 @@ const AnimatedWrapper = WrappedComponent => class AnimatedWrapper
         cb();
     }
     componentWillLeave(cb) {
-        console.log('componentWillLeave', this.props.location.pathname)
         Animated.spring(this.state.animate, { toValue: 0 }).start();
         setTimeout(() => cb(), 150);
 

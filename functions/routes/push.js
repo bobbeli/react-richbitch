@@ -74,18 +74,8 @@ pushDispatcher.route('/send')
     .post((req, res) => {
         let registrationToken = req.body.token;
 
+        /*
         let message = {
-            android: {
-                ttl: 3600 * 1000, // 1 hour in milliseconds
-                priority: 'high',
-                notification: {
-                    title: '$GOOG up 1.43% on the day',
-                    body: '$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day.',
-                    icon: 'stock_ticker_update',
-                    color: '#f45342',
-                    clickAction: 'https://google.com'
-                }
-            },
             webpush: {
                 notification: {
                     title: 'Prestige',
@@ -94,9 +84,16 @@ pushDispatcher.route('/send')
                 }
             },
             token: registrationToken
-        };
+        };*/
 
-        logger.info('Notification ' + message);
+        let message = {
+            token:registrationToken,
+            data: {
+                title : "Mauro is on top",
+                body : "check out the PRESTIGE of Mauro",
+                actions : "true"
+            }
+        };
 
         // Send a message to devices subscribed to the combination of topics
         // specified by the provided condition.

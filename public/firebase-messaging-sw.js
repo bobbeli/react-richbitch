@@ -19,17 +19,36 @@ firebase.initializeApp(firebaseConfig);;
 const messaging = firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function(payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    // Customize notification here
-    /*
-    const notificationTitle = 'Background Message Title';
-    const notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/itwonders-web-logo.png'
-    };
 
+    const notificationTitle = payload.data.title;
+
+    const notificationOptions = {
+        body: payload.data.body,
+        image: '/images/prestigeCard.png',
+        icon: '/images/chrome-touch-icon-192x192.png',
+        actions: [
+            {action: 'buy', title: 'Get more'},
+        ],
+        vibrate: [200, 100, 200, 100, 200, 100, 200]
+    };
 
     return self.registration.showNotification(notificationTitle,
         notificationOptions);
-        */
+
 });
+
+self.addEventListener('notificationclick', function(event) {
+    var messageId = event.notification.data;
+
+    event.notification.close();
+
+    if (event.action === 'buy') {
+        // ToDo check routing for payment endpoint
+        clients.openWindow("/payment");
+    }
+    else {
+        clients.openWindow("/");
+    }
+
+
+}, false);

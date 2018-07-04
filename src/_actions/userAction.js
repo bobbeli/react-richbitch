@@ -27,7 +27,7 @@ function login(username, password) {
             .then((user) => {
                 dispatch(success());
                 dispatch(this.update())
-                history.push('/');
+               // history.push('/');
 
             }).catch((error) => {
             dispatch(failure());
@@ -94,7 +94,8 @@ function register(user) {
             .then(
                 user => {
                     dispatch(success());
-                    history.push('/')
+                    //
+                    // history.push('/')
                 },
                 error => {
                     dispatch(failure(error.message));
@@ -207,7 +208,7 @@ function update() {
         userService.update().then(user => {
             dispatch(update(user));
             dispatch(success());
-            history.push('/')
+            //history.push('/')
         }, error => {
             dispatch(failure())
             dispatch(alertActions.error(error.message))
@@ -241,7 +242,7 @@ function deleteUser() {
                 dispatch(request());
                 dispatch(logout());
                 dispatch(success());
-                history.push('/')
+                //history.push('/')
             }
 
         }, error => {
@@ -314,6 +315,8 @@ function updateAllUsers() {
         dispatch(request());
 
         userService.getAllUsers().then((res) => {
+
+            //history.push('/');
             if (res) {
                 let users = listToArray(res);
 

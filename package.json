@@ -1,6 +1,6 @@
 {
   "name": "richbitch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "homepage": "https://richbitch-4fc7a.firebaseapp.com/",
   "dependencies": {
@@ -16,6 +16,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.17",
     "react-stripe-elements": "^1.2.1",
     "react-transition-group": "^2.2.1",

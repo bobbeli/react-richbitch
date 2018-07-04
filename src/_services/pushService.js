@@ -1,6 +1,6 @@
 import {messaging} from '../_helpers/firebaseDB'
 import axios from 'axios'
-import {paymentConstants} from "../_constants/paymentConstants";
+import {defaultConstants} from "../_constants/defaultConstants";
 
 export const pushService = {
     subscribe,
@@ -18,7 +18,7 @@ function subscribe(uid) {
 
         messaging.getToken().then(function(currentToken) {
             if (currentToken) {
-                axios.post(paymentConstants.API_PATH + '/push/subscribe',
+                axios.post(defaultConstants.API_PATH + '/push/subscribe',
                     {
                         uid: uid,
                         token: currentToken
@@ -56,7 +56,7 @@ function requestPermission(){
 
 function unsubscribe(uid){
     return new Promise((resolve, reject) => {
-        axios.post(paymentConstants.API_PATH + '/push/unsubscribe',
+        axios.post(defaultConstants.API_PATH + '/push/unsubscribe',
             {
                 uid: uid,
             })

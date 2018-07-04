@@ -12,6 +12,7 @@ import PrestigeCard from "../_components/Elements/PrestigeCard";
 import {FlatButton} from 'material-ui'
 import SocialButton from "./SocialButton";
 
+import {history} from "../_helpers/history";
 
 
 class HomePage extends React.Component {
@@ -21,7 +22,7 @@ class HomePage extends React.Component {
         this.state = {
             points: 0
         };
-
+            
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -36,9 +37,6 @@ class HomePage extends React.Component {
         });
     }
 
-    componentWillUpdate(){
-
-    }
 
     handleSubmit(){
         this.props.dispatch(pointActions.addPoint(this.state.points));
@@ -47,9 +45,7 @@ class HomePage extends React.Component {
     render() {
 
         const style = {
-
                 width: '100%'
-
         }
 
         return (
@@ -58,7 +54,6 @@ class HomePage extends React.Component {
                 <Link to="/list">
                     <PrestigeCard/>
                 </Link>
-
 
                 <FooterNavigation right={<SocialButton/>} top={<PaymentButton/>} left={<MenuButton/>} />
 

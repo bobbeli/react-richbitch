@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {paymentConstants} from '../_constants/paymentConstants'
+import {defaultConstants} from '../_constants/defaultConstants'
 
 export const paymentService = {
     charge,
@@ -15,7 +15,7 @@ export const paymentService = {
  */
 function charge(token, amount) {
     return new Promise((resolve, reject) => {
-       axios.post(paymentConstants.API_PATH + '/charge',
+       axios.post(defaultConstants.API_PATH + '/charge',
            {
                stripeToken: token,
                amount: amount

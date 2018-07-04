@@ -102,19 +102,20 @@ class ProfilePage extends React.Component {
 
                 <List>
                     <Subheader>Notifications</Subheader>
-
-                    <Toggle
-                        label="Push Notifications"
-                        defaultToggled={!pushToken}
-                        onToggle={this.handlePushNotifications}
-                        disabled={!pushSupported}
-                    />
-                    {
-                        !pushSupported ?
-                            <p>Your Browser doesnt Support Push Notifications</p>
-                            :
-                            null
-                    }
+                    <ListItem>
+                        <Toggle
+                            label="Push Notifications"
+                            defaultToggled={!pushToken}
+                            onToggle={this.handlePushNotifications}
+                            disabled={!pushSupported}
+                        />
+                        {
+                            !pushSupported ?
+                                <p>Your Browser doesnt Support Push Notifications</p>
+                                :
+                                null
+                        }
+                    </ListItem>
                 </List>
 
 

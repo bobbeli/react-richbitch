@@ -9,6 +9,7 @@ import {
     TableBody,
     TableRowColumn
 } from 'material-ui/Table';
+import Paper from 'material-ui/Paper'
 import firebase from 'firebase'
 
 
@@ -17,31 +18,36 @@ class PrestigeTable extends Component {
 
     render() {
         let users = this.props.userList.users;
-        const rows = users.map((val)=> {
+        const rows = users.map((val, index)=> {
             let style = '';
             if(val.email === firebase.auth().currentUser.email){
                 style = {color: '#CC8F1B'}
             }
+            let styleIndex = {width: '10px'}
             return (
                 <TableRow key={val.email} selectable={false}>
+                    <TableRowColumn style={styleIndex}>{index + 1}</TableRowColumn>
                     <TableRowColumn style={style}>{val.username}</TableRowColumn>
                     <TableRowColumn  style={style} className='rightColumn' >{val.totalPoints}</TableRowColumn>
                 </TableRow>
             );
         })
         return (
-            <Table>
-                <TableHeader
-                    displayRowCheckbox={false}
-                >
+            <Paper style={{maxHeight: 250, overflow: 'auto'}}>
 
-                </TableHeader>
-                <TableBody
-                    displayRowCheckbox={false}
-                >
-                    {rows}
-                </TableBody>
-            </Table>
+                <Table>
+                    <TableHeader
+                        displayRowCheckbox={false}
+                    >
+
+                    </TableHeader>
+                    <TableBody
+                        displayRowCheckbox={false}
+                    >
+                        {rows}
+                    </TableBody>
+                </Table>
+            </Paper>
         );
     }
 }
