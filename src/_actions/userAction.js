@@ -26,9 +26,8 @@ function login(username, password) {
         userService.login(username, password)
             .then((user) => {
                 dispatch(success());
-                dispatch(this.update())
-               // history.push('/');
-
+                dispatch(this.update());
+                history.push('/home')
             }).catch((error) => {
             dispatch(failure());
             dispatch(alertActions.error(error.message))
