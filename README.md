@@ -12,7 +12,7 @@ for the Backend functionality
 
 ## Demo
 
-* [Prestige](https://get-prestige.com/) 
+* [Prestige](https://get-prestige.com/) - still in Development 
 
 ## Built With
 
@@ -25,7 +25,7 @@ for the Backend functionality
 
 ## Author
 
-* **Dimitri Suter**  [Check out other Projects](https://gnochi.ch/)
+* **Dimitri Suter**  [Mail](mailto:suterdimitri@gmail.com)
 
 ## Version
 
