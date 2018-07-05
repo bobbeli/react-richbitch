@@ -10,14 +10,9 @@ This is a learning Project containing most recent Web-Technologies (early 2018).
 Its Frontend is built with React, Redux and uses Firebase 
 for the Backend functionality
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
 ## Demo
 
 * [Prestige](https://get-prestige.com/) 
-
 
 ## Built With
 
