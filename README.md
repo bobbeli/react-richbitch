@@ -7,8 +7,8 @@ Money is nothing until it is Prestige.
 Prestige is a simple Web App that allows you to buy real reputation for showing your friends how powerful you truly are.
 
 This is a learning Project containing most recent Web-Technologies (early 2018). 
-Its Frontend is built with React, Redux and uses Firebase 
-for the Backend functionality
+Its Frontend is built with React, Redux and uses [Prestige API](https://github.com/gnochi/richbitch-api)
+for the Backend functionality.
 
 ## Demo
 
@@ -19,9 +19,6 @@ for the Backend functionality
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/) (State Management)
 * [Axios](https://github.com/axios/axios)   
-* [Firebase](http://firebase.google.com/) (Messaging, RealTime Database, Authentication) 
-* [Express](http://expressjs.com) 
-* [Stripe](https://stripe.com/) 
 
 ## Author
 
