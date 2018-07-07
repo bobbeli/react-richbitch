@@ -17,7 +17,7 @@ export default function reducer(state = {
     error: null,
     userEmailExist:false,
     passwordReset: false,
-    showHelperModal: true,
+    showHelperModal: false,
 
 }, action) {
     switch (action.type) {

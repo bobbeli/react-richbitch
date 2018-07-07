@@ -93,8 +93,7 @@ function register(user) {
             .then(
                 user => {
                     dispatch(success());
-                    //
-                    // history.push('/')
+                    dispatch(showIntroModal());
                 },
                 error => {
                     history.push('/register')
@@ -113,6 +112,10 @@ function register(user) {
 
     function failure(error) {
         return {type: userConstants.REGISTER_FAILURE, error}
+    }
+
+    function showIntroModal() {
+        return {type: userConstants.ACTIVATE_HELPER_MODAL}
     }
 
 }
@@ -323,6 +326,7 @@ function updateAllUsers() {
                 // ReCalc Prestige Value for Users
                 dispatch(prestigeActions.calcPrestige(users));
                 dispatch(success(users));
+                dispatch({type: 'LOADER_STOP'});
 
 
                 // Update Local User Obj.

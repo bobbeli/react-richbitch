@@ -52,6 +52,10 @@ class PasswordPage extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.dispatch({type: 'LOADER_STOP'});
+    }
+
     handleBack(){
         history.push('/login');
     }

@@ -32,10 +32,19 @@ firebase.auth().getRedirectResult()
             store.dispatch({type: 'LOADER_STOP'});
 
 
+            let storeObj = store.getState();
+
+            /**
+             * Add Modal Helper for new User
+             */
+            if(result.additionalUserInfo.isNewUser){
+                store.dispatch( {type: userConstants.ACTIVATE_HELPER_MODAL} );
+            }
+
+
             userService.registerWithSocialLogin(result.user)
                 .then(user => {
 
-                        let storeObj = store.getState();
                         store.dispatch(connectivityActions.setConnectivity());
 
                         if(storeObj.connectivity.isOnline){

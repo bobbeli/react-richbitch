@@ -32,6 +32,10 @@ class RegisterPage extends React.Component {
         this.handleBack = this.handleBack.bind(this);
     }
 
+    componentDidMount() {
+        this.props.dispatch({type: 'LOADER_STOP'});
+    }
+
     handleChange(event) {
         const { name, value } = event.target;
         const { user } = this.state;

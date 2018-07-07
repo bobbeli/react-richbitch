@@ -41,6 +41,7 @@ class LoginPage extends React.Component {
         this.updateDimensions();
     }
     componentDidMount() {
+        this.props.dispatch({type: 'LOADER_STOP'});
         window.addEventListener("resize", this.updateDimensions);
     }
     componentWillUnmount() {

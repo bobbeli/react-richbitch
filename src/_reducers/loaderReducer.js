@@ -1,4 +1,6 @@
-export default function reducer(state = {}, action) {
+export default function reducer(state = {
+    loading: true,
+}, action) {
     switch (action.type) {
         case 'LOADER_START':
             return {

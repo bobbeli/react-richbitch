@@ -12,6 +12,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import PaymentPage from '../PaymentPage/PaymentPage'
 import LoginPage from '../LoginPage/LoginPage'
 import RegisterPage from '../RegisterPage/RegisterPage'
+import StartPage from '../StartPage/StartPage'
 import PasswordPage from '../PasswordPage/PasswordPage'
 import ListPage from '../ListPage/ListPage'
 import NotLoggedIn from '../NotLoggedIn/NotLoggedIn'
@@ -32,9 +33,9 @@ class App extends React.Component {
     }
 
     componentWillMount(){
-        console.log('this', firebase.auth().currentUser)
-        if(firebase.auth().currentUser){
-            history.push('home');
+        if(window.location.pathname === '/' &&
+        firebase.auth().currentUser === null){
+            history.push('/start')
         }
     }
 
@@ -61,6 +62,10 @@ class App extends React.Component {
 
                         <Router history={history}>
                             <div>
+                                <Route
+                                    path="/start"
+                                    component={StartPage}
+                                />
                                 <Route
                                     path="/register"
                                     component={RegisterPage}

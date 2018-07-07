@@ -40,11 +40,11 @@ function login(email, password) {
 function logout() {
     return new Promise((resolve, reject) => {
         firebase.auth().signOut().then(function () {
-            console.log('Successfully LogedOut')
-            history.push("/");
+            console.log('Successfully LoggedOut')
+            history.push("/start");
             resolve(true)
         }).catch(function (error) {
-            console.log('Error LogedOut')
+            console.log('Error LoggedOut')
             reject(error)
         });
     });

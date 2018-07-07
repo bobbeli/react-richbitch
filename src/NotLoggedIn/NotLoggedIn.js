@@ -6,6 +6,10 @@ import AnimatedWrapper from '../_helpers/AnimatedWrapper'
 
 class NotLoggedIn extends React.Component {
 
+    componentWillMount(){
+        this.props.dispatch({type: 'LOADER_STOP'})
+    }
+
     render() {
 
 
