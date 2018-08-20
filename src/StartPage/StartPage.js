@@ -28,6 +28,9 @@ class StartPage extends React.Component {
                 <Logo/>
                 <div className="App-card-container">
                     <h2 style={h2Style}>Money is nothing until it is Prestige</h2>
+                    <br />
+                    <br />
+                    <br />
                     <div style={divStyle}>
                         <Link to='/login'>Login</Link><br/><br />
                         <Link to='/register'>Register</Link>

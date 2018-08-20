@@ -287,6 +287,7 @@ function reAuthUser(userProvidedPassword) {
         userService.reAuth(userProvidedPassword).then((res) => {
             if (res) {
                 dispatch(success())
+                dispatch(deleteUser());
             }
         }, error => {
             dispatch(failure(error));

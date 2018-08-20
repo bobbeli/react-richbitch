@@ -82,6 +82,8 @@ class ProfilePage extends React.Component {
                     />
                 </List>
 
+
+                {/*
                 <List>
                     <Subheader>Spendings</Subheader>
 
@@ -97,8 +99,11 @@ class ProfilePage extends React.Component {
                         secondaryText="Total Amount you've spent so far. "
                     />
 
-
                 </List>
+
+                */}
+
+
 
                 <List>
                     <Subheader>Notifications</Subheader>

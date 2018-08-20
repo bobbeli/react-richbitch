@@ -25,7 +25,7 @@ class SocialButton extends React.Component{
 
         const title = 'Prestige'
         const text = this.props.user.username + 'has most Prestige';
-        const url = 'localhost:300/prestige';
+        const url = 'https://get-prestige.com/home';
 
         try {
             window.navigator.share({title, text, url});

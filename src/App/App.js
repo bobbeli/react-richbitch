@@ -19,6 +19,7 @@ import NotLoggedIn from '../NotLoggedIn/NotLoggedIn'
 import firebase from 'firebase';
 import {PrivateRoute} from '../_components/PrivateRoute'
 import IntroModal from '../_components/IntroModal/IntroModal'
+import {alertActions} from "../_actions/alertActions";
 
 const firstChild = props => {
     const childrenArray = React.Children.toArray(props.children);
@@ -36,6 +37,16 @@ class App extends React.Component {
         if(window.location.pathname === '/' &&
         firebase.auth().currentUser === null){
             history.push('/start')
+        }
+
+
+    }
+
+    componentDidMount(){
+        console.log('what ', window.innerHeight)
+        if(window.innerWidth > 900){
+            console.log('this is my mounted')
+            this.props.dispatch(alertActions.success('This App is optimized for mobile Devices', 7000));
         }
     }
 
